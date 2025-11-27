@@ -1,0 +1,986 @@
+\documentclass{article}
+\usepackage{csquotes}
+
+% Paquetes matemáticos y tipográficos
+\usepackage{cancel}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+% Permite referencias personalizadas
+\usepackage{nameref}
+
+% Numeración de ecuaciones por sección
+\numberwithin{equation}{section}
+
+% Hipervinculos
+\usepackage[colorlinks=true,
+            linkcolor=black,
+            urlcolor=black,
+            citecolor=black,
+            filecolor=black,
+            pdfborder={0 0 0}]{hyperref}
+
+% Idioma en español
+\usepackage[spanish]{babel}
+
+% Manejo de imágenes
+\usepackage{graphicx} 
+\graphicspath{ {images/} }
+
+% Configuración de márgenes
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=20mm, bottom=20mm]{geometry}
+
+% Tipografía mejorada
+\usepackage{lmodern}
+
+% Estilo de títulos con punto después del número
+\usepackage{titlesec}
+\titleformat{\section}{\huge\bfseries}{\thesection.}{1em}{}  % Título más grande
+
+% Encabezados sin pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textit{Funciones de Bessel  y Tensores Cartesianos}}
+\fancyhead[R]{Física Matemática 2}
+
+% Mejor separación de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Evita hifenaciones excesivas
+\sloppy
+
+% Configuración del índice
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{3cm} % Ajuste en la posición vertical
+    % Logo centrado
+    \includegraphics[width=0.6\textwidth]{UdeC_azul_centrado.png} 
+    
+    \vspace{1cm}
+    \thispagestyle{empty} % Sin número en la portada
+
+    % Título de la tarea
+    {\Huge \textbf{Tarea 03 - Funciones de Bessel  y Tensores Cartesianos} \par}
+    
+    \vspace{0.5cm}
+    {\Huge \textbf{Física Matemática 2} \par}
+    \vspace{1.5cm}
+
+    % Nombre del autor
+    {\Large José Ignacio Rosas Sepúlveda \par}
+    \vspace{1cm}
+    
+    % Fechas de la tarea
+    {\Large Junio - Julio 2025 \par}
+    \vfill
+\end{titlepage}
+
+% Índice
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Ejercicio 1}
+En clases, se discutió cómo modelar las vibraciones libres de una membrana circular con simetría axial. Suponga ahora que el sistema sí posee una dependencia en el ángulo $\phi$, de modo que el desplazamiento vertical de la membrana es de la forma $u = u(\rho,\phi,t)$. La membrana sigue encontrándose fija en sus extremos, para $\rho = a$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Ecuación de la membrana con dependencia angular y solución general}
+
+ Identifique la ecuación que modela el comportamiento de la membrana. Explique cómo cambian las EDO que surgen cuando se aplica separación de variables con una dependencia angular explícita y comente en qué difiere la nueva solución general respecto de aquella discutida en clases. Escriba la solución general para el desplazamiento.
+        
+%\textit{Hint:} No es necesario que realice separación de variables de forma explícita. Basta con que identifique los cambios que ocurren en el proceso.
+
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Las vibraciones libres de una membrana circular están descritas por la ecuación de onda bidimensional:
+\begin{equation}\label{1.1_ecuacion_de_onda}
+\frac{1}{\rho} \frac{\partial}{\partial \rho} \left( \rho \frac{\partial u}{\partial \rho} \right) + \frac{1}{\rho^2} \frac{\partial^2 u}{\partial \phi^2} = \frac{1}{v^2} \frac{\partial^2 u}{\partial t^2} \,,
+\end{equation}
+
+donde el origen del sistema de coordenadas coincide con el centro de la membrana, y donde $v$ representa la velocidad de propagación de las ondas. Se propone una solución separable de la forma:
+\begin{equation*}
+    u(\rho, \phi, t)=R(\rho) \, \Phi(\phi) \, T(t) \,,
+\end{equation*}
+la cual es utilizada en la aplicación del método de separación de variables en la EDP original \eqref{1.1_ecuacion_de_onda} del cual se obtiene un sistema de tres ecuaciones diferenciales ordinarias, cada una correspondiente a una de las variables independientes $t$, $\phi$ y $\rho$. Estas son:
+\begin{align}
+    \frac{d^2 T}{dt^2} &= \lambda\,v^2\, T \,, \label{1.1_ecuación_temporal}\\[4pt] 
+    \frac{d^2 \Phi}{d\phi^2} &= \lambda_1 \Phi \,, \label{1.1_ecuación_angular}\\[4pt]
+    \frac{d^2 R}{d\rho^2} + \frac{1}{\rho} \frac{dR}{d\rho} + \left[ -\lambda + \frac{\lambda_1}{\rho^2} \right] R &= 0 \,, \label{1.1_ecuación_radial}
+\end{align}
+lo que en consecuencia introduce dos constantes de separación $\lambda$ y $\lambda_1$, a ser determinadas por las condiciones físicas del sistema. Se sigue con el análisis de la solución a cada una de estas ecuaciones:
+
+\begin{enumerate}
+
+\item Se espera que la solución a la \textbf{ecuación temporal} \eqref{1.1_ecuación_temporal} exhiba un comportamiento periódico (oscilatorio) en $T(t)$, al tratarse de vibraciones libres con conservación de la energía mecánica. Esta periodicidad excluye soluciones de carácter exponencial creciente o decreciente, lo cual se logra imponiendo $\lambda < 0$. Por consiguiente, se introduce la siguiente parametrización:
+
+\begin{equation}\label{1.1_lambda}
+\lambda := -\left( \frac{\omega}{v} \right)^2 \,,
+\end{equation}
+
+con $\omega \in \mathbb{R}$, la cual corresponde físicamente a la \textbf{frecuencia angular} del modo de oscilación. De forma conveniente, se elige como solución una función compleja oscilatoria:
+
+\begin{equation*}
+T(t) = e^{i \omega t} \, .
+\end{equation*}
+
+Se observa en el análisis a la ecuación temporal que este no es distinto del caso con simetría axial.
+
+\item Se espera que la solución de la \textbf{ecuación angular} \eqref{1.1_ecuación_angular} sea una función $2\pi$-periódica, ya que debe describir un comportamiento oscilatorio sinusoidal en la variable angular $\phi$. Para satisfacer esta periodicidad, se define:
+
+\begin{equation}\label{1.1_lambda_1}
+    \lambda_1 := -m^2 \,, \quad m \in \mathbb{Z} \,.
+\end{equation}
+
+De manera conveniente, la solución se expresa como una función compleja oscilatoria:
+
+\begin{equation*}
+    \Phi(\phi) = e^{i m \phi} \,.
+\end{equation*}
+
+Se observa en el análisis a la ecuación angular que, mientras en el caso con simetría axial ($m = 0$) sólo se consideraba un modo, en esta versión con dependencia angular completa se incluyen todos los modos $m \in \mathbb{Z}$. Además, se verifica que el modo $m = 0$, correspondiente al caso con simetría axial, se recupera cuando $\Phi(\phi) = e^{i 0 \phi} = 1$.
+
+\item Sustituyendo \eqref{1.1_lambda} y \eqref{1.1_lambda_1} en la \textbf{ecuación radial} \eqref{1.1_ecuación_radial}, se obtiene:
+
+    \begin{equation*}
+        \frac{d^2 R}{d\rho^2} + \frac{1}{\rho} \frac{dR}{d\rho} + \left[ \left( \frac{\omega}{v} \right)^2 - \frac{m^2}{\rho^2} \right] R = 0 \,.
+    \end{equation*}
+
+    La cual corresponde a la Ecuación de Bessel de orden $m$, cuya solución general es:
+
+    \begin{equation*}
+        R(\rho) = A_m J_m\left( \frac{\omega }{v}  \rho\right) + B_m N_m\left( \frac{\omega}{v} \rho \right) \,.
+    \end{equation*}
+
+    Dado que las funciones de Neumann divergen en $\rho = 0$, se impone que $B_m=0$. Por lo tanto, se descartan y la solución se reduce a:
+
+    \begin{equation*}
+        R(\rho) = A_m J_m\left( \frac{\omega \rho}{v} \right) \,,
+    \end{equation*}
+
+    para cada $m \in \mathbb{Z}$. Aplicando la condición de borde $R(a)=0$, la ecuación radial deberá cumplir que
+
+    \begin{equation*}
+        J_m\left(\frac{\omega}{v} a\right)=0\,,
+    \end{equation*}
+
+    en consecuencia, los ceros $\alpha_{mn}$ de las funciones de Bessel $J_m(x)$ determinan la frecuencia angular $\omega_{mn}$ de cada modo de oscilación $m\in\mathbb{Z}$, según:
+    \begin{equation*}
+        \omega_{mn}=\frac{\alpha_{mn}}{a}v\, ,\, n=1, 2,3,\dots
+    \end{equation*}
+
+    Se observa que, mientras en el caso con simetría axial ($m = 0$) sólo se obtenía una familia de frecuencias $\omega_{0n}$ y soluciones radiales dadas por funciones de Bessel de orden cero, en la versión con dependencia angular general se obtiene una familia de frecuencias $\omega_{mn}$ para cada entero $m$, y las soluciones radiales corresponden a funciones de Bessel de primera especie de orden $m$, determinadas por las condiciones del sistema físico.
+
+\end{enumerate}
+
+Al sustituir en la solución propuesta las soluciones de cada EDO del sistema deducido con el MSV, se tiene la solución particular para un modo de oscilación $m$ dado:
+
+\begin{equation}\label{1.1_solución_compleja}
+u_{mn}(\rho, \phi, t) = \sum_{n=1}^\infty A_{mn} J_m\left( \alpha_{mn}\frac{\rho}{a} \right) e^{i (m \phi + \omega_{mn} t)} \,.
+\end{equation}
+
+Sin embargo, dado que la función que modela el desplazamiento $u(\rho, \phi, t)$ debe ser real, se construye la solución como la combinación lineal entre la función compleja \eqref{1.1_solución_compleja} y su conjugada, utilizando la propiedad de los números complejos $z+z*=\mathrm{Re}\{z\}$.
+
+\begin{align*}
+    u_{mn}(\rho, \phi, t) &= \sum_{n=1}^\infty  A_{mn} J_m\left( \alpha_{mn}\frac{\rho}{a} \right) e^{i (m \phi + \omega_{mn} t)} + \sum_{n=1}^\infty \left[A_{mn} J_m\left( \alpha_{mn}\frac{\rho}{a} \right) e^{i (m \phi + \omega_{mn} t)}\right]^* \\[4pt]
+    &= \sum_{n=1}^\infty \left[A_{mn} J_m\left( \alpha_{mn}\frac{\rho}{a} \right) e^{i (m \phi + \omega_{mn} t)} + A_{mn}^* J_m\left( \alpha_{mn}\frac{\rho}{a} \right) e^{-i (m \phi + \omega_{mn} t)}\right] \\[4pt]
+    &=\sum_{n=1}^\infty J_m\left( \alpha_{mn}\frac{\rho}{a} \right) \left[ A_{mn}e^{i (m \phi + \omega_{mn} t)} + A_{mn}^*e^{-i (m \phi + \omega_{mn} t)} \right]
+\end{align*}
+Por lo tanto, se tiene para un modo de oscilación $m\in\mathbb{Z}$ fijo:
+\begin{equation*}
+u_{mn}(\rho, \phi, t) = J_m\left( \frac{\alpha_{mn}}{a} \rho \right) \left[ A_{mn} e^{i (m \phi + \omega_{mn} t)} + A_{mn}^* e^{-i (m \phi + \omega_{mn} t)} \right] \,,
+\end{equation*}
+
+donde $A_{mn}$ es una constante compleja que incorpora la amplitud y la fase, determinadas por las condiciones iniciales. De este modo, se obtiene una solución real particular. Como la ecuación de la membrana es lineal y separable, la solución real general se obtiene sumando sobre todos los modos de oscilación $m$, es decir:
+
+\begin{equation*}
+u(\rho, \phi, t) = \sum_{m=-\infty}^{\infty} \sum_{n=1}^{\infty} J_m\left(  \frac{\alpha_{mn}}{a} \rho \right) \left[ A_{mn} e^{i (m \phi + \omega_{mn} t)} + A_{mn}^* e^{-i (m \phi + \omega_{mn} t)} \right] \,.
+\end{equation*}
+
+Por otra parte, considerando la propiedad:
+\begin{equation*}
+    J_{-m}(x) = (-1)^m J_m(x) \, ,
+\end{equation*}
+
+se observa que los términos con $m < 0$ no son linealmente independientes de los correspondientes términos con $m > 0$, mas aun se tiene:
+
+\begin{equation*}
+    J_{-m}(x) = 
+    \begin{cases}
+        \;\;\; J_m(x) & \text{si } m \text{ es par} \,, \\[4pt]
+        - J_m(x) & \text{si } m \text{ es impar} \,.
+    \end{cases}
+\end{equation*}
+En consecuencia, los términos con $m < 0$ no aportan nuevos modos físicamente independientes: si $m$ es impar, los términos correspondientes se anulan con los de $-m$; si $m$ es par, se combinan con los de $-m$. Por tanto, es suficiente considerar $m \geq 0$ en la suma, redefiniendo adecuadamente las constantes $A_{mn}$. En virtud de lo anterior, la solución general físicamente significativa de la EDP \eqref{1.1_ecuacion_de_onda} puede expresarse de forma compacta como:
+\begin{equation}\label{1.1_solución_general}
+u(\rho, \phi, t) = \sum_{m=0}^{\infty} \sum_{n=1}^{\infty} J_m\left( \frac{\alpha_{mn}}{a} \rho \right) \left[ A_{mn} e^{i (m \phi + \omega_{mn} t)} + A_{mn}^* e^{-i (m \phi + \omega_{mn} t)} \right] \,.
+\end{equation}
+
+Esta solución general representa la superposición de todos los modos normales de vibración de la membrana circular, cada uno caracterizado por un número azimutal $m$ y un índice radial $n$. La estructura del espectro $\omega_{mn}$ y las funciones $J_m$ reflejan la geometría circular y las condiciones de borde impuestas.
+
+Finalmente, al tomar $m = 0$ en \eqref{1.1_solución_general}, se recupera la solución general correspondiente al caso con simetría axial:
+\begin{equation*}
+    u(\rho, \phi, t) = \sum_{n=1}^{\infty} J_0\left( \frac{\alpha_{0n}}{a} \rho \right) \left[ A_{0n} e^{i\omega_{0n} t} + A_{0n}^* e^{-i \omega_{0n} t} \right] \,.
+\end{equation*}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Modos excitados por una condición inicial angular}
+
+Suponga ahora que el sistema se encuentra inicialmente deformado, con condiciones iniciales:
+        \begin{align*}
+            u(\rho,\phi,t=0) = f(\rho,\phi) &= f_0(\rho)\cos(2\phi) \,, \\
+            \frac{\partial u}{\partial t} (\rho,\phi,t = 0) &= 0 \, .
+        \end{align*}
+        Determine qué modos se excitan (es decir, qué valores de $m$ entran en juego) y escriba una expresión para la evolución temporal del desplazamiento $u(\rho,\phi,t)$.
+
+\textbf{Solución:}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Considerando la solución general \eqref{1.1_solución_general} con $m \geq 0$ y evaluándola en $t=0$:
+
+\begin{equation*}
+    u(\rho, \phi, 0) = \sum_{m=0}^{\infty} \sum_{n=1}^{\infty} J_m\left( \frac{\alpha_{mn}}{a} \rho \right) \left[ A_{mn} e^{i m\phi} + A_{mn}^* e^{-i m\phi} \right] \,,
+\end{equation*}
+
+Al comparar con la condición inicial $f_0(\rho)\cos(2\phi)$, se identifica que únicamente el modo azimutal $m = 2$ reproduce la dependencia angular del tipo $\cos(2\phi)$. \footnote{El modo $m = -2$ también contribuiría si se incluyeran $m < 0$ en la solución general. Sin embargo, como se discutió anteriormente, los términos con $m < 0$ no aportan nuevos modos físicamente independientes.}. Los demás modos ($m \ne 2$) no contribuyen, y por tanto sus coeficientes $A_{mn}$ deben anularse.
+
+De este modo, la solución queda:
+\begin{equation}\label{1.2_solución_1ra_condición}
+u(\rho, \phi, t) = \sum_{n=1}^\infty J_2\left( \frac{\alpha_{2n}}{a} \rho \right) \left[ A_{2n} e^{i(2\phi + \omega_{2n} t)} + A_{2n}^* e^{-i(2\phi + \omega_{2n} t)} \right] \,.    
+\end{equation}
+
+Al derivar \eqref{1.2_solución_1ra_condición} respecto al tiempo, se obtiene:
+\begin{equation}\label{1.2_derivada}
+\frac{\partial u}{\partial t}(\rho, \phi, t) = i\sum_{n=1}^\infty\omega_{2n}\, J_2\left( \frac{\alpha_{2n}}{a} \rho \right)\left[ A_{2n} e^{i(2\phi +  \omega_{2n} t)} - A_{2n}^* e^{-i(2\phi + \omega_{2n} t)} \right] \,.    
+\end{equation}
+
+Se evalúa la ecuación \eqref{1.2_derivada} en el instante $t=0$:
+\begin{equation*}
+\frac{\partial u}{\partial t}(\rho, \phi, 0) = i\sum_{n=1}^\infty \omega_{2n}\,J_2\left( \frac{\alpha_{2n}}{a} \rho \right) \left[ A_{2n} e^{i2\phi} - A_{2n}^* e^{-i2\phi} \right] \,.    
+\end{equation*}
+
+Al imponer la condición inicial $\partial u/\partial t (\rho,\phi,0)= 0$ a la ecuación anterior se obtiene:
+\begin{equation}\label{1.2_implicancia_1}
+    A_{2n} e^{i2\phi} - A_{2n}^* e^{-i2\phi} = 0\,.
+\end{equation}
+
+La constante compleja $A_{2n}$ se expresa en forma polar como:
+\begin{equation*}
+    A_{2n} = |A_{2n}| e^{i \delta_n} \,, \quad \delta_n := \mathrm{Arg}(A_{2n}) \,,
+\end{equation*}
+siendo $\mathrm{Arg}(A_{2n})$ el argumento principal del número complejo $A_{2n}$, restringido al intervalo $(-\pi, \pi]$. 
+
+Desarrollando el lado izquierdo de la ecuación \eqref{1.2_implicancia_1}:
+
+\begin{align*}
+    A_{2n} e^{i2\phi} - A_{2n}^* e^{-i2\phi} 
+    &=(|A_{2n}|e^{i\delta_n})e^{i2\phi} - (|A_{2n}|e^{i\delta_n})^* e^{-i2\phi} \\
+    &=|A_{2n}|e^{i\delta_n}\cdot e^{i2\phi} - |A_{2n}|e^{-i\delta_n}\cdot e^{-i2\phi} \\[1pt]
+    &=|A_{2n}|\left(e^{i\delta_n}\cdot e^{i2\phi} - e^{-i\delta_n}\cdot e^{-i2\phi}\right) \\[1pt]
+    &=|A_{2n}|\left(e^{i(\delta_n+2\phi)} - e^{-i(\delta_n+2\phi)}\right) \,.
+\end{align*}
+
+Consideremos la igualdad $i2\sin\theta=e^{i\theta}-e^{-i\theta}$, entonces:
+
+\begin{equation}\label{1.2_implicancia_2}
+     A_{2n} e^{i2\phi} - A_{2n}^* e^{-i2\phi}  =|A_{2n}|\left[i2\sin(\delta_n+2\phi)\right] \,.
+\end{equation}
+
+Sustituyendo \eqref{1.2_implicancia_2} en \eqref{1.2_implicancia_1}, se obtiene:
+
+\begin{equation*}
+    |A_{2n}|\left[i2\sin(\delta_n+2\phi)\right] =0 \,.
+\end{equation*}
+
+Como la condición inicial impone que $\left( \partial u / \partial t \right)(\rho,\phi,0) = 0$ para todo $\phi$, es necesario que $\sin(\delta_n + 2\phi) = 0$ para todo $\phi$. Dado que esta igualdad debe cumplirse para todo $\phi$, se concluye que $\delta_n + 2\phi$ debe ser un múltiplo de $\pi$ para todo $\phi$, lo cual sólo es posible si $\delta_n = 0$ o bien $\delta_n = \pi$.
+\begin{itemize}
+    \item Para $\delta_n = 0$:
+        \begin{equation*}
+            A_{2n} = |A_{2n}| e^{i 0} = |A_{2n}| \,.
+        \end{equation*}
+    \item Para $\delta_n = \pi$:
+        \begin{equation*}
+            A_{2n} = |A_{2n}| e^{i \pi} = -|A_{2n}| \,.   
+        \end{equation*}
+\end{itemize}
+Por lo que $A_{2n} \in \mathbb{R}$, entonces $A_{2n}=A_{2n}^*$. Así, la solución general \eqref{1.2_solución_1ra_condición} queda expresada por:
+
+\begin{equation*}
+u(\rho, \phi, t) = \sum_{n=1}^\infty A_{2n}J_2\left( \frac{\alpha_{2n}}{a} \rho \right) \left[  e^{i(2\phi + \omega_{2n} t)} + e^{-i(2\phi + \omega_{2n} t)} \right] \,.    
+\end{equation*}
+
+Considerando la identidad trigonométrica $2\cos\theta=e^{i\theta}+e^{-i\theta}$, se tiene la solución para el caso particular: 
+
+\begin{equation}\label{1.2_desplazamiento}
+u(\rho, \phi, t) = \sum_{n=1}^\infty 2A_{2n}J_2\left( \frac{\alpha_{2n}}{a} \rho \right) \cos(2\phi + \omega_{2n} t) \,.    
+\end{equation}
+
+Comparando esta solución con la primera condición inicial $u(\rho,\phi,0)=f(\rho)\cos(2\phi)$, se tiene:
+
+\begin{equation*}
+f(\rho)\cos(2\phi)= \sum_{n=1}^\infty 2A_{2n}J_2\left( \frac{\alpha_{2n}}{a} \rho \right) \cos(2\phi) \,.    
+\end{equation*}
+
+Como $\cos(2\phi)$ es un factor común, se puede cancelar a ambos lados de la ecuación para obtener:
+
+\begin{equation*}
+f(\rho)= \sum_{n=1}^\infty 2A_{2n}J_2\left( \frac{\alpha_{2n}}{a} \rho \right)  \,.    
+\end{equation*}
+
+Se obtiene una expansión de $f(\rho)$ en la base ortogonal ${ J_2 \left( \alpha_{2n} \rho/a \right) }$. Así, el coeficiente $A_{2n}$ está determinado por:
+
+\begin{equation}\label{1.2_coeficiente}
+    A_{2n}=\frac{1}{a^2[J_3(\alpha_{2n})]^2}\int_0^a\rho f(\rho)J_2\left( \frac{\alpha_{2n}}{a} \rho \right)\,d\rho \,.
+\end{equation}
+
+En consecuencia, la evolución temporal del desplazamiento bajo las condiciones iniciales dadas está dada por la expresión \eqref{1.2_desplazamiento}, con coeficientes $A_{2n}$ determinados por \eqref{1.2_coeficiente}, que constituyen la expansión de $f_0(\rho)$ en la base ortonormal generada por los modos radiales $J_2(\alpha_{2n} \rho/a)$ asociados a $m=2$.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ejercicio 2}
+
+En el contexto de la electrodinámica, el \textbf{efecto pelicular} describe cómo las corrientes alternas se distribuyen en conductores, concentrándose cerca de su superficie a altas frecuencias. Esto ocurre debido a campos electromagnéticos variables que inducen corrientes opuestas al flujo original, aumentando la resistencia efectiva interna. La profundidad de penetración, definida como
+
+\begin{equation*}
+\delta = \sqrt{\frac{2}{\omega \mu \sigma}}\,,    
+\end{equation*}
+
+mide la atenuación de la corriente hacia el interior.
+
+Considere un conductor cilíndrico macizo, \textit{muy largo} y de radio $a$, con conductividad $\sigma > 0$ y permeabilidad $\mu > 0$, ubicado en una región sin cargas eléctricas libres, por el que pasa una corriente alterna con frecuencia angular $\omega > 0$, que para la superficie del conductor puede ser modelada como $I(t) = I_{\text{máx}} e^{i\omega t}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Derivación de la ecuación de difusión para el campo eléctrico}
+
+Teniendo en cuenta la ley de Ohm, $\vec{J} = \sigma \vec{E}$, y que podemos despreciar la corriente de desplazamiento del material, encuentre la \textbf{ecuación de difusión} para el campo eléctrico a partir de las ecuaciones de Maxwell.
+
+\textit{Hint:} Haga uso de las leyes de Faraday y de Ampère-Maxwell. Aplique el rotacional a estas ecuaciones.
+ 
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consideremos las siguientes leyes de Maxwell expresadas en su forma diferencial:
+\begin{itemize}
+    \item \textbf{Ley de Faraday}:
+    \begin{equation}\label{2.1_faraday_law}
+        \nabla \times \vec{E} = -\dfrac{\partial \vec{B}}{\partial t}\,.
+    \end{equation}
+
+    \item \textbf{Ley de Ampère-Maxwell}:
+    \begin{equation*}
+        \nabla \times \vec{B} = \mu \vec{J} + \mu \varepsilon \frac{\partial \vec{E}}{\partial t}\,.
+    \end{equation*}
+\end{itemize}
+No obstante, al despreciar la corriente de desplazamiento del material, el término que involucra la derivada temporal del campo eléctrico se anula,
+    \begin{equation*}
+        \mu \varepsilon \frac{\partial \vec{E}}{\partial t}=0\;,
+    \end{equation*}
+y la ley de Ampère-Maxwell se reduce a la ecuación:
+    \begin{equation}\label{2.1_ampere-maxwell_law}
+        \nabla \times \vec{B} = \mu \vec{J}\,.
+    \end{equation}
+Sustituyendo la ley de Ohm $\vec{J} = \sigma \vec{E}$ en \eqref{2.1_ampere-maxwell_law} , se obtiene:
+    \begin{equation}\label{2.1_ampere-maxwell_law_+_omh_law}
+        \nabla \times \vec{B} = \mu \sigma \vec{E}\,.
+    \end{equation}
+
+Aplicando el operador rotacional a ambos miembros de la ecuación \eqref{2.1_faraday_law}, se sigue:
+\begin{equation}\label{2.1_faraday_rotacional}
+    \nabla \times \left( \nabla \times \vec{E}\right) =\nabla \times \left( -\frac{\partial \vec{B}}{\partial t} \right)
+\end{equation}
+
+Asumiendo continuidad de las segundas derivadas para el campo magnético $\vec{B}$ (teorema de Clairaut-Schwarz) se tiene:
+\begin{equation}\label{2.1_faraday_rotacional_db/dt}
+    \nabla \times \left( -\frac{\partial \vec{B}}{\partial t} \right) = -\frac{\partial}{\partial t} \left(
+\vec{\nabla} \times \vec{B}
+\right) \,.
+\end{equation}
+Sustituyendo \eqref{2.1_ampere-maxwell_law_+_omh_law} en \eqref{2.1_faraday_rotacional_db/dt}, se tiene:
+\begin{equation}\label{2.1_rot_faraday_ampere-maxwell_ohm}
+    \nabla \times \left( -\frac{\partial \vec{B}}{\partial t} \right) =-\mu \sigma \frac{\partial \vec{E}}{\partial t} \,.
+\end{equation}
+Finalmente, reemplazando \eqref{2.1_rot_faraday_ampere-maxwell_ohm} en \eqref{2.1_faraday_rotacional}, se obtiene:
+\begin{equation}\label{2.1_faraday_featuring_ampere-maxwell_ohm}
+    \nabla \times \left( \nabla \times \vec{E}\right) =-\mu \sigma \frac{\partial \vec{E}}{\partial t} \,.
+\end{equation}
+
+Ahora, aplicando la identidad vectorial para \textit{el rotacional del rotacional}:
+\begin{equation*}
+    \nabla \times (\nabla \times \vec{E}) = \nabla(\nabla \cdot \vec{E}) - \nabla^2 \vec{E}\,,
+\end{equation*}
+y considerando que en la región bajo análisis no hay cargas libres, entonces, por la ley de Gauss $\nabla \cdot \vec{E} = 0$, se concluye:
+\begin{equation}\label{2.1_rotacional_del_rotacional}
+    \nabla \times (\nabla \times \vec{E}) =  - \nabla^2 \vec{E}\,.
+\end{equation}
+Sustituyendo \eqref{2.1_rotacional_del_rotacional} en \eqref{2.1_faraday_featuring_ampere-maxwell_ohm}, obtenemos la ecuación:
+\begin{equation*}
+\nabla^2 \vec{E} = \mu \sigma \frac{\partial \vec{E}}{\partial t} \,,
+\end{equation*}
+la cual corresponde a la ecuación de difusión para el campo eléctrico en medios conductores. Esta describe cómo el campo eléctrico $\vec{E}$ decae en el interior del conductor debido al efecto pelicular.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Condiciones de contorno y simetría del problema cilíndrico}\label{sec_2.2}
+
+Identifique las condiciones de contorno \textit{geométricas} asociadas a este problema, si deseamos encontrar el campo eléctrico en el interior del conductor. Identifique también posibles condiciones de simetría.
+ 
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consideramos un sistema de coordenadas cilíndricas $(\rho, \phi, z)$ con origen en el eje del cilindro conductor, cuya sección transversal es circular. Debido a que el cilindro es \textit{muy largo}, se idealiza como de longitud infinita en la dirección $z$. Bajo esta idealización, se identifican las siguientes condiciones:
+
+\begin{itemize}
+    \item \textbf{Condición de contorno en la superficie:}
+        Se establece que en la superficie lateral del cilindro ($\rho = a$) circula una corriente alterna total de frecuencia angular $\omega > 0$, cuya expresión es:
+            \begin{equation}\label{2.2_intensidad_de_corriente}
+                I(t) = I_{\text{max}} e^{i\omega t}\,.
+            \end{equation}
+        Esta corriente se relaciona con la densidad de corriente $\vec{J}$ mediante la integral sobre una sección transversal $S$ del cilindro:
+            \begin{equation*}
+                I(t) = \int_S \vec{J} \cdot d\vec{S}\,,
+            \end{equation*}
+        donde $S$ está descrita en coordenadas cilíndricas como:
+            \begin{equation*}
+                S = \left\{ (\rho, \phi) \in \mathbb{R}^2 \mid 0 \leq \rho \leq a,\; 0 \leq \phi < 2\pi \right\}\,.
+            \end{equation*}
+        Aplicando la ley de Ohm local, $\vec{J} = \sigma \vec{E}$, se deduce:
+            \begin{equation*}
+                I(t)=\sigma \int_S \vec{E} \cdot d\vec{S}\,,
+            \end{equation*}
+        lo cual impone la siguiente condición integral sobre el campo eléctrico:
+            \begin{equation}\label{2.2_integral_1}
+                \int_S \vec{E}(\vec{x},t) \cdot d\vec{S} = \frac{I(t)}{\sigma}\,,
+            \end{equation}
+        donde $\vec{x}=(\rho,\phi,z)$. Sustituyendo \eqref{2.2_intensidad_de_corriente} en \eqref{2.2_integral_1}, se obtiene:
+            \begin{equation}\label{2.2_integral_2}
+                \int_S \vec{E}(\vec{x},t) \cdot d\vec{S} = \frac{I_{\text{max}}}{\sigma} e^{i\omega t}\,.
+            \end{equation}
+            
+        El elemento vectorial de área en coordenadas cilíndricas se expresa como:
+            \begin{equation*}
+                d\vec{S} = \rho\, d\rho\, d\phi\, \hat{n}\,.
+            \end{equation*}
+        Dado que $S$ es perpendicular al eje del cilindro, el vector normal unitario es $\hat{n} = \hat{z}$, y por tanto:
+            \begin{equation}\label{2.2_elemento_de_area}
+                d\vec{S} = \rho\, d\rho\, d\phi\, \hat{z}\,.
+            \end{equation}
+        
+        Finalmente, al reemplazar \eqref{2.2_elemento_de_area} en \eqref{2.2_integral_2}, se obtiene una condición explícita sobre la componente axial del campo eléctrico:
+            \begin{equation}\label{2.2_integral_3}
+                \int_0^{2\pi} \int_0^a \rho\, d\rho\, d\phi\, \vec{E}(\rho, \phi, z, t) \cdot \hat{z} = \frac{I_{\text{max}}}{\sigma} e^{i\omega t}\,.
+            \end{equation}  
+        
+    \item \textbf{Condición de regularidad en el eje:}
+        Dado que el campo eléctrico $\vec{E}$ es una función vectorial de clase $\mathcal{C}^2$ en todo el dominio, se exige que sea regular en el eje ($\rho = 0$), condición necesaria para evitar singularidades físicas en el campo. En particular, el campo eléctrico debe ser continuo y acotado en el eje, es decir:
+            \begin{equation*}
+                \lim_{\rho \to 0} \vec{E}(\rho, \phi, z, t) = \vec{E}(0, \phi, z, t)\quad \wedge \quad |\vec{E}(0, \phi, z, t)| < \infty\,.
+            \end{equation*}
+        Esta condición garantiza que no existen singularidades físicas en el eje del conductor.
+\clearpage
+    \item \textbf{Condiciones de simetría:}
+        La homogeneidad del medio y la simetría geométrica del sistema permiten inferir que el campo eléctrico posee las siguientes simetrías:
+            \begin{itemize}
+                \item \textit{Simetría rotacional:} la solución no debe depender del ángulo $\phi$, es decir, $\partial_\phi \vec{E} = 0$.
+                \item \textit{Simetría traslacional:} al tratarse de un cilindro infinitamente largo, tampoco debe existir dependencia de la coordenada axial $z$, es decir, $\partial_z \vec{E} = 0$.
+            \end{itemize}
+        En consecuencia, el campo eléctrico en el interior del cilindro es una función únicamente de la coordenada radial $\rho$ y del tiempo $t$:
+            \begin{equation*}
+                \vec{E} = \vec{E}(\rho, t)\,.
+            \end{equation*}
+        Lo cual implica que la condición integral \eqref{2.2_integral_3} se reduce a:
+            \begin{equation}\label{2.2_integral_4}
+                \int_0^a \rho\, d\rho\,  \vec{E}(\rho, t) \cdot \hat{z} = \frac{I_{\text{max}}}{ 2\pi\sigma} e^{i\omega t}\,.
+            \end{equation}
+        Esta expresión vincula directamente la componente axial del campo eléctrico con la corriente alterna impuesta sobre la superficie del conductor, reflejando la distribución de campo compatible con la simetría cilíndrica del sistema.
+\end{itemize}
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Ecuación diferencial radial y su solución general}
+
+Suponiendo que $\vec{E}(\vec{x}, t) = E_z(\vec{x}) e^{i\omega t} \, \hat{z}$, encuentre la EDO radial. Identifique a cuál de las ecuaciones estudiadas en clases corresponde, y plantee su solución general.
+
+\textit{Hint:} La solución debe reflejar una atenuación del campo para $\rho \to 0$.
+ 
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Asumimos que el campo eléctrico tiene la forma:
+\begin{equation}\label{2.3_campo_electrico}
+    \vec{E}(\vec{x}, t) = E_z(\rho) \, e^{i\omega t} \, \hat{z} \,,
+\end{equation}
+lo cual refleja que el campo es axial, armónico en el tiempo y dependiente únicamente de la coordenada radial, en concordancia con la simetría del sistema discutida anteriormente.
+
+Derivando \eqref{2.3_campo_electrico} con respecto al tiempo:
+\begin{align*}
+    \frac{\partial \vec{E}}{\partial t} 
+    &= \frac{\partial}{\partial t}\left[E_z(\rho) \, e^{i\omega t} \hat{z}\right] \\
+    &= E_z(\rho)\left( \frac{\partial }{\partial t} e^{i\omega t} \right) \hat{z} \\
+    &= i\omega E_z(\rho) e^{i\omega t} \hat{z} \,.
+\end{align*}
+Es decir,
+\begin{equation}\label{2.3_derivada_temporal}
+    \frac{\partial \vec{E}}{\partial t} = i\omega E_z(\rho) e^{i\omega t}\hat{z} \,.
+\end{equation}
+
+Por otra parte, el operador de Laplace en coordenadas cilíndricas está dado por:
+\begin{equation*}
+    \nabla^2 = \frac{1}{\rho} \frac{\partial}{\partial\rho} \left( \rho \frac{\partial}{\partial\rho} \right)+\frac{1}{\rho^2}\frac{\partial^2}{\partial\phi^2}+\frac{\partial^2}{\partial z^2} \,.
+\end{equation*}
+
+Pero dado que el campo es independiente de $\phi$ y $z$, se reduce a:
+\begin{equation}\label{2.3_laplaciano}
+    \nabla^2 = \frac{1}{\rho} \frac{d}{d\rho} \left( \rho \frac{d}{d\rho} \right) \,.
+\end{equation}
+
+Aplicando el operador de Laplace dado en \eqref{2.3_laplaciano} al campo eléctrico \eqref{2.3_campo_electrico}, se obtiene:
+\begin{align*}
+    \nabla^2 \vec{E}(\rho,t)
+    &= \frac{1}{\rho} \frac{d}{d\rho} \left( \rho \frac{d\vec{E}(\rho,t)}{d\rho} \right) \\
+    &= \frac{1}{\rho} \frac{d}{d\rho} \left( \rho \frac{d}{d\rho}\left[ E_z(\rho) \, e^{i\omega t} \hat{z} \right] \right) \\
+    &= \frac{e^{i\omega t}}{\rho} \frac{d}{d\rho} \left( \rho \frac{dE_z(\rho)}{d\rho} \right) \hat{z} \\
+    &= e^{i\omega t} \left[\frac{d^2E_z(\rho)}{d\rho^2}+\frac{1}{\rho}\frac{dE_z(\rho)}{d\rho} \right] \hat{z} \,.
+\end{align*}
+Entonces:
+\begin{equation}\label{2.3_laplaciano_campo_electrico}
+    \nabla^2 \vec{E} = e^{i\omega t} \left[\frac{d^2E_z(\rho)}{d\rho^2}+\frac{1}{\rho}\frac{dE_z(\rho)}{d\rho} \right]\hat{z} \,.
+\end{equation}
+
+Recordando la ecuación de difusión del campo eléctrico obtenida en el ítem a):
+\begin{equation}\label{2.3_difusion_del_campo_electrico}
+    \nabla^2\vec{E} = \mu\sigma \frac{\partial\vec{E}}{\partial t} \,,
+\end{equation}
+y sustituyendo \eqref{2.3_derivada_temporal} y \eqref{2.3_laplaciano_campo_electrico}, se obtiene:
+\begin{equation*}
+    e^{i\omega t} \left[\frac{d^2E_z(\rho)}{d\rho^2}+\frac{1}{\rho}\frac{dE_z(\rho)}{d\rho} \right] \hat{z}
+    = \mu \sigma \left(i\omega E_z(\rho) e^{i\omega t} \hat{z} \right)\,.
+\end{equation*}
+Dividiendo ambos lados por $e^{i\omega t} \hat{z}$, se obtiene la ecuación escalar:
+\begin{equation*}
+   \frac{d^2E_z(\rho)}{d\rho^2}+\frac{1}{\rho}\frac{dE_z(\rho)}{d\rho} = i\omega\mu\sigma E_z(\rho) \,.
+\end{equation*}
+Reordenando los términos para obtener una EDO homogénea:
+\begin{equation*}
+   \frac{d^2E_z(\rho)}{d\rho^2}+\frac{1}{\rho}\frac{dE_z(\rho)}{d\rho} - i\omega\mu\sigma E_z(\rho) = 0 \,.
+\end{equation*}
+Definiendo la constante compleja $k^2 := i \omega \mu \sigma$, la ecuación toma la forma:
+\begin{equation}\label{2.3_ecuacion_radial}
+   \frac{d^2E_z(\rho)}{d\rho^2}+\frac{1}{\rho}\frac{dE_z(\rho)}{d\rho} - k^2 E_z(\rho) = 0 \,.
+\end{equation}
+
+Esta es una \textbf{ecuación de Bessel modificada de orden cero}. Para identificarla formalmente, introducimos la variable adimensional $x := k\rho$, y definimos $f(x) := E_z(\rho) = E_z\left( \frac{x}{k} \right)$. Aplicando la regla de la cadena, se obtienen las derivadas de $E_z$ en términos de $f$:
+\begin{itemize}
+\item \textbf{Para la primera derivada de  $E_z$ respecto $\rho$: }
+    \begin{align*}
+        \frac{dE_z}{d\rho} &= \frac{df}{dx} \cdot \frac{dx}{d\rho} \\
+        &= \frac{df}{dx} \cdot \frac{d(k\rho)}{d\rho}  \\
+        &= \frac{df}{dx} \cdot k \,,
+    \end{align*}
+    \begin{equation}\label{2.3_primera_derivada}
+        \therefore\quad\frac{dE_z}{d\rho}= k \frac{df}{dx}\,.
+    \end{equation}
+\item \textbf{Para la segunda derivada de  $E_z$ respecto $\rho$: }
+    \begin{align*}
+        \frac{d^2E_z}{d\rho^2} &= \frac{d}{d\rho} \left( \frac{dE_z}{d\rho} \right) \\
+        &= \frac{d}{d\rho} \left( k \frac{df}{dx} \right) \\
+        &= k \cdot \frac{d}{d\rho} \left( \frac{df}{dx} \right) \\
+        &= k \cdot \frac{d}{dx} \left( \frac{df}{dx} \right) \cdot \frac{dx}{d\rho} \\
+        &=k \cdot \frac{d^2f}{dx^2} \cdot \frac{d(k\rho)}{d\rho} \\
+        &=k \cdot \frac{d^2f}{dx^2} \cdot k\,,
+    \end{align*}
+    \begin{equation}\label{2.3_segunda_derivada}
+        \therefore\quad\frac{d^2E_z}{d\rho^2}= k^2 \frac{d^2f}{dx^2} \,.
+    \end{equation}
+    
+\end{itemize}
+Sustituyendo \eqref{2.3_primera_derivada} y \eqref{2.3_segunda_derivada} en la ecuación \eqref{2.3_ecuacion_radial} y aplicando el cambio de variable $x=k\rho$, se obtiene:
+\begin{align*}
+    k^2 \frac{d^2f(x)}{dx^2} + \frac{k^2}{x} \frac{df(x)}{dx} - k^2 f(x) =0\,.
+\end{align*}
+
+Multiplicando ambos lados de la ecuación por $(x/k)^2$, con $k \neq 0$, se obtiene:
+\begin{equation*}
+    x^2\frac{d^2f(x)}{dx^2} + x\frac{df(x)}{dx} - x^2f(x) = 0 \,.
+\end{equation*}
+Esta es la \textbf{ecuación de Bessel modificada de orden cero}:
+\begin{equation*}
+    x^2 \frac{d^2f(x)}{dx^2} + x \frac{df(x)}{dx} - (x^2 + 0^2) f(x) = 0 \,.
+\end{equation*}
+
+En resumen, la ecuación \eqref{2.3_ecuacion_radial} es equivalente a la ecuación de Bessel modificada de orden cero, mediante el cambio de variable $x = k\rho$:
+\begin{equation*}
+   \frac{d^2E_z(\rho)}{d\rho^2}+\frac{1}{\rho}\frac{dE_z(\rho)}{d\rho} - k^2 E_z(\rho) = 0
+    \quad \Longleftrightarrow \quad
+    x^2 \frac{d^2f(x)}{dx^2} + x \frac{df(x)}{dx} - (x^2 +0^2)f(x) = 0 \,.
+\end{equation*}
+
+Así, la solución general de la ecuación radial \eqref{2.3_ecuacion_radial} se expresa como:
+\begin{equation*}
+    E_z(\rho) = A I_0(k \rho) + B K_0(k \rho) \,,
+\end{equation*}
+donde $I_0$ y $K_0$ denotan las funciones de Bessel modificadas de orden cero de primera y segunda especie, respectivamente. Como $K_0(k\rho)$ diverge logarítmicamente cuando $\rho \to 0$, su inclusión violaría la regularidad del campo en el eje. Por tanto, se impone $B = 0$.
+
+La solución físicamente admisible queda:
+\begin{equation}\label{2.3_solución_general_ec_radial}
+E_z(\rho) = A I_0(k\rho) \,.
+\end{equation}
+
+Finalmente, al reemplazar \eqref{2.3_solución_general_ec_radial} en la expresión general del campo eléctrico \eqref{2.3_campo_electrico}, se obtiene la solución completa:
+\begin{equation}
+    \vec{E}(\rho,t)=A\, I_0(k\rho)\, e^{i\omega t}\, \hat{z}\,, \quad \text{con} \quad k = \sqrt{i \omega \mu \sigma} \,.
+\end{equation}
+Esta solución describe un campo eléctrico armónico que se propaga axialmente y cuya amplitud radial está modulada por una función de Bessel modificada de orden cero. Esta forma garantiza la regularidad del campo en el eje y la compatibilidad con la corriente total impuesta. Aquí, $A$ es una constante compleja determinada por las condiciones de contorno asociadas a la corriente total que atraviesa la sección transversal del cilindro.
+
+Por último, notemos que podemos reescribir el número de onda complejo $k$ de forma explícita. Partimos de su definición:
+\begin{align*}
+    k &= \sqrt{i \omega \mu \sigma} \\
+      &= \sqrt{i} \cdot \sqrt{ \omega \mu \sigma} \\
+      &= \left(e^{i\frac{\pi}{2}}\right)^{1/2} \cdot \sqrt{\omega\mu \sigma} \\
+      &= e^{i\frac{\pi}{4}} \cdot \sqrt{\omega\mu \sigma} \\
+      &= \left(\cos\frac{\pi}{4} + i \sin\frac{\pi}{4} \right) \cdot \sqrt{\omega\mu \sigma} \\
+      &= \left( \frac{1}{\sqrt{2}} + i \frac{1}{\sqrt{2}} \right) \cdot \sqrt{\omega\mu \sigma} \\
+      &= (1 + i) \cdot \sqrt{ \frac{\omega \mu \sigma}{2} } \,.
+\end{align*}
+Por lo tanto, se puede expresar:
+\begin{equation}
+    k = (1+i) \sqrt{ \frac{\omega \mu \sigma}{2} } \,.
+\end{equation}
+Recordando que la profundidad de penetración está dada por:
+\begin{equation*}
+    \delta = \sqrt{ \frac{2}{\omega \mu \sigma} }\,,
+\end{equation*}
+podemos reescribir el número de onda en términos de $\delta$:
+\begin{equation*}
+    k = \frac{1+i}{\delta} \,.
+\end{equation*}
+Esta expresión explicita la naturaleza compleja de $k$, en la que su parte real ($1/\delta$) determina la tasa de atenuación radial del campo eléctrico, mientras que su parte imaginaria está asociada a un desfase espacial en la propagación axial del campo.
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Campo eléctrico explícito a partir de condiciones de borde}
+
+Aplicando las condiciones de contorno halladas en \ref{sec_2.2}, encuentre la forma explícita del campo eléctrico $\vec{E}(\vec{x}, t)$.
+
+\textit{Hint:} Recuerde que $I = 2\pi \int_0^a \vec{J}(\rho)\, \rho\, d\rho$.
+
+ 
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A partir de la relación que vincula la corriente total que atraviesa la sección transversal del cilindro con el campo eléctrico:
+\begin{equation}\label{2.4_condición_de_borde}
+    \int_0^a \vec{E}(\rho, t) \cdot \hat{z}\, \rho\, d\rho = \frac{I_{\text{max}}}{2\pi\sigma} e^{i\omega t}\,,
+\end{equation}
+y sabiendo que el campo eléctrico en el interior del cilindro es:
+\begin{equation*}
+    \vec{E}(\rho,t) = A\, I_0(k\rho)\, e^{i\omega t}\, \hat{z}\,,  
+\end{equation*}
+donde el número de onda complejo $k$ se relaciona con la profundidad de penetración $\delta$ mediante:
+\begin{equation}\label{2.4_k}
+    k = \frac{1+i}{\delta} \,.
+\end{equation}
+
+Se procede a evaluar explícitamente el lado izquierdo de la ecuación \eqref{2.4_condición_de_borde}:
+    \begin{align*}
+        \int_0^a \rho\, d\rho\,  \vec{E}(\rho, t) \cdot \hat{z} 
+        &=\int_0^a \rho\, d\rho\,  \left[ A\, I_0(k\rho)\, e^{i\omega t}\, \hat{z}\right] \cdot \hat{z} \\
+        &= Ae^{i\omega t}\int_0^a I_0(k\rho)\rho\, d\rho\, \hat{z} \cdot \hat{z} \\
+        &= Ae^{i\omega t}\int_0^a I_0(k\rho)\rho\, d\rho\,  .
+    \end{align*}
+Reemplazando en \eqref{2.4_condición_de_borde} y dividiendo ambos miembros por $e^{i\omega t}$:
+\begin{equation}\label{2.4_integral_2}
+    A \int_0^a I_0(k\rho)\, \rho\, d\rho = \frac{I_{\text{max}}}{2\pi\sigma}\,.
+\end{equation}
+
+Para facilitar la evaluación de la integral, se introduce el cambio de variable $x = k\rho$, con lo cual $d\rho = dx/k$.
+\begin{align*}
+    \int_0^a I_0(k\rho)\, \rho\, d\rho 
+    &= \int_0^{ka} I_0(x)\Big(\frac{x}{k}\Big)\Big(\frac{dx}{k}\Big) \\
+    &= \int_0^{ka} I_0(x)\, \frac{x}{k^2}\, dx\\
+    &= \frac{1}{k^2} \int_0^{ka} x\, I_0(x)\, dx \,.
+\end{align*}
+Utilizando la relación con derivadas, con $\nu = 1$:
+\begin{equation*}
+    x\, I_{0}(x) = \frac{d}{dx} \left[ x \,I_1(x) \right] \,.
+\end{equation*}
+A partir de esta identidad, la integral puede evaluarse del siguiente modo:
+\begin{align*}
+    \int_0^a I_0(k\rho)\, \rho\, d\rho 
+    &= \frac{1}{k^2} \int_0^{ka} x\, I_0(x)\, dx \\
+    &= \frac{1}{k^2} \int_0^{ka} \left(\,  \frac{d}{dx} \left[ x\, I_1(x) \right]\right)\, dx \\
+    &= \frac{1}{k^2} \left[ x\, I_1(x) \right]_0^{ka}\\
+    &= \frac{1}{k^2} \left[ ka\, I_1(ka) \right]
+\end{align*}
+
+Por lo tanto, la integral estará dada por
+\begin{equation*}
+    \int_0^a I_0(k\rho)\, \rho\, d\rho = \frac{a}{k} I_1(ka)\,.
+\end{equation*}
+
+Sustituyendo este resultado en \eqref{2.4_integral_2}, se obtiene:
+\begin{equation*}
+    A \cdot \frac{a}{k} I_1(ka) = \frac{I_{\text{max}}}{2\pi\sigma} \,,
+\end{equation*}
+de donde se despeja la constante $A$:
+\begin{equation}\label{2.4_A_final}
+    A = \frac{k\, I_{\text{max}}}{2\pi\sigma\, a\, I_1(ka)} \,.
+\end{equation}
+
+Al reemplazar \eqref{2.4_A_final} en la solución general del campo eléctrico:
+\begin{equation}
+    \vec{E}(\rho, t) = \left( \frac{k\, I_{\text{max}}}{2\pi\sigma\, a\, I_1(ka)} \right) I_0(k\rho)\, e^{i\omega t}\, \hat{z} \,,
+\end{equation}
+y usando la relación \eqref{2.4_k}, se puede escribir:
+\begin{equation}
+    \vec{E}(\rho, t) = \left( \frac{1+i}{\delta} \right) \left( \frac{I_{\text{max}}}{2\pi\sigma\, a\, I_1(ka)} \right) I_0(k\rho)\, e^{i\omega t}\, \hat{z} \,.
+\end{equation}
+
+Finalmente, dado que el campo eléctrico físicamente medible corresponde a una cantidad real, se considera únicamente la parte real de esta expresión:
+\begin{equation*}
+    \vec{E}(\rho, t) = \operatorname{Re}\left\{ \left( \frac{1+i}{\delta} \right) \left( \frac{I_{\text{max}}}{2\pi\sigma\, a\, I_1(ka)} \right) I_0(k\rho)\, e^{i\omega t} \right\} \hat{z} \,.
+\end{equation*}
+
+Esta es la expresión final para el campo eléctrico real en el interior de un cilindro conductor macizo que transporta una corriente alterna. Satisface simultáneamente la condición de regularidad en el eje, la simetría del sistema y la condición de contorno impuesta sobre la corriente total.
+
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ejercicio 3}
+
+Considere un fluido ideal de densidad $\rho(\vec{x}, t)$ y campo de velocidad $\vec{u}(\vec{x}, t)$ que satisface la ecuación de Euler en notación cartesiana:
+
+\begin{equation}\label{3.2_euler}
+    \frac{\partial u_i}{\partial t} + u_j \partial_j u_i = -\frac{1}{\rho} \partial_i p\,,
+\end{equation}
+
+junto con la ecuación de continuidad:
+
+\begin{equation}\label{3.2_continuidad}
+    \frac{\partial \rho}{\partial t} + \partial_j(\rho u_j) = 0\,.
+\end{equation}
+
+A partir de estos resultados, derive la ecuación de conservación de la energía cinética:
+
+\begin{equation*}
+    \frac{\partial}{\partial t} \left( \frac{1}{2} \rho u^2 \right) + \nabla \cdot \left[ \left( \frac{1}{2} \rho u^2  + p \right)\vec{u} \right] = p \nabla \cdot \vec{u} \,,
+\end{equation*}
+
+utilizando notación tensorial cartesiana. Para ello:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Identidad vectorial para el gradiente de la energía cinética}
+
+ Utilizando notación tensorial, muestre la identidad:
+    \begin{equation*}
+        \vec{u} \times (\nabla \times \vec{u}) + (\vec{u} \cdot \nabla)\vec{u} = \nabla \left( \frac{1}{2} u^2 \right) \,.
+    \end{equation*}
+
+\textbf{Solución:} 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Sea $\vec{u}$ un campo vectorial. La componente $i$-ésima del producto $\vec{u} \times (\nabla \times \vec{u})$ es:
+
+\begin{align*}
+\left[ \vec{u} \times (\nabla \times \vec{u}) \right]_i 
+&= \epsilon_{ijk} u_j (\nabla \times \vec{u})_k \\
+&= \epsilon_{ijk} u_j \left( \epsilon_{kmn} \partial_m u_n \right) \\
+&= \epsilon_{ijk} \epsilon_{kmn} u_j \partial_m u_n\,.
+\end{align*}
+
+Dado que el cambio de índices de $\epsilon_{kmn}$ a $\epsilon_{mnk}$ es una permutación par, se cumple que $\epsilon_{mnk} = \epsilon_{kmn}$. Se obtiene entonces:
+\begin{equation*}
+    \left[ \vec{u} \times (\nabla \times \vec{u}) \right]_i = \epsilon_{ijk} \epsilon_{mnk} u_j \partial_m u_n\,.
+\end{equation*}
+
+Aplicando ahora la identidad de contracción de Levi-Civita en la expresión anterior, 
+\begin{equation*}
+\epsilon_{ijk} \epsilon_{kmn} = \delta_{im} \delta_{jn} - \delta_{in} \delta_{jm}\,,
+\end{equation*}
+obtenemos:
+\begin{align*}
+\left[ \vec{u} \times (\nabla \times \vec{u}) \right]_i 
+&= (\delta_{im} \delta_{jn} - \delta_{in} \delta_{jm}) u_j \partial_m u_n \\
+&= \delta_{im} \delta_{jn} u_j \partial_m u_n - \delta_{in} \delta_{jm} u_j \partial_m u_n \,.
+\end{align*}
+
+Desarrollando los productos de Kronecker y simplificando la expresión en términos de los índices $i$ y $j$, se obtiene:
+\begin{equation}\label{3.1_producto_vectorial_2}
+    \left[ \vec{u} \times (\nabla \times \vec{u}) \right]_i = u_j \partial_i u_j - u_j \partial_j u_i\,.
+\end{equation}
+
+Por otro lado, el término convectivo tiene la forma:
+\begin{equation}\label{3.1_producto_convectivo}
+    \left[ (\vec{u} \cdot \nabla)\vec{u} \right]_i = u_j \partial_j u_i\,.
+\end{equation}
+
+Sumando las expresiones \eqref{3.1_producto_vectorial_2} y \eqref{3.1_producto_convectivo}, observando que $u^2 = u_j u_j$ y utilizando que $\partial_i(u_j u_j) = 2 u_j \partial_i u_j$:
+\begin{align*}
+\left[ \vec{u} \times (\nabla \times \vec{u}) + (\vec{u} \cdot \nabla)\vec{u} \right]_i
+&= (u_j \partial_i u_j - u_j \partial_j u_i) + u_j \partial_j u_i \\
+&= u_j \partial_i u_j\\
+&= \frac{1}{2} \partial_i (u_j u_j) \\
+&= \frac{1}{2} \partial_i u^2 \\
+&=\partial_i\left(\frac{1}{2}  u^2\right)\,,
+\end{align*}
+Concluimos, por tanto, que en notación indicial cartesiana se satisface la relación:
+\begin{equation*}
+    \left[ \vec{u} \times (\nabla \times \vec{u}) + (\vec{u} \cdot \nabla)\vec{u} \right]_i=\partial_i\left(\frac{1}{2}  u^2\right)\,.
+\end{equation*}
+
+Esta expresión es precisamente la forma componente de la identidad vectorial:
+\begin{equation*}
+\vec{u} \times (\nabla \times \vec{u}) + (\vec{u} \cdot \nabla)\vec{u} = \nabla \left( \frac{1}{2} u^2 \right)\,,
+\end{equation*}
+por lo que se concluye que dicha identidad ha sido verificada rigurosamente a partir de un desarrollo explícito utilizando notación tensorial en coordenadas cartesianas.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Multiplicación de la ecuación de Euler por el momento lineal específico}
+
+Multiplique la ecuación de Euler por $\rho u_i$ y manipule los términos algebraicamente. ¿A qué operación vectorial corresponde esta multiplicación?
+
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Multiplicamos escalarmente la ecuación de Euler \eqref{3.2_euler} por el campo $\rho u_i$, lo que equivale al producto punto con el vector $\rho \vec{u}$:
+\begin{equation*}
+    \rho u_i \left(\frac{\partial u_i}{\partial t} + u_j \partial_j u_i \right)= \rho u_i \left(-\frac{1}{\rho}\partial_i p\right) \,. 
+\end{equation*}
+
+Se obtiene:
+\begin{equation}\label{3.2_step1}
+    \rho u_i \frac{\partial u_i}{\partial t} + \rho u_i u_j \partial_j u_i = -u_i \partial_i p \,.
+\end{equation}
+
+Analizamos separadamente los términos del lado izquierdo de la ecuación \eqref{3.2_step1}:
+
+\begin{itemize}
+    \item \textbf{Término temporal:} como $u^2 = \vec{u} \cdot \vec{u} = u_i u_i$ representa el cuadrado de la norma euclidiana del vector velocidad, se tiene:
+        \begin{align*}
+            \rho u_i \frac{\partial u_i}{\partial t} 
+            &=\rho \left( \frac{1}{2} \frac{\partial}{\partial t} (u_i u_i) \right)\\
+            &=\rho \left( \frac{1}{2} \frac{\partial u^2}{\partial t} \right)\\
+            &= \frac{1}{2} \rho \frac{\partial u^2}{\partial t}\,.  \\
+        \end{align*}
+    Por tanto:
+        \begin{equation}\label{3.2_term1}
+            \rho u_i \frac{\partial u_i}{\partial t} = \frac{1}{2} \rho \frac{\partial u^2}{\partial t}\,.
+        \end{equation}
+
+    \item \textbf{Término convectivo:} reconocemos que puede expresarse como la derivada de una cantidad cuadrática en $\vec{u}$, es decir:
+        \begin{align*}
+            \rho u_i u_j \partial_j u_i &= \rho u_j ( u_i \partial_j u_i)\\
+            &= \rho u_j \left[ \frac{1}{2} \partial_j (u_i u_i)\right]\\
+            &= \rho u_j \left( \frac{1}{2} \partial_j u^2\right)\\
+            &= \rho u_j \partial_j \left( \frac{1}{2} u^2 \right) \,.
+        \end{align*}
+    Se obtiene:
+        \begin{equation}\label{3.2_term2}
+            \rho u_i u_j \partial_j u_i = \rho u_j \partial_j \left( \frac{1}{2} u^2 \right) \,.
+        \end{equation}
+\end{itemize}
+Sustituyendo \eqref{3.2_term1} y \eqref{3.2_term2} en \eqref{3.2_step1}, se tiene:
+\begin{equation}\label{3.2_step2}
+    \frac{1}{2} \rho \frac{\partial u^2}{\partial t} + \rho u_j \partial_j \left( \frac{1}{2} u^2 \right) = -u_i \partial_i p \,.
+\end{equation}
+
+Para expresar el primer término en forma conservativa, consideramos la derivada total de la densidad de energía cinética:
+\begin{equation}\label{3.2_deriv_temp}
+    \frac{\partial}{\partial t} \left( \frac{1}{2} \rho u^2 \right) = \frac{1}{2} u^2 \frac{\partial \rho}{\partial t} + \frac{1}{2} \rho \frac{\partial u^2}{\partial t} \,.
+\end{equation}
+
+Despejando el término $\frac{1}{2} \rho \frac{\partial u^2}{\partial t}$ de \eqref{3.2_deriv_temp}:
+\begin{equation}\label{3.2_despeje}
+    \frac{1}{2} \rho \frac{\partial u^2}{\partial t} = \frac{\partial}{\partial t} \left( \frac{1}{2} \rho u^2 \right) - \frac{1}{2} u^2 \frac{\partial \rho}{\partial t} \,.
+\end{equation}
+
+Sustituyendo \eqref{3.2_despeje} en \eqref{3.2_step2}, se obtiene:
+\begin{equation}\label{3.2_step3}
+    \left[\frac{\partial}{\partial t} \left( \frac{1}{2} \rho u^2 \right) - \frac{1}{2} u^2 \frac{\partial \rho}{\partial t}\right] + \rho u_j \partial_j \left( \frac{1}{2} u^2 \right) = -u_i \partial_i p \,.
+\end{equation}
+
+Aplicamos la ecuación de continuidad \eqref{3.2_continuidad} para reescribir el término $\frac{\partial \rho}{\partial t}$:
+\begin{equation}\label{3.2_cont_util}
+    \frac{\partial \rho}{\partial t} = - \partial_j (\rho u_j) \,.
+\end{equation}
+
+Sustituyendo \eqref{3.2_cont_util} en \eqref{3.2_step3}:
+
+\begin{align*}
+    \left[\frac{\partial}{\partial t} \left( \frac{1}{2} \rho u^2 \right) - \frac{1}{2} u^2 \left[ - \partial_j (\rho u_j) \right]\right] + \rho u_j \partial_j \left( \frac{1}{2} u^2 \right) &= -u_i \partial_i p \\
+    \left[\frac{\partial}{\partial t} \left( \frac{1}{2} \rho u^2 \right) + \frac{1}{2} u^2 \partial_j (\rho u_j) \right] + \rho u_j \partial_j \left( \frac{1}{2} u^2 \right) &= \\
+    \frac{\partial}{\partial t} \left( \frac{1}{2} \rho u^2 \right) + \frac{1}{2} u^2 \partial_j (\rho u_j)  + \rho u_j \partial_j \left( \frac{1}{2} u^2 \right) &= \,.
+\end{align*}
+Se obtiene:
+\begin{equation}\label{3.2_step4}
+    \frac{\partial}{\partial t} \left( \frac{1}{2} \rho u^2 \right) + \frac{1}{2} u^2 \partial_j (\rho u_j) + \rho u_j \partial_j \left( \frac{1}{2} u^2 \right) = -u_i \partial_i p \,.
+\end{equation}
+
+Observamos que los dos términos centrales del lado izquierdo pueden agruparse como una divergencia:
+\begin{equation}\label{3.2_div_combined}
+    \partial_j \left( \frac{1}{2} (\rho u_j) u^2  \right)= \frac{1}{2} u^2 \partial_j (\rho u_j) + \rho u_j \partial_j \left( \frac{1}{2} u^2 \right)  \,.
+\end{equation}
+
+Sustituyendo \eqref{3.2_div_combined} en \eqref{3.2_step4}:
+\begin{equation}\label{3.2_step5}
+    \frac{\partial}{\partial t} \left( \frac{1}{2} \rho u^2 \right) + \partial_j \left( \frac{1}{2} \rho u^2 u_j \right) = -u_i \partial_i p \,. 
+\end{equation}
+
+Aplicamos la regla del producto a la divergencia de $p u_i$:
+\begin{equation*}
+    \partial_i (p u_i) = u_i \partial_i p + p \partial_i u_i\,.
+\end{equation*}
+De donde se deduce:
+\begin{equation}\label{3.2_pressure_identity}
+    -u_i \partial_i p = -\partial_i (p u_i) + p \partial_i u_i \,.
+\end{equation}
+
+Sustituyendo \eqref{3.2_pressure_identity} en \eqref{3.2_step5}:
+\begin{equation}\label{3.2_step6}
+    \frac{\partial}{\partial t} \left( \frac{1}{2} \rho u^2 \right) + \partial_j \left( \frac{1}{2} \rho u^2 u_j \right) = -\partial_j (p u_j) + p \partial_j u_j\,. 
+\end{equation}
+
+Sumando en $\partial_j (p u_j)$ ambos miembros de la ecuación \eqref{3.2_step6} y agrupando las divergencias en $\partial_j$ en el lado izquierdo, se tiene:
+
+\begin{equation*}
+    \frac{\partial}{\partial t} \left( \frac{1}{2} \rho u^2 \right) + \partial_j \left( \frac{1}{2} \rho u^2 u_j + p u_j \right) = p \partial_j u_j\,.
+\end{equation*}
+
+Expresando en notación vectorial, obtenemos la ecuación de conservación buscada:
+
+\begin{equation*}
+    \dfrac{\partial}{\partial t} \left( \dfrac{1}{2} \rho u^{2} \right) + \nabla \cdot \left[ \left( \dfrac{1}{2} \rho u^{2} + p \right) \vec{u} \right] = p  \nabla \cdot \vec{u} \,.
+\end{equation*}
+
+Esta expresión corresponde a la ecuación de conservación de la energía cinética para un fluido ideal, derivada paso a paso a partir de la ecuación de Euler y la continuidad.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{document}

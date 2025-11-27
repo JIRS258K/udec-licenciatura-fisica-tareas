@@ -1,0 +1,745 @@
+\documentclass{article}
+
+% Paquetes matemáticos y tipográficos
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+% Idioma en español
+\usepackage[spanish]{babel}
+
+% Manejo de imágenes
+\usepackage{graphicx} 
+\graphicspath{ {images/} }
+
+% Configuración de márgenes
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=20mm, bottom=20mm]{geometry}
+
+% Tipografía mejorada
+\usepackage{lmodern}
+
+% Estilo de títulos con punto después del número
+\usepackage{titlesec}
+\titleformat{\section}{\huge\bfseries}{\thesection.}{1em}{}  % Título más grande
+
+% Encabezados sin pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textit{Transformadas Integrales}}
+\fancyhead[R]{Física Matemática 2}
+
+
+
+% Mejor separación de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Evita hifenaciones excesivas
+\sloppy
+
+% Configuración del índice
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{3cm} % Ajuste en la posición vertical
+    % Logo centrado
+    \includegraphics[width=0.6\textwidth]{UdeC_azul_centrado.png} 
+    
+    \vspace{1cm}
+    \thispagestyle{empty} % Sin número en la portada
+
+    % Título de la tarea
+    {\Huge \textbf{Tarea 01 - Transformadas Integrales} \par}
+    
+    \vspace{0.5cm}
+    {\Huge \textbf{Física Matemática 2} \par}
+    \vspace{1.5cm}
+
+    % Nombre del autor
+    {\Large José Ignacio Rosas Sepúlveda \par}
+    \vspace{1cm}
+    
+    % Fechas de la tarea
+    {\Large Marzo 2025 - Abril 2025 \par}
+    \vfill
+\end{titlepage}
+
+% Índice
+\tableofcontents
+\newpage
+
+
+\section{Ejercicio 1}
+
+Consideremos la siguiente función:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\linewidth]{figura 1 - ejercicio 1.png}
+    \caption{Función a trabajar.}
+    \label{fig:ejercicio 1}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    \subsection{Encuentre la forma explícita de la función en el intervalo $\left( - \infty ,\infty \right)$, es decir, encuentre $ f(x) = \dots$.}
+    
+    \textbf{Solución:} Al observar la función dada en la figura \ref{fig:ejercicio 1} notamos que es \textit{seccionalmente continua} definida sobre el intervalo $\left[ 0,3 \right]$, con un punto de discontinuidad en $x = 2$. Su gráfica es el lugar geométrico contenido en $\mathbb{R}^2$, en el que se observa: 
+    \begin{itemize}
+        \item Un segmento de recta con pendiente positiva que pasa por los puntos $(0,0)$ y $(2,2)$.
+        \item Un segmento de recta con pendiente negativa que pasa por los puntos $(2,2)$ y $(3,0)$.
+    \end{itemize}
+    Considerando la ecuación de la recta (en $\mathbb{R}^2$) dados dos puntos $(x_1,y_1)$, $(x_2,y_2)$,
+    \begin{equation} \label{ecuacion de la recta}
+        y - y_1 = \left(\frac{y_2-y_1}{x_2-x_1}\right)\left(x-x_1\right) ,
+    \end{equation}
+    podemos deducir de (\ref{ecuacion de la recta}) la ecuación de la recta para cada segmento observado en la figura \ref{fig:ejercicio 1}, de modo que:
+    \begin{itemize}
+        \item Para la recta que pasa por $(x_1,y_1)=(0,0)$ y $(x_2,y_2)=(2,2)$, su ecuación sera  
+        \begin{equation}\label{ecuacion 1}
+            y = x
+        \end{equation}
+         \item Para la recta que pasa por $(x_1,y_1)=(2,2)$ y $(x_2,y_2)=(3,0)$, su ecuación sera
+         \begin{equation}\label{ecuacion 2}
+             y = -2x+6
+         \end{equation}
+         
+    \end{itemize}
+
+Así, considerando las ecuaciones (\ref{ecuacion 1}) y (\ref{ecuacion 2}), podemos definir a la función $f(x)$ dada en la figura \ref{fig:ejercicio 1} como:
+
+\begin{equation}\label{fucion ejercicio 1}
+    f(x) = \left\{ \begin{array}{lcc} x & si & 0 \leq x \leq 2 \\ -2x+6 & si & 2 < x \leq 3 \end{array} \right.
+\end{equation}
+
+Tenemos entonces nuestra función $f:[0,3] \rightarrow \mathbb{R}$ seccionalmente continua cuya ecuación de definición fue vista en (\ref{fucion ejercicio 1}). Definimos el periodo $T$ de $f$ como $ T = 3 - 0$. Consideramos ahora su \textbf{extensión periódica} $f_e: \mathbb{R} \rightarrow \mathbb{R}$,
+\begin{equation}
+    f_e(x) = f\left(x+k_0T\right)= f(x+3k_0)   
+\end{equation}
+donde $k_0 \in \mathbb{Z}$ es un entero tal que $x+3k_0 \in [0,3]$. Así, hemos obtenido la expresión explícita de su extensión periódica en todo $\left(-\infty,\infty\right) = \mathbb{R}$.
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Encuentre su desarrollo en Serie de Fourier trigonométrica.}
+
+\textbf{Solución:} Observamos que la función $f$ satisface las \textit{condiciones de Dirichlet}, es decir:
+
+\begin{itemize}
+
+\item La función $f$ se encuentra definida en un intervalo abierto $\left(0,0+T\right)=\left(0,3\right)$.
+
+\item Tanto función $f$ como su primera derivada $f'$ son seccionalmente continuas en el intervalo abierto $\left(0,3\right)$. Donde $f':\left(0,3\right) \rightarrow \mathbb{R}$,
+\begin{equation}
+    f'(x) = \left\{ \begin{array}{lcc} 1 & si & 0 \leq x \leq 2 \\ -2 & si & 2 < x \leq 3 \end{array} \right.
+\end{equation}
+
+\item $f$ tiene un numero finito de discontinuidad finita, en especifico una sola en el punto $x=2$.
+
+\item $f$ es una función periódica de periodo $T=3$.
+
+\end{itemize}
+
+Por lo tanto, podemos aproximar $f$ como una serie de Fourier trigonometrica
+
+\begin{equation}\label{fourier}
+    f(x) = \frac{a_0}{2}+\sum_{n=1}^\infty a_n\cos\left(\frac{2n\pi}{T}x\right) + \sum_{n=1}^\infty b_n\sin\left(\frac{2n\pi}{T}x\right)
+\end{equation}
+Donde el periodo de $f$ es $T=3$.
+\begin{itemize}
+    \item Para el coeficiente de Fourier $a_0$ tendremos
+\begin{equation*}
+    a_0 = \frac{2}{3}\int_0^3f(x)dx
+\end{equation*}
+Dado que $f$ es seccionalmente continua, entonces   
+\begin{equation} \label{a_0}
+    a_0 = \frac{2}{3}\int_0^2 x dx + \frac{2}{3}\int_2^3 -2x+ 6 dx = 2
+\end{equation}
+
+por lo tanto $a_0= 2$.
+
+\item Para el coeficiente de Fourier $a_n$ tendremos
+\begin{equation*}
+    a_n = \frac{2}{3}\int_0^3f(x)\cos\left(\frac{2n\pi}{3} x\right)dx
+\end{equation*}
+Dado que $f$ es seccionalmente continua, entonces   
+\begin{equation*}
+    a_n = \frac{2}{3}\int_0^2 x \cos\left(\frac{2n\pi}{3} x\right)dx + \frac{2}{3}\int_2^3 (-2x+ 6)\cos\left(\frac{2n\pi}{3} x\right) dx
+\end{equation*}
+
+Se resuelve la integral utilizando el software \textit{Wolfram Mathematica}, obteniendo así el coeficiente $a_n$
+\begin{equation}\label{a_n}
+    a_n=\frac{3 \left(3 \cos\left(\frac{4 \pi n}{3}\right)-2 \cos\left(2 \pi n\right)-1\right)}{2 \pi^2 n^2}
+\end{equation}
+
+\item Para el coeficiente de Fourier $b_n$ tendremos
+\begin{equation*}
+    b_n = \frac{2}{3}\int_0^3f(x)\sin\left(\frac{2n\pi}{3} x\right)dx
+\end{equation*}
+Dado que $f$ es seccionalmente continua, entonces   
+\begin{equation*}
+    b_n = \frac{2}{3}\int_0^2 x \sin\left(\frac{2n\pi}{3} x\right)dx + \frac{2}{3}\int_2^3 (-2x+ 6)\sin\left(\frac{2n\pi}{3} x\right) dx
+\end{equation*}
+
+Se resuelve la integral nuevamente empleando el software \textit{Wolfram Mathematica}, obteniendo así el coeficiente $b_n$
+
+\begin{equation}\label{b_n}
+     b_n = \frac{3 \left(3 \sin\left(\frac{4 \pi n}{3}\right)-2 \sin\left(2 \pi n\right)\right)}{2 \pi^2 n^2}
+\end{equation}
+
+Conocidos los coeficientes de Fourier asociados a la función $f$, reemplazamos en (\ref{fourier}) el periodo $T=3$ y los coeficientes $a_0$, $a_n$ y $b_n$, obtenidos en (\ref{a_0}), (\ref{a_n}) y (\ref{b_n}) respectivamente, deduciendo así la Serie de Fourier trigonométrica de la función $f$ dada en (\ref{fourier aprox trig b}).
+
+\begin{equation}\label{fourier aprox trig b}
+    f(x) = 2+\sum_{n=1}^\infty \left[\frac{3 \left(3 \cos\left(\frac{4 \pi n}{3}\right)-2 \cos\left(2 \pi n\right)-1\right)}{2 \pi^2 n^2}\right]\cos\left(\frac{2n\pi}{3}x\right) + \sum_{n=1}^\infty \left[ \frac{3 \left(3 \sin\left(\frac{4 \pi n}{3}\right)-2 \sin\left(2 \pi n\right)\right)}{2 \pi^2 n^2} \right]\sin\left(\frac{2n\pi}{3}x\right)
+\end{equation}
+
+\end{itemize}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Encuentre y grafique la extensión impar de la función.}
+
+
+\textbf{Solución:} Para la \textit{extensión impar} de la función $f$, por definición, estará dada por la función $O_f: [-3,3]\rightarrow \mathbb{R}$,
+\begin{equation}\label{extension impar por definición}
+     O_f(x) = \left\{ \begin{array}{lcc} -f(-x) & si & -3 \leq x < 0 \\ f(x) & si & 0 \leq x \leq 3 \end{array} \right.
+\end{equation}
+
+Calculamos explícitamente $-f(-x)$ para cada tramo:
+
+\begin{equation}
+    -f(-x) = \left\{ \begin{array}{lcc}  -(-2(-x)+6) & si & -3 \leq x < -2 \\ -(-x) & si & -2 \leq x < 0 \end{array} \right.  = \left\{ \begin{array}{lcc} -2x-6 & si & -3 \leq x < -2 \\ x & si & -2 \leq x < 0 \end{array} \right.
+\end{equation}
+Entonces la extensión impar (\ref{extension impar por definición}) explícitamente estará dada por:
+\begin{equation}\label{extension impar explicita}
+     O_f(x) = \left\{ \begin{array}{lcc} -2x-6 & si & -3 \leq x < -2 \\ x & si & -2 \leq x \leq 2  \\ -2x+6 & si & 2 < x \leq 3 \end{array} \right.
+\end{equation}
+A continuación, se muestra en la figura \ref{fig:extension impar} la gráfica de la extensión impar de $f(x)$, donde se observa claramente su simetría respecto al origen, característica fundamental de las funciones impares.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\linewidth]{figura 2.png}
+    \caption{Gráfica de la extensión impar $O_f$ de la función $f(x)$, ilustrando su simetría respecto al origen.}
+    \label{fig:extension impar}
+\end{figure}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Calcule la serie de Fourier exponencial de la extensión impar de la función}
+
+\textbf{Solución:} Notamos que la extension impar de la función $f$ satisface las \textit{condiciones de Dirichlet}
+\begin{itemize}
+  
+\item $O_f$ es una función periódica de periodo $T=3-(-3)=6$, la cual está definida en el intervalo cerrado $\left[-3,-3+T\right]=\left[-3,3\right]$.
+
+\item Tanto la función $O_f$ como su primera derivada $O_f'$ son seccionalmente continuas en el intervalo abierto $\left(-3,3\right)$. Donde $O_f':\left(-3,3\right) \rightarrow \mathbb{R}$,
+\begin{equation}
+    O_f'(x) = \left\{ \begin{array}{lcc} -2 & si & -3 \leq x < -2 \\ 1 & si & -2 \leq x \leq 2  \\ -2 & si & 2 < x \leq 3 \end{array} \right.
+\end{equation}
+
+\item $O_f$ tiene discontinuidad finita unicamente en los puntos $x_0=-2$ y $x_1=2$.
+
+\end{itemize}
+
+Por lo tanto, podemos aproximar $O_f$ como una serie de Fourier exponencial
+
+\begin{equation}\label{fourier-exponencial}
+    O_f(x) = \sum_{n=-\infty}^\infty c_n\exp\left(i\frac{2n\pi}{T}x\right)
+\end{equation}
+Donde el periodo de $O_f$ es $T=6$. 
+
+Calculamos el coeficiente de Fourier $c_n$, el cual esta definido para la forma exponencial y la extenisión impar $O_f$ como
+\begin{equation}
+    c_n = \frac{1}{6}\int_{-3}^3O_f(x)\exp\left(-i\frac{2n\pi}{6}x\right)dx
+\end{equation}
+Dado que $O_f$ es seccionalmente continua, tenemos
+\begin{equation} \label{c_n no resuelto}
+    c_n = \frac{1}{6}\int_{-3}^{-2}(-2x-6)\exp\left(-i\frac{n\pi}{3}x\right)dx+\frac{1}{6}\int_{-2}^{2}x\exp\left(-i\frac{n\pi}{3}x\right)dx+\frac{1}{6}\int_{2}^{3}(-2x+6)\exp\left(-i\frac{n\pi}{3}x\right)dx
+\end{equation}
+
+Se resuelve la integral (\ref{c_n no resuelto}) utilizando el software \textit{Wolfram Mathematica}, obteniendo la solución
+\begin{equation} \label{c_n}
+    c_n = \frac{3i \left(2 \sin(\pi n)-3 \sin(\frac{2 \pi n}{3}) \right)}{\pi^2 n^2}
+\end{equation}
+
+Sin embargo, como $n \in \mathbb{Z}$, notamos que (\ref{c_n}) esta indefinido en $c_0$. Por lo que calculamos $c_0$ de forma independiente utilizando la ecuación (\ref{c_n no resuelto}) con $n=0$, tenemos que 
+
+\begin{align*} \label{c_0 no resuelto}
+    c_n  & = \frac{1}{6}\int_{-3}^{-2}(-2x-6)\exp\left(-i\frac{0\pi}{3}x\right)dx+\frac{1}{6}\int_{-2}^{2}x\exp\left(-i\frac{0\pi}{3}x\right)dx+\frac{1}{6}\int_{2}^{3}(-2x+6)\exp\left(-i\frac{0\pi}{3}x\right)dx \\ & = \frac{1}{6}\int_{-3}^{-2}(-2x-6)\exp\left(0\right)dx+\frac{1}{6}\int_{-2}^{2}x\exp\left(0\right)dx+\frac{1}{6}\int_{2}^{3}(-2x+6)\exp\left(0\right)dx
+    \\ & = \frac{1}{6}\int_{-3}^{-2}(-2x-6)dx+\frac{1}{6}\int_{-2}^{2}xdx+\frac{1}{6}\int_{2}^{3}(-2x+6)dx \\ & = -\frac{1}{6} + 0 + \frac{1}{6} = 0
+\end{align*}
+
+Por lo tanto $c_0 = 0$.
+
+Entonces considerando que (\ref{c_n}) se indefine en $n=0$ a su vez que demostramos que $c_0 = 0$, reemplazamos entonces (\ref{c_n}) en (\ref{fourier-exponencial}), donde $T=6$, finalmente obtenemos la serie de Fourier exponencial para la extensión impar de $f$, la cual queda expresada como 
+
+\begin{equation}
+    O_f(x) =\sum_{\substack{n=-\infty \\ n \neq 0}} ^\infty \left[ \frac{3i \left(2 \sin(\pi n)-3 \sin(\frac{2 \pi n}{3}) \right)}{\pi^2 n^2} \right]\exp\left(i\frac{n\pi}{3}x\right) \; .
+\end{equation}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Ejercicio 2} 
+Considere un pulso triangular de la forma  
+\begin{equation} \label{funcion 2}
+    f(t) = \left\{ \begin{array}{lcc} 1 - a |t| &, \text{ si } & |t| < \frac{1}{a}, \\
+        0 &, \text{ si } & |t| > \frac{1}{a}, \end{array} \right. \quad , \quad a\in\mathbb{R} : 0<a 
+\end{equation}
+donde $a > 0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Calcule su transformada de Fourier.}
+    
+\textbf{Solución:} Para facilitar la manipulación de $f(t)$ en cálculos posteriores, primero reescribimos las desigualdades que definen la función a trozos (\ref{funcion 2}):
+\begin{align}
+|t| < \frac{1}{a} & \Longleftrightarrow -\frac{1}{a} < t < \frac{1}{a}\\
+|t| > \frac{1}{a} & \Longleftrightarrow  t < -\frac{1}{a} \vee  \frac{1}{a} < t
+\end{align}
+Por lo que podemos redefinir la función (\ref{funcion 2}) de la forma
+\begin{equation} \label{funcion 2, arreglo}
+    f(t) = \left\{ \begin{array}{lcc} 0 &, \text{ si } & t <- \frac{1}{a} \\ 1 - a |t| &, \text{ si } & -\frac{1}{a} < t < \frac{1}{a} \\ 0 &, \text{ si } & t > \frac{1}{a}, \end{array} \right. \quad,\quad a\in\mathbb{R} : 0<a
+\end{equation}
+
+Consideramos la función $g: \left(-\frac{1}{a}, \frac{1}{a} \right) \rightarrow \mathbb{R}$, $g(t)= 1 - a|t|$. Notamos que
+\begin{equation*}
+    g(-t) = 1 - a|(-t)| = 1 - a|t| = g(t) \,.
+\end{equation*}
+Por lo tanto, $g$ es una función par. Como $f(t) = g(t)$ para $t \in \left(-\frac{1}{a}, \frac{1}{a} \right)$ y $f(t) = 0$ en $t \in \left(-\infty,-\frac{1}{a}\right) \cup \left(\frac{1}{a},\infty\right)$, se concluye que $f$ también es una función par. Dado que además $f(t)$ es una función real, su transformada de Fourier se reduce a la \textit{transformada coseno de Fourier}, la cual utilizaremos de la forma
+
+\begin{equation}\label{coseno_fourier}
+     \mathscr{F}\{f(t)\}(\omega) =\mathscr{F}_C\{f(t)\}(\omega) = \sqrt{\frac{2}{\pi}} \int_{0}^{\infty} f(t) \cos(\omega t)dt \; .
+\end{equation}
+Dado que $f(t)$ es $1 - at$ en  $\left(0, \frac{1}{a}\right)$ y $0$ en $\left(\frac{1}{a}, \infty\right)$, la transformada de Fourier se obtiene como:
+\begin{equation}\label{primer}
+\begin{aligned}
+\mathscr{F}\{f(t)\}(\omega) &=\sqrt{\frac{2}{\pi}} \int_{0}^{\infty} f(t) \cos(\omega t)dt \; \\
+&=\sqrt{\frac{2}{\pi}} \int_{0}^{\frac{1}{a}} f(t) \cos(\omega t)dt + \int_{\frac{1}{a}}^{\infty} f(t) \cos(\omega t)dt \; \\
+&= \sqrt{\frac{2}{\pi}} \int_{0}^{\frac{1}{a}} (1-at) \cos(\omega t)dt + \sqrt{\frac{2}{\pi}} \int_{\frac{1}{a}}^{\infty} (0) \cos(\omega t)dt \;\\  
+&= \sqrt{\frac{2}{\pi}} \int_{0}^{\frac{1}{a}} (1-at) \cos(\omega t)dt \; \\
+\end{aligned}
+\end{equation}
+Resolviendo esta integral con el software \textit{Wolfram Mathematica}, obtenemos (\ref{si}). De este modo, la transformada de Fourier de $f(t)$ queda expresada como sigue
+\begin{equation}\label{si}
+    \mathscr{F}\{f(t)\}(\omega) = -\sqrt{\frac{2}{\pi}}\frac{ a \left(\cos\left(\frac{\omega}{a}\right) - 1\right)}{\omega^2} \; .
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\newpage
+
+\subsection{Considere ahora la función $f$ definida en el intervalo $\left[-\frac{1}{a},\frac{1}{a}\right]$. Calcule el coeficiente de su serie de Fourier exponencial, y compruebe que satisface la relación}
+    \begin{equation*}
+        \mathscr{F}\{f(t)\}(\omega) = \frac{T}{\sqrt{2\pi}} c_n, \quad \text{con} \quad \omega = \frac{2\pi n}{T}.
+    \end{equation*}
+    
+\textbf{Solución:} Sea $f(t)$ una función a trozos definida en el intervalo $\left[-\frac{1}{a},\frac{1}{a}\right]$ de la forma
+\begin{equation}
+    f(t) = 1-a|t|=\left\{ \begin{array}{lcc} 1+at &, \text{si} & -\frac{1}{a} \leq t \leq 0 \\ 1-at &, \text{si} & 0 < t \leq \frac{1}{a} \end{array} \right.
+\end{equation}
+Sabemos, por la argumentación expuesta en la sección anterior, que $f(t)$ es una función par. El periodo fundamental de $f$ estará dado por $T=\frac{1}{a}-\left(-\frac{1}{a}\right)=\frac{2}{a}$. Sin embargo, en lo que sigue trabajaremos con $T$ de forma simbólica, sin asignarle un valor numérico especifico. Calculamos el coeficiente $c_n$ de la serie de Fourier exponencial para $f(t):$
+
+\begin{equation}
+\begin{aligned}
+ c_n &= \frac{1}{T}\int_{-\frac{1}{a}}^{\frac{1}{a}}f(t)\exp\left(-i\frac{2n\pi}{T}t\right)dt \\
+     &= \frac{1}{T}\int_{-\frac{1}{a}}^{0}f(t)\exp\left(-i\frac{2n\pi}{T}t\right)dt + \frac{1}{T}\int_{0}^{\frac{1}{a}}f(t)\exp\left(-i\frac{2n\pi}{T}t\right)dt \\
+     &= \frac{1}{T}\int_{-\frac{1}{a}}^{0}(1+at)\exp\left(-i\frac{2n\pi}{T}t\right)dt + \frac{1}{T}\int_{0}^{\frac{1}{a}}(1-at)\exp\left(-i\frac{2n\pi}{T}t\right)dt \\     
+\end{aligned}     
+\end{equation}
+Resolviendo la integral utilizando el software \textit{Wolfram Mathematica}, obtenemos $c_n$:
+
+\begin{equation}\label{eq:Coef_Fourier}
+    c_n=\frac{a T \sin^2\left(\frac{\pi n}{a T}\right)}{n^2 \pi^2}
+\end{equation}
+A partir del resultado obtenido previamente para la Transformada de Fourier de $f(t)$, se tiene:
+\begin{equation}\label{eq:Relacion_Omega}
+    \mathscr{F}\{f(t)\}(\omega) = -\sqrt{\frac{2}{\pi}}\frac{ a \left(\cos\left(\frac{\omega}{a}\right) - 1\right)}{\omega^2}
+\end{equation}
+Sustituyendo $\omega = \frac{2\pi n}{T}$ en (\ref{eq:Relacion_Omega}) y desarrollando, tenemos
+\begin{equation}\label{eq:Fourier_Coseno}
+\begin{aligned}
+    \mathscr{F}\{f(t)\}(\omega) &=-\sqrt{\frac{2}{\pi}}\frac{ a \left(\cos\left(\frac{\left(\frac{2\pi n}{T}\right)}{a}\right) - 1\right)}{\left(\frac{2\pi n}{T}\right)^2} \\
+    &=-\sqrt{\frac{2}{\pi}}\frac{ a T^2 \left(\cos\left(\frac{2\pi n}{aT}\right) - 1\right)}{4\pi^2 n^2} \\
+    &=\sqrt{\frac{2}{\pi}}\frac{ a T^2}{2\pi^2 n^2} \frac{ \left(1-\cos\left(\frac{2\pi n}{aT}\right)\right)}{2} \\
+    &=\frac{1}{\sqrt{2\pi}}\frac{ a T^2}{\pi^2 n^2} \left(\frac{1}{2}-\frac{\cos\left(\frac{2\pi n}{aT}\right)}{2}\right) \\
+\end{aligned}
+\end{equation}
+
+Utilizando la identidad trigonométrica $\sin^2 (\alpha) = \frac{1}{2} - \frac{\cos (2\alpha)}{2}$ en (\ref{eq:Fourier_Coseno}) tenemos
+
+\begin{equation}\label{eq:Fourier_Seno}
+\begin{aligned}
+    \mathscr{F}\{f(t)\}(\omega) &=\frac{1}{\sqrt{2\pi}}\frac{ a T^2}{\pi^2 n^2} \left(\sin^2\left(\frac{\pi n}{a T}\right)\right) \\
+    &=\frac{T}{\sqrt{2\pi}}\left(\frac{aT\sin^2\left(\frac{\pi n}{a T}\right)}{\pi^2 n^2}\right)
+\end{aligned}    
+\end{equation}
+
+Sustituyendo (\ref{eq:Coef_Fourier}) en (\ref{eq:Fourier_Seno}) se obtiene
+
+\begin{equation}
+    \mathscr{F}\{f(t)\}(\omega)=\frac{T}{\sqrt{2\pi}}c_n \,
+\end{equation}
+
+Por lo tanto, hemos comprobado que el coeficiente de la serie de Fourier exponencial (\ref{eq:Coef_Fourier}) satisface la relación la relación esperada con la Transformada de Fourier de $f(t)$, confirmando la consistencia entre ambas representaciones.  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\subsection{Utilizando el teorema de Parseval para la transformada de Fourier, calcule}
+
+\begin{equation*}
+    \int_{-\infty}^{\infty} \left( \frac{\sin t}{t} \right)^4 dt
+\end{equation*}
+
+\textbf{Solución:} Consideremos el pulso triangular definido en (\ref{funcion 2, arreglo}), ya hemos demostrado en (\ref{eq:Fourier_Seno}) que su transformada de Fourier puede expresarse como 
+\begin{equation}
+    \mathscr{F}\{f(t)\}(\omega) =\frac{T}{\sqrt{2\pi}}\left(\frac{aT\sin^2\left(\frac{\pi n}{aT}\right)}{\pi^2 n^2}\right)
+\end{equation}
+
+Si ahora tomamos para este pulso triangular la constante $a$ como $a=1$, tendremos para $f(t)$ y $\mathscr{F}\{f(t)\}(\omega)$ lo siguiente
+
+\begin{equation}\label{2.c}
+    f(t) = \left\{ \begin{array}{lcc} 0 &, \text{ si } & t <-1 \\ 1 - |t| &, \text{ si } & -1 < t < 1 \\ 0 &, \text{ si } & t > 1, \end{array} \right. \quad ,\quad \mathscr{F}\{f(t)\}(\omega) =\frac{T}{\sqrt{2\pi}}\left(\frac{T\sin^2\left(\frac{\pi n}{T}\right)}{\pi^2 n^2}\right)
+\end{equation}
+
+Continuemos analizando la transformada de Fourier en (\ref{2.c})
+\begin{equation}\label{primero 2.c}
+\begin{aligned}
+    \mathscr{F}\{f(t)\}(\omega) &=\frac{T}{\sqrt{2\pi}}\left(\frac{T\sin^2\left(\frac{\pi n}{ T}\right)}{\pi^2 n^2}\right)\\
+    &=\frac{1}{\sqrt{2\pi}}\frac{T^2\sin^2\left(\frac{\pi n}{T}\right)}{\pi^2 n^2} \\
+    &=\frac{1}{\sqrt{2\pi}}\frac{\sin^2\left(\frac{\pi n}{T}\right)}{\left(\frac{\pi^2 n^2}{T^2}\right)} \\
+    &=\frac{1}{\sqrt{2\pi}}\frac{\sin^2\left(\frac{\pi n}{T}\right)}{\left(\frac{\pi n}{T}\right)^2} \\
+    &=\frac{1}{\sqrt{2\pi}}\left(\frac{\sin\left(\frac{\pi n}{T}\right)}{\left(\frac{\pi n}{T}\right)}\right)^2 \\
+\end{aligned}    
+\end{equation}
+Recordemos que en la sección anterior se definía a $\omega$ como 
+\begin{equation}\label{segundo 2.c}
+    \omega= \frac{2\pi n}{T} \Rightarrow \frac{\omega}{2}=\frac{\pi n}{T}
+\end{equation}
+
+Sustituimos (\ref{segundo 2.c}) en la expresión obtenida en (\ref{primero 2.c}), entonces
+
+\begin{equation}\label{esta si}
+    \mathscr{F}\{f(t)\}(\omega) =\frac{1}{\sqrt{2\pi}}\left(\frac{\sin\left(\frac{\omega}{2}\right)}{\left(\frac{\omega}{2}\right)}\right)^2
+\end{equation}
+
+Dado que el pulso triangular definido en (\ref{2.c}) es una función real entonces $f(t)$ satisface las hipótesis para utilizar el \textit{Teorema de Parseval}, de este modo se dice que $f(t)$ y su transformada de Fourier satisface la ecuación siguiente
+
+\begin{equation}\label{parseval}
+    \int_{-\infty}^{\infty} |\mathscr{F}\{f(t)\}(\omega)|^2 d\omega = \int_{-\infty}^{\infty}|f(t)|^2dt
+\end{equation}
+
+Analizando el miembro izquierdo de la ecuación (\ref{parseval}) y sustituyendo la transformada de Fourier de $f(t)$ por la expresión en (\ref{esta si}) desarrollamos lo siguiente
+\begin{equation} \label{desarrollo 1}
+\begin{aligned}
+    \int_{-\infty}^{\infty} |\mathscr{F}\{f(t)\}(\omega)|^2 d\omega &=\int_{-\infty}^{\infty} \left|\frac{1}{\sqrt{2\pi}}\left(\frac{\sin\left(\frac{\omega}{2}\right)}{\left(\frac{\omega}{2}\right)}\right)^2\right|^2 d\omega    \\
+    &=\int_{-\infty}^{\infty} \frac{1}{2\pi}\left(\frac{\sin\left(\frac{\omega}{2}\right)}{\left(\frac{\omega}{2}\right)}\right)^4 d\omega \\
+    &=\frac{1}{2\pi}\int_{-\infty}^{\infty} \left(\frac{\sin\left(\frac{\omega}{2}\right)}{\left(\frac{\omega}{2}\right)}\right)^4 d\omega
+\end{aligned}
+\end{equation}
+
+Consideremos para el desarrollo en (\ref{desarrollo 1}) el siguiente el cambio de variable: $\omega = 2k \Rightarrow  d\omega=2dk$. Entonces tendremos que
+
+\begin{equation}
+\begin{aligned}
+    \frac{1}{2\pi}\int_{-\infty}^{\infty} \left(\frac{\sin\left(\frac{\omega}{2}\right)}{\left(\frac{\omega}{2}\right)}\right)^4 d\omega &= \frac{1}{2\pi}\int_{-\infty}^{\infty} \left(\frac{\sin\left(\frac{2k}{2}\right)}{\left(\frac{2k}{2}\right)}\right)^42 dk \\
+    &=\frac{2}{2\pi}\int_{-\infty}^{\infty} \left(\frac{\sin k}{k}\right)^4 dk \\
+    &=\frac{1}{\pi}\int_{-\infty}^{\infty} \left(\frac{\sin k}{k}\right)^4 dk 
+\end{aligned}
+\end{equation}
+Es decir, el miembro izquierdo de la ecuación (\ref{parseval}) puede expresarse como sigue
+
+\begin{equation}\label{obtenemos}
+    \int_{-\infty}^{\infty} |\mathscr{F}\{f(t)\}(\omega)|^2 d\omega = \frac{1}{\pi}\int_{-\infty}^{\infty} \left(\frac{\sin k}{k}\right)^4 dk 
+\end{equation}
+
+Luego sustituimos (\ref{obtenemos}) en (\ref{parseval}), de modo que
+
+\begin{equation}\label{eso brad}
+    \frac{1}{\pi}\int_{-\infty}^{\infty} \left(\frac{\sin k}{k}\right)^4 dk  = \int_{-\infty}^{\infty}|f(t)|^2dt \quad \Rightarrow \quad \int_{-\infty}^{\infty} \left(\frac{\sin k}{k}\right)^4 dk = \pi \int_{-\infty}^{\infty}|f(t)|^2dt
+\end{equation}
+
+Calculamos a continuación la integral en el miembro derecho de la ecuación (\ref{eso brad}). Donde $f(t)$ tiene puntos de discontinuidad en $x_0=-1$, $x_1=0$ y $x_2=1$. Además, para los $t \in \left[-1,1\right]$ se tiene que $f(t)=1-|t|$ y para los $t\in(-\infty,-1)\cup(1,\infty)$ entonces $f(t)=0$. Con estas consideración desarrollamos la integral de modo
+
+\begin{equation}
+\begin{aligned}
+    \int_{-\infty}^{\infty}|f(t)|^2dt &= \int_{-\infty}^{1}|f(t)|^2dt + \int_{-1}^{0}|f(t)|^2dt + \int_{0}^{1}|f(t)|^2dt + \int_{1}^{0}|f(t)|^2dt \\
+    &= \int_{-\infty}^{1}|(0)|^2dt + \int_{-1}^{0}|1+t|^2dt + \int_{0}^{1}|1-t|^2dt + \int_{1}^{0}|(0)|^2dt \\
+    &= \int_{-1}^{0}|1+t|^2dt+ \int_{0}^{1}|1-t|^2dt\\
+    &= \int_{-1}^{0} 1+2t+t^2 dt+ \int_{0}^{1} 1-2t+t^2 dt \\
+    &= \left[t+t^2 +\frac{1}{3}t^3\right]_{-1}^{0} + \left[t-t^2 +\frac{1}{3}t^3\right]_{0}^{1} \\
+    &= \frac{1}{3}+\frac{1}{3} = \frac{2}{3}
+\end{aligned}
+\end{equation}
+
+Por lo tanto esta integral tiene como solución
+
+\begin{equation}\label{solución}
+    \int_{-\infty}^{\infty}|f(t)|^2dt = \frac{2}{3}
+\end{equation}
+
+Sustituimos (\ref{solución}) en la ecuación (\ref{eso brad}). De este modo queda así calculada la integral propuesta en esta sección por medio del Teorema de Parseval, cuyo resultado es el que sigue 
+
+\begin{equation}
+    \int_{-\infty}^{\infty} \left(\frac{\sin k}{k} \right)^4dk = \frac{2\pi}{3}.
+\end{equation}
+
+\newpage
+
+\section{Ejercicio 3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textbf{Considere la ecuación de onda unidimensional homogénea,
+    \[
+    \frac{\partial^2 \psi}{\partial x^2} - \frac{1}{v^2} \frac{\partial^2 \psi}{\partial t^2} = 0,
+    \]
+    donde $x \in \mathbb{R}$ y $t>0$.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Considere, por separado, las transformadas de Fourier de $\psi$ respecto de la coordenada espacial y respecto de la coordenada temporal.}
+
+\textbf{Solución:}  Consideremos la ecuación de onda unidimensional homogénea dada. Aplicamos \textbf{la transformada de Fourier respecto de la coordenada espacial $x$}, obteniendo
+
+\begin{equation}\label{3.a-fourier respecto a x - 1}
+    \mathscr{F}\left\{\frac{\partial^2 \psi}{\partial x^2} - \frac{1}{v^2} \frac{\partial^2 \psi}{\partial t^2}\right\}(k,t) = \mathscr{F}\{0\}(k,t)
+\end{equation}
+
+Por la propiedad de linealidad de la transformada de Fourier, se reescribe (\ref{3.a-fourier respecto a x - 1}) como
+
+\begin{equation}\label{3.a-fourier respecto a x - 2}
+    \mathscr{F}\left\{\frac{\partial^2 \psi}{\partial x^2}\right\} - \frac{1}{v^2} \mathscr{F}\left\{ \frac{\partial^2 \psi}{\partial t^2}\right\}(k,t) = 0
+\end{equation}
+
+Si  $\psi(x,t)$ admite transformada de fourier y satisface la \textit{condición de atenuación} $\lim _{|x|\rightarrow\infty}\psi(x,t)=0$, entonces la transformada de Fourier de su segunda derivada espacial se obtiene como:
+
+\begin{equation}\label{3.a-psihat x respecto k}
+   \mathscr{F}\left\{\frac{\partial^2 \psi}{\partial x^2}\right\}(k,t) = (ik)^2\mathscr{F}\{\psi\}(k,t) = -k^2\hat{\psi}(k,t).
+\end{equation}
+
+Para la transformada de Fourier de la segunda derivada temporal, aplicamos su definición
+
+\begin{equation}\label{3.a-psihat t respecto k-1}
+    \mathscr{F} \left\{ \frac{\partial^2 \psi}{\partial t^2} \right\}(k,t) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \frac{\partial^2 \psi}{\partial t^2} (x,t) e^{-ikx} \,dx
+\end{equation}
+
+Bajo la hipótesis de que $\psi(x,t)$ es una función suficientemente regular, con  
+$\frac{\partial^2 \psi}{\partial t^2}$ continua y la integral convergiendo absolutamente,  
+aplicamos el \textbf{teorema de diferenciación bajo el signo integral} para justificar el intercambio del orden de derivación e integración en (\ref{3.a-psihat t respecto k-1}) que procede a continuación
+
+\begin{equation}\label{3.a-psihat t respecto k-2}
+\begin{aligned}
+    \mathscr{F} \left\{ \frac{\partial^2 \psi}{\partial t^2} \right\}(k,t) &= \frac{1}{\sqrt{2\pi}} \left\{ \frac{\partial^2 }{\partial t^2} \int_{-\infty}^{\infty} \psi(x,t) e^{-ikx} \,dx \right \} \\
+&= \frac{\partial^2}{\partial t^2} \left\{ \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \psi(x,t) e^{-ikx} \,dx \right\} \\
+    &= \frac{\partial^2 \hat{\psi}}{\partial t^2} (k,t). 
+\end{aligned}
+\end{equation}
+
+Sustituyendo (\ref{3.a-psihat x respecto k}) y (\ref{3.a-psihat t respecto k-2}) en (\ref{3.a-fourier respecto a x - 2}), obtenemos la ecuación diferencial transformada:
+
+\begin{equation}\label{edo-1}
+    -k^2\hat{\psi}(k,t) -\frac{1}{v^2}\frac{\partial^2 \hat{\psi}}{\partial t^2} (k,t) =0
+\end{equation}
+
+Reordenando términos en (\ref{edo-1})
+
+\begin{equation}\label{edo-respecto x}
+    \frac{\partial^2 \hat{\psi}}{\partial t^2} (k,t) + (kv)^2\hat{\psi}(k,t) =0
+\end{equation}
+
+Así, hemos convertido la ecuación de onda original en una ecuación diferencial ordinaria en la coordenada temporal $t$ para $(k,t)$.
+
+Consideremos nuevamente la ecuación de onda unidimensional homogénea. Aplicamos ahora \textbf{la transformada de Fourier respecto de la coordenada temporal $t$}, obteniendo  
+
+\begin{equation}\label{3.a.2-fourier respecto a t - 1}
+    \mathscr{F}\left\{\frac{\partial^2 \psi}{\partial x^2} - \frac{1}{v^2} \frac{\partial^2 \psi}{\partial t^2}\right\}(x,\omega) = \mathscr{F}\{0\}(x,\omega).
+\end{equation}  
+
+Por la propiedad de linealidad de la transformada de Fourier, la ecuación (\ref{3.a.2-fourier respecto a t - 1}) se reescribe como  
+
+\begin{equation}\label{3.a.2-fourier respecto a t - 2}
+    \mathscr{F}\left\{\frac{\partial^2 \psi}{\partial x^2}\right\}(x,\omega) - \frac{1}{v^2} \mathscr{F}\left\{ \frac{\partial^2 \psi}{\partial t^2}\right\}(x,\omega) = 0.
+\end{equation}  
+
+Dado que el proceso es análogo al realizado en la primera parte, aplicamos nuevamente la propiedad de la transformada de Fourier de la derivada, bajo las mismas hipótesis de regularidad y convergencia absoluta de la integral. Así, obtenemos  
+
+\begin{equation}\label{3.a.2-psihat t respecto o}
+    \mathscr{F}\left\{\frac{\partial^2 \psi}{\partial t^2}\right\}(x,\omega) = -\omega^2 \hat{\psi}(x,\omega).
+\end{equation}  
+
+Para la transformada de Fourier de la segunda derivada espacial, aplicamos su definición:
+
+\begin{equation}\label{3.a.2-psihat x respecto o-1}
+    \mathscr{F} \left\{ \frac{\partial^2 \psi}{\partial x^2} \right\}(x,\omega) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \frac{\partial^2 \psi}{\partial x^2} (x,t) e^{-i\omega t} \,dt.
+\end{equation}  
+
+Bajo las mismas hipótesis justificadas en la primera parte, aplicamos el \textbf{teorema de diferenciación bajo el signo integral} para intercambiar el orden de integración y derivación:
+
+\begin{equation}\label{3.a.2-psihat x respecto o-2}
+\begin{aligned}
+    \mathscr{F} \left\{ \frac{\partial^2 \psi}{\partial x^2} \right\}(x,\omega) &= \frac{1}{\sqrt{2\pi}} \left\{ \frac{\partial^2 }{\partial x^2} \int_{-\infty}^{\infty} \psi(x,t) e^{-i\omega t} \,dt \right \} \\
+&= \frac{\partial^2}{\partial x^2} \left\{ \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \psi(x,t) e^{-i\omega t} \,dt \right\} \\
+    &= \frac{\partial^2 \hat{\psi}}{\partial x^2} (x,\omega). 
+\end{aligned}
+\end{equation}  
+
+Sustituyendo (\ref{3.a.2-psihat t respecto o}) y (\ref{3.a.2-psihat x respecto o-2}) en (\ref{3.a.2-fourier respecto a t - 2}), obtenemos la ecuación diferencial transformada:
+
+\begin{equation}\label{3.a.2-ecuacion diferencial transformada-1}
+    \frac{\partial^2 \hat{\psi}}{\partial x^2} - \frac{(-\omega^2)}{v^2} \hat{\psi} = 0.
+\end{equation}  
+
+Por lo que finalmente, reorganizando términos, tenemos:
+
+\begin{equation}\label{3.a.2-ecuacion diferencial transformada-2}
+    \frac{\partial^2 \hat{\psi}}{\partial x^2} + \frac{\omega^2}{v^2} \hat{\psi} = 0.
+\end{equation}  
+
+Así, la ecuación de onda en el dominio de Fourier en \( t \) se convierte en una ecuación diferencial ordinaria en la coordenada espacial \( x \), lo que facilita el análisis de sus soluciones.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+    
+\subsection{Utilizando el método de la transformada de Fourier respecto de la coordenada espacial, encuentre una solución a la ecuación diferencial, bajo las siguientes condiciones iniciales,
+        \[
+        \psi(x,0) = f(x),
+        \]
+        \[
+        \frac{\partial \psi}{\partial t} (x,0) = 0,
+        \]
+        donde $f(x)$ corresponde a una función conocida.}
+
+\textbf{Solución:} Considerando la ecuación diferencial ordinaria de 2do orden (\ref{edo-respecto x}) obtenida al aplicar la transformada de Fourier respecto la coordenada espacial en la ecuación de onda unidimensional homogénea:
+
+\begin{equation*}
+    \frac{\partial^2 \hat{\psi}}{\partial t^2} (k,t) + (kv)^2\hat{\psi}(k,t) =0
+\end{equation*}
+
+Notamos que esta EDO representa un movimiento armónico simple, cuya \textit{frecuencia natural} es $\omega=kv$. La solución general de esta ecuación diferencial ordinaria es una combinación lineal de las funciones seno y coseno, donde los coeficientes $A(k)$ y $B(k)$ dependen de la variable $k$:
+
+\begin{equation}\label{hat-psi-1}
+    \hat{\psi} (k,t) = A(k) \cos (k v t) + B(k) \sin (k v t).
+\end{equation}
+
+La primera derivada respecto al tiempo de (\ref{hat-psi-1}) es
+
+\begin{equation}\label{dt hat-psi-1}
+    \frac{\partial\hat{\psi}}{\partial t} (k,t) =  - A(k)kv \sin (k v t) + B(k)kv \cos (k v t).
+\end{equation}
+
+Para determinar las funciones $ A(k)$ y $B(k)$, utilizamos las condiciones iniciales. Aplicando la transformada de Fourier a la condición inicial $\psi(x,0) = f(x)$, obtenemos:
+
+\begin{equation}\label{hola}
+    \hat{\psi}(k,0 ) =\mathscr{F}\{\psi\}(k,0) =\mathscr{F}\{f(x)\}(k,0) =\hat{f}(k)= 
+\end{equation}
+
+Evaluando (\ref{hat-psi-1}) en $t=0$, obtenemos
+
+\begin{equation}\label{mundo}
+\begin{aligned}
+    \hat{\psi} (k,0) &= A(k) \cos (k v (0)) + B(k) \sin (k v (0)) \\
+     &= A(k) \cos (0) + B(k) \sin(0) \\
+    &= A(k) (1) + B(k) (0) \\
+    &=A(k)
+\end{aligned}
+\end{equation}
+
+Por (\ref{hola}) y (\ref{mundo}), concluimos que
+
+\begin{equation}\label{a(k)}
+    A(k)=\hat{f}(k)
+\end{equation}
+
+ Aplicando la transformada de Fourier a la condición inicial $\frac{\partial \psi}{\partial t}(x,0) = 0$, obtenemos
+
+\begin{equation}\label{hola-2}
+    \frac{\partial\hat{\psi}}{\partial t}(k,0 ) =\mathscr{F}\left\{\frac{\partial \psi}{\partial t}\right\}(k,0) =\mathscr{F}\{0\}(k,0) =0
+\end{equation}
+
+Evaluando (\ref{dt hat-psi-1}) en $t=0$, tenemos
+
+\begin{equation}\label{mundo-2}
+\begin{aligned}
+    \frac{\partial\hat{\psi}}{\partial t} (k,0) &=  - A(k)kv \sin (k v (0)) + B(k)kv \cos (k v (0)) \\
+    &=  - A(k)kv \sin (0) + B(k)kv \cos (0) \\
+    &=  - A(k)kv (0) + B(k)kv (1) \\
+    &=  B(k)kv \\
+\end{aligned}
+\end{equation}
+
+Por (\ref{hola-2}) y (\ref{mundo-2}), suponiendo que $k$ y $v$ son valores reales no nulos, se obtiene
+
+\begin{equation}\label{b(k)}
+    B(k)=0
+\end{equation}
+
+Sustituyendo (\ref{a(k)}) y (\ref{b(k)}) en (\ref{hat-psi-1}), obtenemos la solución de la ecuación diferencial (\ref{edo-respecto x})
+
+\begin{equation}\label{hat-psi-2}
+    \hat{\psi} (k,t) = \hat{f}(k) \cos (k v t).
+\end{equation}
+
+Calculamos la transformada de Fourier inversa de (\ref{hat-psi-2}):
+
+\begin{equation}
+\begin{aligned}\label{visca barca}
+    \mathscr{F}\{\hat{\psi}\}(x,t) &=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{\psi}(k,t)e^{ikx}dk \\
+    &=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{f}(k) \cos (k v t)e^{ikx}dk \\
+    &=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{f}(k) \left(\frac{e^{ikvt}+e^{-ikvt}}{2}\right)e^{ikx}dk \\   
+    &=\frac{1}{2\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{f}(k) \left(e^{ik(x+vt)}+e^{ik(x-vt)}\right)dk \\   
+    &=\frac{1}{2} \left[ \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{f}(k) e^{ik(x+vt)}dk +\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{f}(k)e^{ik(x-vt)}dk \right] \\
+\end{aligned}
+\end{equation}
+
+Resolvemos estas integrales de forma individual, de modo
+
+\begin{equation}\label{integral 1}
+\begin{aligned} \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{f}(k) e^{ik(x+vt)}dk &=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} \left(\frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} f(x) e^{-i k x} d x\right) e^{ikx}\cdot e^{ikvt} dk\\
+&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} \left(\frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} f(x) e^{-i k x}\cdot e^{ikvt} d x\right) e^{ikx}  dk\\
+&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} \left(\frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} f(x) e^{-i k (x-vt)} d x\right) e^{ikx} dk\\
+& =\frac{1}{\sqrt{2 \pi }} \int_{-\infty}^{\infty} \mathscr{F}\{f(x-v t)\}(k) e^{i k x} d k \\
+&=\mathscr{F}^{-1}\{\mathscr{F}\{f(x-v t)\}\}(x)\\
+&=f(x-v t)
+\end{aligned}
+\end{equation}
+
+De forma analoga, tenemos para la integral restante
+
+\begin{equation}\label{integral 2}
+\begin{aligned} \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}\hat{f}(k) e^{ik(x-vt)}dk &=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} \left(\frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} f(x) e^{-i k x} d x\right) e^{ikx}\cdot e^{-ikvt} dk\\
+&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} \left(\frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} f(x) e^{-i k x}\cdot e^{-ikvt} d x\right) e^{ikx}  dk\\
+&=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty} \left(\frac{1}{\sqrt{2 \pi}} \int_{-\infty}^{\infty} f(x) e^{-i k (x+vt)} d x\right) e^{ikx} dk\\
+& =\frac{1}{\sqrt{2 \pi }} \int_{-\infty}^{\infty} \mathscr{F}\{f(x+v t)\}(k) e^{i k x} d k \\
+&=\mathscr{F}^{-1}\{\mathscr{F}\{f(x+v t)\}\}(x)\\
+&=f(x+v t)
+\end{aligned}
+\end{equation}
+
+Sustituyendo (\ref{integral 1}) y (\ref{integral 2}) en (\ref{visca barca}), obtenemos
+
+\begin{equation} \psi(x,t) =\frac{1}{2} \left[ f(x-vt)+ f(x+vt) \right]. \end{equation}
+
+Esta es la solución general de la ecuación de onda unidimensional homogénea con las condiciones iniciales dadas.
+
+  
+
+\end{document}
