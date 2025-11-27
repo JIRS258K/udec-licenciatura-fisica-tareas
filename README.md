@@ -14,7 +14,7 @@ Cada carpeta de curso contiene:
 - `optica/` – tareas del curso.
 - `mecanica-clasica-1/` – **certámenes**, no tareas.
 - `mecanica-clasica-2/` – **certámenes**, no tareas (en desarrollo).
-- `electromagnetismo/` (en desarrollo)
+- `electromagnetismo-1/` (en desarrollo)
 
 ## Estructura de carpetas
 
