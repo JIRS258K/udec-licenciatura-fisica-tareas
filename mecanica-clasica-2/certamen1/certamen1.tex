@@ -1,0 +1,1690 @@
+\documentclass{article}
+\usepackage{fvextra}
+\usepackage{csquotes}
+
+% Paquetes matemáticos y tipográficos
+\usepackage{cancel}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\newcommand{\dirlim}[3]{\mathop{#1}\limits_{#2}^{\nearrow\, #3}}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{bigints}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usetikzlibrary{
+    decorations.pathmorphing,
+    arrows.meta,
+    calc
+}
+
+% Paquetes necesarios
+\usepackage{minted}
+\usepackage{xcolor}
+
+% Configura minted
+\definecolor{codebg}{rgb}{0.1, 0.1, 0.1}
+\setminted{
+    style=monokai,
+    bgcolor=codebg,
+    linenos,
+    breaklines,
+    fontsize=\small
+}
+
+% Para la terminal
+\usepackage{tcolorbox}
+\tcbuselibrary{listingsutf8}
+\usepackage{listings}
+\usepackage{bera} % Fuente monoespaciada bonita (opcional)
+
+% Permite referencias personalizadas
+\usepackage{nameref}
+
+% Numeración de ecuaciones por sección
+\numberwithin{equation}{section}
+
+% Colores personalizados (opcional)
+\usepackage{xcolor}
+\definecolor{linkblue}{RGB}{50, 30, 200}
+
+% Hipervínculos azules
+\usepackage[colorlinks=true,
+            linkcolor=linkblue,  % Azul para enlaces internos (secciones)
+            urlcolor=linkblue,   % Azul para URLs
+            citecolor=linkblue,  % Azul para citas
+            filecolor=linkblue]{hyperref}
+
+% Idioma en español
+\usepackage[spanish]{babel}
+
+% Manejo de imágenes
+\usepackage{graphicx} 
+\graphicspath{ {images/} }
+
+% Configuración de márgenes
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=20mm, bottom=20mm]{geometry}
+
+% Tipografía mejorada
+\usepackage{lmodern}
+
+% Estilo de títulos con punto después del número
+\usepackage{titlesec}
+\titleformat{\section}{\huge\bfseries}{\thesection.}{1em}{}  % Título más grande
+
+% Encabezados sin pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textit{Certamen 1}}
+\fancyhead[R]{Mecánica Clásica II}
+
+% Mejor separación de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Evita hifenaciones excesivas
+\sloppy
+
+% Configuración del índice
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+
+% Integral grande
+\newcommand{\superint}{%
+    \mathop{\vphantom{\int}\scalebox{1.4}{$\displaystyle\int$}}%
+}
+
+%% =========================
+%% AJUSTE FOOTNOTE (aquí lo importante)
+%% =========================
+\usepackage[bottom]{footmisc}              % Notas lo más abajo posible
+\setlength{\skip\footins}{6pt}             % Espacio entre texto y bloque de notas
+\setlength{\footnotesep}{0.5\baselineskip} % Separación entre notas
+\raggedbottom                               % Evita estirar verticalmente la página
+
+% (Opcional) regla de notas más compacta:
+\renewcommand\footnoterule{\kern -2pt \hrule width .4\columnwidth \kern 4pt}
+
+% (Recomendado) Evita que figuras/tablas ocupen el fondo de la página
+\usepackage{float}
+\floatplacement{figure}{ht}
+\floatplacement{table}{ht}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{3cm} % Ajuste en la posición vertical
+    % Logo centrado
+    \includegraphics[width=0.6\textwidth]{UdeC_azul_centrado.png} 
+    
+    \vspace{1cm}
+    \thispagestyle{empty} % Sin número en la portada
+
+    % Título de la tarea
+    {\Huge \textbf{Certamen 1} \par}
+    
+    \vspace{0.5cm}
+    {\Huge \textbf{Mecánica Clásica II} \par}
+    \vspace{1.5cm}
+
+    % Nombre del autor
+    {\Large José Ignacio Rosas Sepúlveda \par}
+    \vspace{1cm}
+    
+    % Fechas de la tarea
+    {\Large Octubre 2025 \par}
+    \vfill
+\end{titlepage}
+
+% Índice
+%\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema 1}
+Sean los vectores bases coordenados unitarios $\{\hat{ e}_i\}_{i=1}^3$, los que corresponden a los vectores base coordenados $\{\vec{e}_i\}_{i=1}^3$ normalizados. Muestre que estos vectores unitarios están parametrizados con respecto a la longitud natural de las líneas coordenadas a las que son tangentes.
+
+\textbf{Solución:} 
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consideremos $Ox^1x^2x^3$ un sistema de coordenadas generalizadas en $\mathbb{R}^3$ (no necesariamente cartesiano ni ortogonal), definido por el \textbf{campo de posición}
+ \begin{equation*}
+     \vec{x}\,=\,\vec{x}(x^1,x^2,x^3)\,.
+ \end{equation*}
+Si mantenemos fijas dos de las coordenadas en $(x^1,x^2,x^3)$ y permitimos variar únicamente $x^i$ (para un $i$ fijo), obtenemos una curva en el espacio físico. A esta curva la llamaremos \textbf{línea coordenada asociada a $x^i$} (véase la Figura~\ref{fig:lineas_coordenadas}).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.3\linewidth]{p1/bases_fig1.png}
+    \caption{Representación de las \textbf{líneas coordenadas} del sistema $Ox^1x^2x^3$ generadas por el campo de posiciones $\vec{x}(x^1,x^2,x^3)$. La curva negra corresponde a $x^1$ variable con $(x^2,x^3)=(x_0^2,x_0^3)$, la azul a $x^2$ variable con $(x^1,x^3)=(x_0^1,x_0^3)$ y la roja a $x^3$ variable con $(x^1,x^2)=(x_0^1,x_0^2)$. Todas se intersecan en $O=\vec{x}(x_0^1,x_0^2,x_0^3)$. Las flechas indican el sentido de incremento de cada coordenada.}
+    \label{fig:lineas_coordenadas}
+\end{figure}
+
+El \textbf{vector tangente} a la línea coordenada asociada a $x^i$ está dado por
+\begin{equation*}
+    \vec{e}_i \equiv \frac{\partial \vec{x}}{\partial x^i}, \qquad i = 1,2,3,
+\end{equation*}
+y \textbf{define el $i$-ésimo vector base coordenado}. El conjunto de vectores $\{\vec{e}_i\}_{i=1}^3$ se denomina \textbf{base coordenada del sistema $Ox^1x^2x^3$}. Geométricamente, estos vectores son tangentes a su correspondiente línea coordenada en cada punto del espacio físico (véase la Figura~\ref{fig:bases_coordenadas}). En general, tanto la dirección como la magnitud de $\vec e_i$ pueden variar de un punto a otro, puesto que las líneas coordenadas pueden curvarse y ‘estirarse’ de manera diferente según la región del espacio.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.3\linewidth]{p1/bases_fig2.png}
+    \caption{
+    Interpretación geométrica de las \textbf{líneas coordenadas} y de los \textbf{vectores base} en el punto $O$.
+    Cada curva corresponde al conjunto de puntos con dos coordenadas fijas y una variable:
+    en negro $\vec x(x^1,x_0^2,x_0^3)$, en azul $\vec x(x_0^1,x^2,x_0^3)$ y en rojo $\vec x(x_0^1,x_0^2,x^3)$.
+    Las flechas tenues indican los vectores tangentes $\vec e_1$, $\vec e_2$ y $\vec e_3$ en $O$, que constituyen la base coordenada en dicho punto; las flechas gruesas muestran el sentido de incremento de cada coordenada.}
+    \label{fig:bases_coordenadas}
+\end{figure}
+
+En coordenadas generalizadas, el \textbf{elemento de línea} se escribe —usando la notación de Einstein (suma sobre el índice repetido)— como
+\begin{equation*}
+    ds^2 \,=\, g_{ij}\,dx^i dx^j\;,
+\end{equation*}
+donde la métrica $g_{ij}$ está dada por el producto escalar
+\begin{equation*}
+    g_{ij}\;=\;\vec{e}_i\cdot\vec{e}_j \,.
+\end{equation*}
+La cantidad
+\begin{equation*}
+    ds = \sqrt{g_{ij}\,dx^i dx^j}
+\end{equation*}
+representa la \textbf{longitud física infinitesimal} entre dos puntos infinitamente cercanos en el espacio físico (véase la Figura~\ref{fig:ds_elemento_linea}). En efecto, un desplazamiento infinitesimal $d\vec{x}$ tendrá magnitud
+\begin{align*}
+    \|d\vec{x}\|\;&=\;\sqrt{d\vec{x}\cdot d\vec{x}}\\[3pt]
+    &=\;\sqrt{\left(dx^i\;\vec{e}_i\right)\cdot\left(dx^j\;\vec{e}_j\right)}\\[3pt]
+    &=\;\sqrt{\vec{e}_i\cdot\vec{e}_j\,dx^i dx^j}\\[3pt]
+    &=\;\sqrt{g_{ij}\,dx^i dx^j}\\[3pt]
+    &=\;ds \,.
+\end{align*}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.35\linewidth]{p1/met_fig1.png}
+    \caption{Interpretación geométrica del elemento de línea $ds$. 
+    El punto negro define el origen de referencia. El vector de posición $\vec{x}$ llega a un punto de la curva en el espacio físico; un desplazamiento infinitesimal $d\vec{x}$ lleva al punto siguiente, cuya posición es $\vec{x} + d\vec{x}$. El arco real entre ambos puntos tiene longitud $ds$, que se obtiene como $ds = \sqrt{g_{ij}\,dx^i dx^j}$.}
+    \label{fig:ds_elemento_linea}
+\end{figure}
+
+Consideremos ahora la línea coordenada asociada a $x^i$, esto es, la curva obtenida al variar únicamente $x^i$ mientras que las demás coordenadas $x^j$ con $j \neq i$ se mantienen fijas en valores constantes $x_0^j$. Denotaremos por $s_i$ el \textbf{parámetro de arco} (o \textit{longitud natural}) a lo largo de dicha línea, y por $ds_i$ su diferencial.
+
+Sobre esta curva se cumple $dx^j = 0$ para todo $j \neq i$, de modo que el elemento de línea se reduce a
+\begin{equation*}
+    ds_i^{2} \;=\; g_{ii}\,\left(dx^{i}\right)^{2}
+    \qquad\Longrightarrow\qquad
+    ds_i \;=\; \sqrt{g_{ii}}\;dx^{i}.
+\end{equation*}
+
+Recordemos que, por definición,
+\begin{equation*}
+    g_{ii}
+    \;=\;
+    \vec e_i \cdot \vec e_i
+    \;=\;
+    \|\vec e_i\|^{2},
+\end{equation*}
+donde $\vec e_i = \dfrac{\partial \vec x}{\partial x^i}$ es el $i$-ésimo vector base coordenado. Por lo tanto, el elemento de arco puede escribirse como
+\begin{equation}\label{1.longitud_infinitesimal_en_una_direccion_fija}
+    ds_i \;=\; \|\vec e_i\|\,dx^{i}.
+\end{equation}
+
+En consecuencia, la longitud de arco medida a lo largo de la línea coordenada $x^i$ entre dos puntos se obtiene integrando
+\begin{equation*}
+    s_i \;=\; \int ds_i \;.
+\end{equation*}
+
+La derivada del campo de posición $\vec{x}(x^1,x^2,x^3)$ con respecto al parámetro de arco $s_i$ se obtiene, por la regla de la cadena, como
+\begin{equation*}
+     \frac{d\vec{x}}{ds_i}
+     \;=\;
+     \frac{\partial \vec{x}}{\partial x^i}\,\frac{dx^i}{ds_i}
+     \;=\;
+     \vec{e}_i\,\frac{dx^i}{ds_i}.
+\end{equation*}
+A partir de \eqref{1.longitud_infinitesimal_en_una_direccion_fija} sabemos que $ds_i = \|\vec{e}_i\|\,dx^i$, de modo que
+\begin{equation*}
+    \frac{dx^i}{ds_i}
+    \;=\;
+    \frac{1}{\|\vec{e}_i\|}.
+\end{equation*}
+Por lo tanto,
+\begin{equation*}
+    \frac{d\vec{x}}{ds_i}
+    \;=\;
+    \vec{e}_i\,\frac{1}{\|\vec{e}_i\|}
+    \;=\;
+    \frac{\vec{e}_i}{\|\vec{e}_i\|}
+    \;\equiv\;
+    \hat{e}_i,
+\end{equation*}
+donde hemos definido el vector base coordenado unitario $\hat{e}_i$. Es decir,
+\begin{equation*}
+    \frac{d\vec{x}}{ds_i}
+    \;\equiv\;
+    \hat{e}_i.
+\end{equation*}
+
+Concluimos que $\hat e_i$ es precisamente el vector tangente unitario a la línea coordenada $x^i$, obtenido como la derivada de la posición con respecto a su propio parámetro de arco $s_i$. En otras palabras, los vectores base coordenados unitarios $\hat e_i$ están parametrizados por la longitud natural de las líneas coordenadas a las que son tangentes.
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema 2}
+Considere una cadena de péndulos de masa $m$ unidos por resortes de constantes elásticas uniformes $k$, como muestra la figura~\ref{fig:p}. Una pequeña perturbación genera una onda que se propaga por la configuración, tal que cada péndulo oscilará con ángulo pequeño. Encuentre la densidad Lagrangiana como un proceso límite de infinitos péndulos con resortes. Encuentre, además, las ecuaciones de campo.
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[
+        x=1cm,
+        y=1cm,
+        line cap=round,
+        line join=round,
+        thick,
+        spring/.style={
+            decorate,
+            decoration={zigzag,segment length=4mm,amplitude=1.5mm}
+        }
+    ]
+
+    % -------------------------------------------------
+    % Geometría base:
+    %   Barra rígida superior en y = 0
+    %   Masas en equilibrio en y = -2
+    %   Cuatro péndulos en x = 0,2,4,6
+    % -------------------------------------------------
+
+    % Barra rígida superior (tramo visible)
+    \draw (-1,0) -- (7,0);
+        % Marcas diagonales del soporte (rayado de apoyo)
+    \foreach \x in {-1,-0.5,...,7} {
+        \draw[thick] (\x,0) -- ++(-0.3,0.2);
+    }
+    % Péndulos y masas
+    \foreach \X in {0,2,4,6}{
+        % hilo / varilla
+        \draw (\X,0) -- (\X,-2);
+        % masa puntual
+        \fill (\X,-2) circle (4pt);
+        % etiqueta de la masa
+        \node[below=7pt] at (\X,-2) {$m$};
+    }
+
+    % -------------------------------------------------
+    % Resortes entre masas vecinas + resortes de borde
+    % -------------------------------------------------
+
+    % resorte a la izquierda de la primera masa
+    \draw[spring] (-1,-2) -- (0,-2);
+    
+    % resortes internos entre las masas
+    \foreach \Xa/\Xb in {0/2,2/4,4/6}{
+        \draw[spring] (\Xa,-2) -- (\Xb,-2);
+    }
+
+    % resorte a la derecha de la última masa
+    \draw[spring] (6,-2) -- (7,-2);
+
+    % etiquetas k,b bajo cada resorte
+    \node at (-0.5,-2.6) {$k$};
+    \node at (1,-2.6) {$k$};
+    \node at (3,-2.6) {$k$};
+    \node at (5,-2.6) {$k$};
+    \node at (6.5,-2.6) {$k$};
+
+    % -------------------------------------------------
+    % Sistema "largo": puntos suspensivos
+    % -------------------------------------------------
+
+    % lado izquierdo (antes de la primera masa)
+    \node at (-1.6,-2) {$\cdots$};
+    \node at (-1.6,0)  {$\cdots$};
+
+    % lado derecho (después de la última masa)
+    \node at (7.6,-2) {$\cdots$};
+    \node at (7.6,0)  {$\cdots$};
+
+    % -------------------------------------------------
+    % Flecha de la distancia entre péndulos: l
+    % ENTRE la segunda y la tercera masa
+    % (suspensiones en x=2 y x=4)
+    % -------------------------------------------------
+    \draw[
+        {Stealth[length=3mm,width=2mm]}-{Stealth[length=3mm,width=2mm]}
+    ]
+        (2,0.8) -- (4,0.8)
+        node[midway,above] {$h$};
+
+    % -------------------------------------------------
+    % Flecha de la longitud del péndulo: r
+    % ENTRE segunda y tercera masa,
+    % colocada cerca de la segunda (un poquito a la derecha de x=2)
+    % -------------------------------------------------
+    \draw[
+        {Stealth[length=3mm,width=2mm]}-{Stealth[length=3mm,width=2mm]}
+    ]
+        (2.3,0) -- (2.3,-2)
+        node[midway,right=4pt] {$r$};
+
+    \end{tikzpicture}
+
+    \caption{Segmento de una cadena de péndulos acoplados. Se indican $r$, $h$, la masa $m$ y el acoplamiento $k$ entre vecinos.}
+    \label{fig:p}
+\end{figure}
+
+\textbf{Solución:} 
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consideremos una \textbf{cadena lineal} formada por \textbf{$N$ átomos}\footnote{En este contexto, \textit{átomo} se usa para referirse a una \textit{masa puntual idéntica}.}, cada uno de \textbf{masa $m$}, dispuestos sobre una línea con \textbf{separación uniforme $h$} (véase la Figura~\ref{fig:cadena}). 
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[
+        x=1cm,
+        y=1cm,
+        line cap=round,
+        line join=round,
+        thick,
+        spring/.style={
+            decorate,
+            decoration={zigzag,segment length=4mm,amplitude=1.5mm}
+        }
+    ]
+
+
+    % Péndulos y masas
+    \foreach \X in {-6,-4,-2,0,2,4,6,8,8}{
+        % masa puntual
+        \fill (\X,0) circle (4pt);
+    
+        % etiqueta de la masa
+        \node[below=7pt] at (\X,0) {$m$};
+    
+        % dibuja el h solo si NO es la última masa (X != 8)
+        \ifnum\X=8\relax
+            % no dibujar nada
+        \else
+            \draw[
+                {Stealth[length=3mm,width=2mm]}-{Stealth[length=3mm,width=2mm]}
+            ]
+            (\X+0.15,0) -- (\X+1.85,0)
+            node[midway,above] {$h$};
+        \fi
+    }
+
+
+    % -------------------------------------------------
+    % Sistema "largo": puntos suspensivos
+    % -------------------------------------------------
+    % lado izquierdo (antes de la primera masa)
+    \node at (-7,0)  {$\cdots$};
+    % lado derecho (después de la última masa)
+    \node at (9,0)  {$\cdots$};
+
+
+    \draw[
+        {Stealth[length=3mm,width=2mm]}-{Stealth[length=3mm,width=2mm]}
+    ]
+        (2.15,0) -- (3.85,0)
+        node[midway,above] {$h$};
+
+    \end{tikzpicture}
+    \caption{
+        Segmento de la cadena lineal discreta: un arreglo de $N$ masas puntuales idénticas de masa $m$, separadas uniformemente una distancia $h$. Los puntos suspensivos indican que la cadena continúa hacia la izquierda y hacia la derecha.
+    }
+    \label{fig:cadena}
+\end{figure}
+
+
+Los átomos vecinos están acoplados mediante \textbf{resortes ideales} de \textbf{constante elástica $k$}, todos iguales entre sí. Además, cada átomo cuelga de un \textbf{hilo (o varilla) ideal, sin masa y de longitud $r$}, fijado al mismo soporte superior. En la \textbf{configuración de equilibrio}, los hilos son verticales y las masas se encuentran exactamente bajo sus puntos de suspensión (véase Figura~\ref{fig:p}).
+
+Cada átomo se identifica mediante un \textbf{índice $i$} (con $i=1,2,\dots,N$). En el \textbf{estado inicial de equilibrio}, todos los resortes se encuentran en su \textbf{longitud natural} y cada péndulo cuelga \textbf{verticalmente en reposo} (véase Figura~\ref{fig:p_equilibrio}). Enfatizamos que el \textbf{índice $i$ sólo etiqueta la posición del átomo dentro de la cadena}.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[
+        x=1cm,
+        y=1cm,
+        line cap=round,
+        line join=round,
+        thick,
+        spring/.style={
+            decorate,
+            decoration={zigzag,segment length=4mm,amplitude=1.5mm}
+        }
+    ]
+
+    % -------------------------------------------------
+    % Puntos de suspensión en equilibrio
+    % -------------------------------------------------
+    \coordinate (Sminus) at (-3,0);   % i-2
+    \coordinate (S0)     at (0,0);    % i-1
+    \coordinate (S1)     at (3,0);    % i
+    \coordinate (S2)     at (6,0);    % i+1
+    \coordinate (S3)     at (9,0);    % i+2
+
+    % Masas en equilibrio (sin desplazamiento horizontal)
+    \coordinate (Mminus) at (-3,-2);  % i-2
+    \coordinate (M0)     at (0,-2);   % i-1
+    \coordinate (M1)     at (3,-2);   % i
+    \coordinate (M2)     at (6,-2);   % i+1
+    \coordinate (M3)     at (9,-2);   % i+2
+
+    % -------------------------------------------------
+    % Barra rígida superior (soporte)
+    % -------------------------------------------------
+    \draw (-5,0) -- (11,0);
+        % Marcas diagonales del soporte (rayado de apoyo)
+    \foreach \x in {-5,-4.5,...,11} {
+        \draw[thick] (\x,0) -- ++(-0.3,0.2);
+    }
+    
+    % Etiquetas de índice arriba
+    \node[above=4pt] at (Sminus) {$i-2$};
+    \node[above=4pt] at (S0)     {$i-1$};
+    \node[above=4pt] at (S1)     {$i$};
+    \node[above=4pt] at (S2)     {$i+1$};
+    \node[above=4pt] at (S3)     {$i+2$};
+
+    % Puntos suspensivos del sistema infinito
+    \node at (-5.5,0) {$\cdots$};
+    \node at (11.5,0) {$\cdots$};
+
+    % -------------------------------------------------
+    % Hilos / varillas (verticales en equilibrio)
+    % -------------------------------------------------
+    \draw (Sminus) -- (Mminus);
+    \draw (S0)     -- (M0);
+    \draw (S1)     -- (M1);
+    \draw (S2)     -- (M2);
+    \draw (S3)     -- (M3);
+
+    % -------------------------------------------------
+    % Masas
+    % -------------------------------------------------
+    \fill (Mminus) circle (4pt);
+    \fill (M0)     circle (4pt);
+    \fill (M1)     circle (4pt);
+    \fill (M2)     circle (4pt);
+    \fill (M3)     circle (4pt);
+
+    % etiqueta "m" cerca de cada masa
+    \node[below=7pt] at (Mminus) {$m$};
+    \node[below=7pt] at (M0)     {$m$};
+    \node[below=7pt] at (M1)     {$m$};
+    \node[below=7pt] at (M2)     {$m$};
+    \node[below=7pt] at (M3)     {$m$};
+
+    % -------------------------------------------------
+    % Resortes entre masas (en longitud de equilibrio)
+    % -------------------------------------------------
+
+    % lado izquierdo (antes de i-2)
+    \draw[spring] (-5,-2) -- (Mminus);
+    \node at (-4.2,-2.6) {$k$};
+    \node at (-5.5,-2) {$\cdots$};
+
+    % interno i-2 <-> i-1
+    \draw[spring] (Mminus) -- (M0);
+    \node at (-1.5,-2.6) {$k$};
+
+    % interno i-1 <-> i
+    \draw[spring] (M0) -- (M1);
+    \node at (1.5,-2.6) {$k$};
+
+    % interno i <-> i+1
+    \draw[spring] (M1) -- (M2);
+    \node at (4.5,-2.6) {$k$};
+
+    % interno i+1 <-> i+2
+    \draw[spring] (M2) -- (M3);
+    \node at (7.5,-2.6) {$k$};
+
+    % lado derecho (después de i+2)
+    \draw[spring] (M3) -- (11,-2);
+    \node at (10,-2.6) {$k$};
+    \node at (11.5,-2) {$\cdots$};
+
+    % -------------------------------------------------
+    % Separación entre puntos de suspensión: h
+    % (mostrada entre i-1 e i, como ejemplo)
+    % -------------------------------------------------
+    \draw[
+        {Stealth[length=3mm,width=2mm]}-{Stealth[length=3mm,width=2mm]}
+    ]
+        (0,0.8) -- (3,0.8)
+        node[midway,above] {$h$};
+
+    % -------------------------------------------------
+    % Longitud del péndulo r (para el péndulo i-1 como ejemplo)
+    % -------------------------------------------------
+    \draw[
+        {Stealth[length=3mm,width=2mm]}-{Stealth[length=3mm,width=2mm]}
+    ]
+        (0.5,0) -- (0.5,-2)
+        node[midway,right=4pt] {$r$};
+
+    % -------------------------------------------------
+    % Indicadores de ángulo ~0 y desplazamiento horizontal nulo
+    % -------------------------------------------------
+
+    % i-2
+    \node[right] at (-4.5,-0.4) {$\theta_{i-2}=0$};
+    \draw[thin] (-3,-2.8) -- (-3,-3);
+    \node at (-3,-3.2) {$q_{i-2}=0$};
+
+    % i-1
+    \node[right] at (-1.5,-0.4) {$\theta_{i-1}=0$};
+    \draw[thin] (0,-2.8) -- (0,-3);
+    \node at (0,-3.2) {$q_{i-1}=0$};
+
+    % i
+    \node[right] at (1.85,-0.4) {$\theta_i=0$};
+    \draw[thin] (3,-2.8) -- (3,-3);
+    \node at (3,-3.2) {$q_i=0$};
+
+    % i+1
+    \node[right] at (4.5,-0.4) {$\theta_{i+1}=0$};
+    \draw[thin] (6,-2.8) -- (6,-3);
+    \node at (6,-3.2) {$q_{i+1}=0$};
+
+    % i+2
+    \node[right] at (7.5,-0.4) {$\theta_{i+2}=0$};
+    \draw[thin] (9,-2.8) -- (9,-3);
+    \node at (9,-3.2) {$q_{i+2}=0$};
+
+    \end{tikzpicture}
+
+    \caption{
+    \textbf{Configuración de equilibrio.} Cada masa ($i-2$, $i-1$, $i$, $i+1$, $i+2$) cuelga verticalmente bajo su punto de suspensión, con $q_j=0$ y $\theta_j=0$ para cada $j$ (con $j=1,2,\dotso , N $). Los resortes de constante $k$ están en su longitud de equilibrio común, los puntos de suspensión están separados por $h$ y la longitud de cada péndulo es $r$.}
+    \label{fig:p_equilibrio}
+\end{figure}
+
+
+Ahora supongamos que la cadena es \textbf{perturbada levemente}, de modo que cada átomo se \textbf{desplaza respecto de su posición de equilibrio} y los péndulos comienzan a oscilar con \textbf{ángulos pequeños alrededor de la vertical}. Trabajaremos en el \textbf{régimen lineal (pequeñas oscilaciones)}. Denotaremos por \textbf{$q_i$ el desplazamiento horizontal del $i$-ésimo átomo} respecto de su posición de equilibrio. En esta notación, el \textbf{ángulo pequeño asociado al péndulo $i$ es $\theta_i$}, y ambos quedan ilustrados en la Figura~\ref{fig:p_desplazado}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% DESPLAZADO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[
+        x=1cm,
+        y=1cm,
+        line cap=round,
+        line join=round,
+        thick,
+        spring/.style={
+            decorate,
+            decoration={zigzag,segment length=4mm,amplitude=1.5mm}
+        }
+    ]
+
+    % -------------------------------------------------
+    % Puntos de suspensión en equilibrio
+    % -------------------------------------------------
+    \coordinate (S0) at (0,0);   % i-1
+    \coordinate (S1) at (3,0);   % i
+    \coordinate (S2) at (6,0);   % i+1
+
+    % Masas desplazadas (ángulos pequeños)
+    \coordinate (M0) at (-1,-2);   % i-1 desplazada a la izq
+    \coordinate (M1) at ( 4,-2);   % i desplazada a la der
+    \coordinate (M2) at ( 5,-2);   % i+1 desplazada levemente
+
+    % -------------------------------------------------
+    % Barra rígida superior (soporte)
+    % -------------------------------------------------
+    \draw (-2,0) -- (7.5,0);
+        % Marcas diagonales del soporte (rayado de apoyo)
+    \foreach \x in {-2,-1.5,...,7.5} {
+        \draw[thick] (\x,0) -- ++(-0.3,0.2);
+    }
+    % Etiquetas de índice arriba
+    \node[above=4pt] at (S0) {$i-1$};
+    \node[above=4pt] at (S1) {$i$};
+    \node[above=4pt] at (S2) {$i+1$};
+
+    % Puntos suspensivos del sistema infinito
+    \node at (-2.5,0) {$\cdots$};
+    \node at (8,0)  {$\cdots$};
+
+    % -------------------------------------------------
+    % Líneas verticales de equilibrio (dashed)
+    % -------------------------------------------------
+    \draw[dashed] (S0) -- ++(0,-3.5);
+    \draw[dashed] (S1) -- ++(0,-3.5);
+    \draw[dashed] (S2) -- ++(0,-3.5);
+
+    \draw[dashed] (M0) -- ++(0,-1.5);
+    \draw[dashed] (M1) -- ++(0,-1.5);
+    \draw[dashed] (M2) -- ++(0,-1.5);
+
+    % -------------------------------------------------
+    % Hilos / varillas reales: inclinados hacia la masa desplazada
+    % -------------------------------------------------
+    \draw (S0) -- (M0);
+    \node at (-0.65,-1) {$r$};
+    \draw (S1) -- (M1);
+    \node at (3.7,-1) {$r$};
+    \draw (S2) -- (M2);
+    \node at (5.35,-1) {$r$};
+
+    % -------------------------------------------------
+    % Masas
+    % -------------------------------------------------
+    \fill (M0) circle (4pt);
+    \fill (M1) circle (4pt);
+    \fill (M2) circle (4pt);
+
+    % etiqueta "m" bajo cada masa
+    \node[above=7pt] at (M0) {$m$};
+    \node[above=7pt] at (M1) {$m$};
+    \node[above=7pt] at (M2) {$m$};
+
+    % -------------------------------------------------
+    % Resortes entre masas desplazadas + bordes
+    % -------------------------------------------------
+
+    % lado izquierdo (antes de i-1): resorte "normal"
+    \draw[spring]  (-2,-2) -- (M0);
+    \node at (-1.5,-2.6) {$k$};
+    \node at (-2.5,-2) {$\cdots$};
+
+    % interno i-1 <-> i : resorte estirado
+    \draw[
+        decorate,
+        decoration={zigzag,segment length=6mm,amplitude=1.5mm}
+    ] (M0) -- (M1);
+    \node at (1.5,-2.6) {$k$};
+
+    % interno i <-> i+1 : resorte comprimido
+    \draw[
+        decorate,
+        decoration={zigzag,segment length=2mm,amplitude=1.5mm}
+    ] (M1) -- (M2);
+    \node at (4.5,-2.6) {$k$};
+
+    % lado derecho (después de i+1)
+    \draw[
+        decorate,
+        decoration={zigzag,segment length=6mm,amplitude=1.5mm}
+    ] (M2) -- (7.5,-2);
+    \node at (6.7,-2.6) {$k$};
+    \node at (8,-2) {$\cdots$};
+
+    % -------------------------------------------------
+    % Ángulos pequeños \theta_{i-1}, \theta_i, \theta_{i+1}
+    % -------------------------------------------------
+    % arco en S0
+    \draw[thin]
+        (0,0) ++(-90:0.8)
+        arc[start angle=270, end angle=250, radius=1];
+    \node at (-0.6,-0.4) {$\theta_{i-1}$};
+
+    % arco en S1
+    \draw[thin]
+        (3,0) ++(-90:0.8)
+        arc[start angle=-90, end angle=-70, radius=1];
+    \node at (3.25,-1) {$\theta_i$};
+
+    % arco en S2
+    \draw[thin]
+        (6,0) ++(-90:0.8)
+        arc[start angle=270, end angle=250, radius=1];
+    \node at (5.4,-0.4) {$\theta_{i+1}$};
+
+    % -------------------------------------------------
+    % Desplazamientos horizontales q_{i-1}, q_i, q_{i+1}
+    % (flecha en la dirección del desplazamiento)
+    % -------------------------------------------------
+    \draw[-{Stealth[length=3mm,width=2mm]}]
+        (0,-3) -- (-1,-3)
+        node[midway,below=2pt] {$q_{i-1}$};
+
+    \draw[-{Stealth[length=3mm,width=2mm]}]
+        (3,-3) -- (4,-3)
+        node[midway,below=2pt] {$q_i$};
+
+    \draw[-{Stealth[length=3mm,width=2mm]}]
+        (6,-3) -- (5,-3)
+        node[midway,below=2pt] {$q_{i+1}$};
+
+    \end{tikzpicture}
+
+    \caption{
+    \textbf{Configuración fuera del equilibrio para tres péndulos vecinos $(i-1,i,i+1)$.} 
+    Cada masa $m$, colgando de un hilo ideal de longitud $r$, se desplaza horizontalmente una cantidad $q_{i-1}$, $q_i$, $q_{i+1}$ y forma un ángulo pequeño $\theta_{i-1}$, $\theta_i$, $\theta_{i+1}$ con la vertical. 
+    El resorte entre $i-1$ e $i$ aparece estirado y el resorte entre $i$ e $i+1$ aparece comprimido. 
+    Los puntos suspensivos indican que la cadena continúa hacia ambos lados.}
+
+    \label{fig:p_desplazado}
+\end{figure}
+
+Tomamos un sistema de referencia inercial con eje $\hat{x}$ horizontal, alineado con la cadena, y eje $\hat{y}$ vertical, positivo hacia arriba. Sea $q_i(t)$ el desplazamiento horizontal del $i$-ésimo péndulo respecto de su posición de equilibrio. Analizamos las fuerzas que actúan sobre la masa $i$ (véase la Figura~\ref{fig:placeholder}):
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[
+        x=1cm,
+        y=1cm,
+        line cap=round,
+        line join=round,
+        thick,
+        spring/.style={
+            decorate,
+            decoration={zigzag,segment length=4mm,amplitude=1.5mm}
+        },
+        force/.style={
+            -{Stealth[length=3mm,width=2mm]},
+            ultra thick,
+            draw=red
+        }
+    ]
+
+    % -------------------------------------------------
+    % Sistema
+    % -------------------------------------------------
+    
+    % Barra rígida superior (soporte)
+    \draw (-3,0) -- (6,0);
+    
+    % Marcas diagonales del soporte (rayado de apoyo)
+    \foreach \x in {-3,-2.5,...,6} {
+        \draw[thick] (\x,0) -- ++(-0.3,0.2);
+    }
+    
+    % Punto de suspensión y masa desplazada
+    \coordinate (S)   at (0,0);    % punto de suspensión
+    \coordinate (M)   at (3,-4);   % masa i desplazada
+    \coordinate (Meq) at (0,-4);   % posición de equilibrio vertical (q_i=0)
+    
+    % Varilla / hilo de longitud r
+    \draw (S) -- (M);
+    \node at (1.5,-1.5) {$r$};
+    
+    % Línea vertical de equilibrio (desde S)
+    \draw[dashed] (S) -- (0,-6);
+
+    % Línea vertical que pasa por la masa actual
+    \draw[dashed] (M) -- (3,-6);
+    
+    % Ángulo pequeño theta_i
+    \draw[thin]
+        (0,0) ++(-90:0.9)
+        arc[start angle=-90, end angle=-45, radius=0.75];
+    \node at (0.4,-1.1) {$\theta_i$};
+    
+    % Masa puntual
+    \fill (M) circle (7pt);
+    \node[below left =4pt] at (M) {$m$};
+
+    % Flecha de desplazamiento horizontal q_i
+    \draw[-{Stealth[length=3mm,width=2mm]}]
+        (3,-5.5) -- (0,-5.5)
+        node[midway,above=2pt] {$q_i$};
+
+    % -------------------------------------------------
+    % Resortes izquierda/derecha (i-1, i+1)
+    % -------------------------------------------------
+    \coordinate (L) at (-3,-4);   % vecino i-1
+    \coordinate (R) at (6,-4);    % vecino i+1
+    
+    % resorte izquierdo ESTIRADO
+    \draw[
+        decorate,
+        decoration={zigzag,segment length=10mm,amplitude=2mm}
+    ] (L) -- (M);
+
+    % resorte derecho COMPRIMIDO
+    \draw[
+        decorate,
+        decoration={zigzag,segment length=5mm,amplitude=2mm}
+    ] (M) -- (R);
+
+    % etiquetas de los vecinos
+    \node[below=6pt]  at (L) {$i-1$};
+    \node[below=6pt]  at (R) {$i+1$};
+    \node[above=4pt] at (0,0) {$i$};
+
+    % -------------------------------------------------
+    % Sistema de referencia y gravedad
+    % -------------------------------------------------
+    \coordinate (O) at (-6,-4); % origen para ejes
+    
+    % eje x hacia la derecha
+    \draw[-{Stealth[length=3mm,width=2mm]}] (O) -- ++(2,0)
+        node[above] {$\hat{x}$};
+    
+    % eje y hacia abajo
+    \draw[-{Stealth[length=3mm,width=2mm]}] (O) -- ++(0,2)
+        node[right] {$\hat{y}$};
+    
+    % vector gravedad
+    \draw[-{Stealth[length=3mm,width=2mm]}] (8,-1) -- (8,-4)
+        node[right] {$\vec{g}$};
+    
+    % -------------------------------------------------
+    % DIAGRAMA DE FUERZAS (en rojo)
+    % -------------------------------------------------
+
+    % Peso m g (vertical hacia abajo)
+    % empieza un poco bajo la masa para no taparla
+    \draw[force]
+        ($(M)+(0,-0.2)$) -- ($(M)+(0,-1.5)$)
+        node[right] {$m\vec g$};
+
+    % Tensión \vec T_i (a lo largo del hilo, hacia S)
+    % flecha corta que vive sobre la varilla pero NO parte del centro exacto
+    \draw[force]
+        ($(M)!0.05!(S)$) -- ($(M)!0.3!(S)$)
+        node[midway,above right=1pt] {$\vec T_i^{(\text{péndulo})}$};
+
+    % Fuerza del resorte izquierdo sobre la masa i (hacia la IZQ)
+    % ligeramente por encima de la masa para no chocar con el propio resorte
+    \draw[force]
+        ($(M)+(-0.25,0)$) -- ($(M)+(-1.5,0)$)
+        node[midway,below left =3pt] {$\vec F_{i}^{(\text{izquierda})}$};
+
+    % Fuerza del resorte derecho sobre la masa i (hacia la DER)
+    % también un poco por encima
+    \draw[force]
+        ($(M)+(0.25,0)$) -- ($(M)+(1.5,0)$)
+        node[midway,above right=3pt] {$\vec F_{i}^{(\text{derecha})}$};
+
+    \end{tikzpicture}
+
+    \caption{
+        Diagrama del péndulo $i$ con desplazamiento lateral $q_i$. 
+        Se muestra el ángulo pequeño $\theta_i$, la longitud $r$, el acoplamiento con los vecinos mediante resortes de constante $k$ (no rotulada), y el sistema de referencia $(\hat x,\hat y)$. 
+        Se indican las fuerzas sobre la masa: tensión $\vec T_i^{(\text{péndulo})}$ (a lo largo del hilo), peso $m\vec g$, y las fuerzas elásticas de los resortes vecinos $\vec F_{i}^{(\text{izquierda})}$ y $\vec F_{i}^{(\text{derecha})}$.
+    }
+    \label{fig:placeholder}
+\end{figure}
+
+La fuerza ejercida por el resorte derecho sobre la masa $i$ es
+\begin{equation}\label{2.fuerza_derecha}
+F^{(\text{derecha})}_i \;=\; k\,\big(q_{i+1}-q_i\big)\;,
+\end{equation}
+mientras que la fuerza ejercida por el resorte izquierdo es
+\begin{equation}\label{2.fuerza_izquierda}
+F^{(\text{izquierda})}_i \;=\; -k\,\big(q_i-q_{i-1}\big)\;.
+\end{equation}
+
+Descomponemos la tensión del hilo $\vec T_i^{(\text{péndulo})}$ en sus componentes horizontal y vertical:
+\begin{align*}
+    T^{(\text{péndulo})}_{i,x} \;&=\; -\,T_i \,\sin\theta_i\;,
+    \\[6pt]
+    T^{(\text{péndulo})}_{i,y} \;&=\; T_i \,\cos\theta_i\;,
+\end{align*}
+donde el signo menos en $T^{(\text{péndulo})}_{i,x}$ indica que la fuerza apunta hacia la posición de equilibrio (fuerza restauradora).
+
+Las ecuaciones de movimiento discretas para el $i$-ésimo átomo son
+\begin{align}
+    m\,\ddot q_i &= -\,T_i \sin\theta_i \;+\; F^{(\text{derecha})}_i \;+\;F^{(\text{izquierda})}_i\;, \label{2.movimiento_X} \\[6pt]
+    m\,\ddot y_i &= T_i \cos\theta_i \;-\; m g \;,\label{2.movimiento_y}
+\end{align}
+donde $y_i$ es la coordenada vertical de la masa.
+
+Ahora linealizamos en el parámetro pequeño $\theta_i$. Usamos las expansiones de Taylor alrededor de $\theta_i = 0$:
+\begin{align}
+    \sin\theta_i \;&=\; \theta_i \;+\; \mathcal{O}(\theta_i^3)\,,\label{2.sin_taylor}\\[6pt]
+    \cos\theta_i \;&=\; 1 \;-\; \frac{1}{2}\theta_i^2 \;+\; \mathcal{O}(\theta_i^4)\;. \label{2.cos_taylor}
+\end{align}
+Sustituyendo \eqref{2.cos_taylor} en la ecuación de movimiento vertical \eqref{2.movimiento_y}:
+\begin{equation*}
+    m\,\ddot y_i
+    \;=\;
+    T_i \Big(1 - \tfrac{1}{2}\theta_i^2 + \mathcal{O}(\theta_i^4)\Big)
+    \;-\; m g.
+\end{equation*}
+En el régimen de oscilaciones pequeñas, el movimiento vertical del $i$-ésimo átomo es de orden $\theta_i^2$ (la masa sube y baja sólo cuadráticamente en el ángulo),
+\begin{equation*}
+    y_i\;\simeq\;-r\cos\theta_i\;\simeq\;-r\left(1-\frac{\theta_i^2}{2}\right) \;=\; -r\;+\;\frac{r}{2}\theta_i^2\;,
+\end{equation*}
+de modo que $\ddot y_i = \mathcal{O}(\theta_i^2)$. Por tanto, al orden lineal en $\theta_i$ podemos imponer
+\begin{equation*}
+    m\,\ddot y_i \;\approx\; 0,
+\end{equation*}
+y obtener de la ecuación anterior
+\begin{equation*}
+    T_i \Big(1 - \tfrac{1}{2}\theta_i^2 + \mathcal{O}(\theta_i^4)\Big)
+    \;-\; m g
+    \;=\; \mathcal{O}(\theta_i^2).
+\end{equation*}
+Entonces, si $\theta_i$ es el ángulo (pequeño) que forma el péndulo $i$ con la vertical, se tiene
+\begin{equation*}
+    T_i 
+    \;=\;
+    m g
+    \;+\;
+    \mathcal{O}(\theta_i^2).
+\end{equation*}
+Es decir, la tensión $T_i$ es prácticamente $mg$ al orden lineal en el ángulo, y las correcciones aparecen recién en orden $\theta_i^2$. La contribución dinámica relevante del hilo es entonces su componente horizontal, que actúa como una fuerza restauradora hacia la posición de equilibrio. Volvemos entonces a la ecuación de movimiento horizontal \eqref{2.movimiento_X}. Usando $T_i = mg + \mathcal{O}(\theta_i^2)$ y $\sin\theta_i \simeq \theta_i$,
+\begin{align}
+    m\,\ddot q_i
+    \;&=\;
+    -\,T_i \sin\theta_i
+    \;+\; F^{(\text{derecha})}_i \;+\;F^{(\text{izquierda})}_i\; \notag
+    \\[6pt]
+    &\simeq\;
+    -\,mg\,\theta_i
+    \;+\; F^{(\text{derecha})}_i \;+\;F^{(\text{izquierda})}_i\;. \label{2.movimiento_x_desarrollo}
+\end{align}
+Por otra parte, en la Figura~\ref{fig:placeholder} se observa de la relación trigonométrica para el angulo $\theta_i$ respecto a la vertical del pendulo en posicion de equilibrio y la proyeccion de la diagonal respecto a la horizontal que contiene el eje x en el sistema de referencia escogido, 
+\begin{equation*}
+    \sin\theta_i\;=\; \frac{\text{cateto opuesto al angulo}}{\text{hipotenusa}}\;=\;\frac{q_i}{r} \;,
+\end{equation*}
+donde $r$ es la longitud del hilo. Bajo el régimen lineal (en pequeñas oscilaciones) la relación anterior se aproxima a
+\begin{equation}\label{2.aprox}
+    \theta_i\;\simeq\;\frac{q_i}{r} \;.
+\end{equation}
+Sustituyendo \eqref{2.fuerza_derecha}, \eqref{2.fuerza_izquierda} y \eqref{2.aprox} en \eqref{2.movimiento_x_desarrollo}, se sigue
+\begin{align*}
+    m\,\ddot q_i
+    \;&\simeq\;
+    -\,mg\,\theta_i
+    \;+\; k\,\big(q_{i+1}-q_i\big) \;+\;-k\,\big(q_i-q_{i-1}\big) \\[6pt]
+    \;&\simeq\;
+    -\,mg\,\frac{q_i}{r}  \;+\;k\,\big(q_{i+1}-q_i-q_i+q_{i-1}\big) \\[6pt]
+    \;&=\;
+    -\,\frac{mg}{r}\,q_i\; \;+\;k\,\big(q_{i+1}-2q_i+q_{i-1}\big)\;.
+\end{align*}
+Por lo tanto,
+\begin{equation}\label{2.ecuacion_de_movimiento}
+    \ddot q_i \;=\;\frac{k}{m}\,\big(q_{i+1}+q_{i-1}-2q_i\big)\;-\;\frac{g}{r}\,q_i \;,
+\end{equation}
+con $i=1,2,\dotso, N$, donde $N$ es el numero de átomos.  
+
+Al observar la ecuación de movimiento de la $i$-ésima átomo \eqref{2.ecuacion_de_movimiento}, aparece un problema en los bordes cuando tomamos $i=N$ o $i=1$, pues en esos casos obtendríamos
+\begin{align*}
+    \ddot q_N \;&=\;\frac{k}{m}\,\big(q_{N+1}+q_{N-1}-2q_N\big)\;-\;\frac{g}{r}\,q_N \;, \\[6pt]
+    \ddot q_1 \;&=\;\frac{k}{m}\,\big(q_{2}+q_{0}-2q_1\big)\;-\;\frac{g}{r}\,q_1 \;.
+\end{align*}
+Sin embargo, la cadena contiene exactamente $N$ átomos, numerados $i=1,2,\dots,N$, por lo que los índices $0$ y $N+1$ no corresponden a átomos físicos. Nuestros desplazamientos están definidos como
+\begin{equation*}
+    \{q_1,q_2,\dots , q_N\}\;=\;\{q_i\}_{i=1}^N \;,
+\end{equation*}
+de modo que $q_0$ y $q_{N+1}$ no están definidos aún.
+
+Para resolver este punto, supondremos que la cadena es cerrada sobre sí misma, es decir, que sus extremos están conectados formando una circunferencia. Esto equivale a imponer \emph{condiciones periódicas de borde}, a saber,
+\begin{equation*}
+    q_{i+N} \;=\; q_i \,,
+\end{equation*}
+para todo $i=1,2,\dots,N$. En particular,
+\begin{equation*}
+    q_{N+1} = q_1,
+    \qquad
+    q_0 = q_N.
+\end{equation*}
+Con esta identificación periódica, las ecuaciones de movimiento en los extremos toman la forma
+\begin{equation*}
+    \ddot q_N \;=\; \frac{k}{m}\,\big(q_{1}+q_{N-1}-2q_N\big)\;-\;\frac{g}{r}\,q_N \;,
+\end{equation*}
+y
+\begin{equation*}
+    \ddot q_1 \;=\; \frac{k}{m}\,\big(q_{2}+q_{N}-2q_1\big)\;-\;\frac{g}{r}\,q_1 \;.
+\end{equation*}
+De este modo, la ecuación de movimiento general
+\begin{equation*}
+    \ddot q_i \;=\; \frac{k}{m}\,\big(q_{i+1}+q_{i-1}-2q_i\big)\;-\;\frac{g}{r}\,q_i
+\end{equation*}
+queda bien definida para \emph{todos} los índices $i=1,2,\dots,N$, siempre que entendamos los índices de manera periódica (esto es, módulo $N$).
+
+Imponemos estas \textbf{condiciones periódicas} con un objetivo técnico: al cerrar la cadena sobre sí misma eliminamos los bordes físicos, y con ello evitamos tener que tratar por separado a las masas de los extremos. En otras palabras, la cadena pasa a ser \textbf{traslacionalmente invariante}: todo sitio es equivalente a cualquier otro.
+
+Más adelante, en el paso al continuo, ya no asumiremos una cadena cerrada. Volveremos a considerar un intervalo espacial finito y, en ese contexto, fijaremos explícitamente las condiciones de contorno en los extremos del sistema.
+
+Ahora escribimos el Lagrangiano del sistema discreto.
+
+La energía cinética total es
+\begin{equation*}
+    K \;=\; \sum_{i=1}^{N} \frac{1}{2}\, m\, \dot q_i^2 \,,
+\end{equation*}
+mientras que la energía potencial elástica almacenada en los resortes que acoplan masas vecinas es
+\begin{equation*}
+    U_{\text{resortes}} \;=\; \sum_{i=1}^{N} \frac{1}{2}\, k \,\big(q_{i+1}-q_i\big)^2 \;.
+\end{equation*}
+
+Por otro lado, en el régimen de pequeñas oscilaciones cada péndulo introduce una fuerza restauradora horizontal proporcional al desplazamiento $q_i$. Como se obtuvo anteriormente, la componente horizontal de la tensión del hilo sobre el $i$-ésimo átomo es, al orden lineal,
+\begin{equation*}
+    T^{(\text{péndulo})}_{i,x} \;=\; -\,\frac{mg}{r}\;q_i \,,
+\end{equation*}
+donde $r$ es la longitud del hilo. Esta fuerza es de tipo Hooke efectivo (proporcional a $-q_i$), por lo que es conservativa: puede escribirse como
+\begin{equation*}
+    T^{(\text{péndulo})}_{i,x} \;=\; -\,\frac{\partial U_i}{\partial q_i} \;.
+\end{equation*}
+Integrando,
+\begin{align*}
+    U_i \;&=\; -\;\int T^{(\text{péndulo})}_{i,x}\, dq_i \\[6pt]
+    &=\; \int \frac{mg}{r}\,q_i \, dq_i  \\[6pt]
+    \;&=\; \frac{1}{2}\,\frac{mg}{r}\, q_i^2 \;.
+\end{align*}
+La energía potencial efectiva asociada a todos los péndulos es entonces
+\begin{equation*}
+    U_{\text{péndulos}}
+    \;=\;
+    \sum_{i=1}^{N}
+    \frac{1}{2}\,\frac{mg}{r}\,q_i^{2}\,.
+\end{equation*}
+
+En conjunto, el Lagrangiano discreto del sistema resulta
+\begin{equation}\label{2.Lagrangiano}
+    L
+    \;=\;
+    \sum_{i=1}^{N}
+    \left(
+        \frac{1}{2}\,m\,\dot q_i^2
+        \;-\;
+        \frac{1}{2}\,k\,\big(q_{i+1}-q_i\big)^2
+        \;-\;
+        \frac{1}{2}\,\frac{mg}{r}\,q_i^2
+    \right) \;.
+\end{equation}
+
+Las ecuaciones obtenidas hasta ahora son válidas para sistemas con un número finito (o, a lo más, numerable) de grados de libertad. No es difícil adaptar esta formulación para describir sistemas continuos. El mecanismo estándar es tomar el \textbf{límite al continuo}.
+
+En nuestro caso, partimos de una cadena unidimensional discreta de átomos y queremos describirla como un medio continuo. La idea física es la siguiente: \textbf{aumentamos el número de átomos sin cambiar la longitud total de la cadena}.
+
+Inicialmente, los átomos están separados por una distancia $h$ entre vecinos (véase la Figura~\ref{fig:cadena}). Si la cadena contiene $N$ átomos, la longitud total es
+\begin{equation*}
+    l \;=\; N\,h \;.
+\end{equation*}
+Ahora imaginamos que refinamos la cadena insertando más átomos entre los ya existentes. Al hacerlo, \textbf{imponemos que la longitud total $l$ permanezca constante, mientras que el espaciamiento entre átomos disminuye}. En términos de límites:
+\begin{equation*}
+    \left.
+    \begin{aligned}
+        N \;&\longrightarrow\; \infty \\[4pt]
+        h \;&\longrightarrow\; 0
+    \end{aligned}
+    \right\}
+    \qquad \Longrightarrow \qquad
+    l \;=\; \text{constante}\,.
+\end{equation*}
+
+Para llevar este límite al continuo, partimos de la ecuación de movimiento discreta \eqref{2.ecuacion_de_movimiento}, que reescribimos para mayor claridad como
+\begin{equation}\label{2.ecuación_de_movimiento_reescrita}
+    \ddot q_i \;=\; \frac{k}{m}\,\big(q_{i+1}-q_i\big)
+    \;-\; \frac{k}{m}\,\big(q_i-q_{i-1}\big)
+    \;-\; \frac{g}{r}\,q_i \;.
+\end{equation}
+En la \textbf{descripción discreta}, el índice $i$ identifica a un átomo puntual específico: \textbf{$q_i(t)$ es el desplazamiento horizontal de ese átomo respecto de su posición de equilibrio}.
+
+En el proceso de refinamiento, comenzamos a insertar átomos nuevos entre dos átomos adyacentes, reduciendo progresivamente la separación entre ellos (véase la Figura~\ref{fig:refinamiento_cadena}). En el límite en que $h \to 0$, la cadena se vuelve esencialmente continua y $q_i(t)$ pasa a describirse como un campo $q(x,t)$ definido para todo punto $x$ a lo largo de la cadena.
+
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[
+    x=0.8cm,
+    y=0.8cm,
+    atom/.style={fill=black, draw=black, circle, minimum size=5pt, inner sep=0pt},
+    eje/.style={dashed, gray!70, thick},
+    chainline/.style={gray!70, thick},
+    txt/.style={black, font=\small}
+]
+
+% ------------------------------------------------------------------
+% Líneas verticales punteadas (posiciones i e i+1)
+% ------------------------------------------------------------------
+\draw[eje] (0,1) -- (0,-7);
+\draw[eje] (6,1) -- (6,-7);
+
+% Etiquetas i e i+1 (en negro ahora)
+\node[txt, anchor=south] at (0,1) {$i$};
+\node[txt, anchor=south] at (6,1) {$i+1$};
+
+% ===========================
+% FILA 1 (arriba): sólo 2 átomos
+% ===========================
+\draw[chainline] (-0.5,0) -- (6.5,0);
+
+\node[atom] at (0,0) {};
+\node[atom] at (6,0) {};
+
+% ===========================
+% FILA 2: se agrega un átomo
+% ===========================
+\draw[chainline] (-0.5,-2) -- (6.5,-2);
+
+\node[atom] at (0,-2) {};
+\node[atom] at (3,-2) {};
+\node[atom] at (6,-2) {};
+
+\node[txt, anchor=west] at (7,-2) {Se agrega un átomo};
+
+% ===========================
+% FILA 3: se agrega otro átomo
+% ===========================
+\draw[chainline] (-0.5,-4) -- (6.5,-4);
+
+\node[atom] at (0,-4) {};
+\node[atom] at (2,-4) {};
+\node[atom] at (4,-4) {};
+\node[atom] at (6,-4) {};
+
+\node[txt, anchor=west] at (7,-4) {Se agrega un átomo};
+
+% ===========================
+% FILA 4: se agrega otro átomo
+% ===========================
+\draw[chainline] (-0.5,-6) -- (6.5,-6);
+
+\node[atom] at (0,-6) {};
+\node[atom] at (1.5,-6) {};
+\node[atom] at (3,-6) {};
+\node[atom] at (4.5,-6) {};
+\node[atom] at (6,-6) {};
+
+\node[txt, anchor=west] at (7,-6) {Se agrega un átomo};
+
+\end{tikzpicture}
+
+\caption{Refinamiento de la cadena: entre las posiciones $i$ e $i+1$ se insertan átomos intermedios, disminuyendo la separación entre ellos.}
+\label{fig:refinamiento_cadena}
+\end{figure}
+
+En el límite continuo, \textbf{la cadena discreta se transforma en una barra unidimensional, y cada punto de la barra queda caracterizado por una coordenada espacial $x$}. En este paso, \textbf{el índice discreto $i$ pasa a interpretarse como una posición continua $x$}, de modo que
+\begin{align*}
+    q_i(t) 
+    \quad &\Longrightarrow \quad q(t,x), \\[6pt]
+    q_{i+1}(t) 
+    \quad &\Longrightarrow \quad q(t,x+h),
+\end{align*}
+donde $h$ es la separación entre átomos vecinos. Por lo tanto,
+\begin{equation*}
+    \frac{q_{i+1}(t)-q_i(t)}{h}
+    \;=\;
+    \frac{q(t,x+h)-q(t,x)}{h}.
+\end{equation*}
+
+Para pasar al continuo tomamos el límite $h \to 0$:
+\begin{equation*}
+    \lim_{h\rightarrow0}
+    \frac{q(t,x+h)-q(t,x)}{h}
+    \;=\;
+    \frac{\partial q(t,x)}{\partial x}.
+\end{equation*}
+
+Volvamos ahora a la ecuación de movimiento discreta \eqref{2.ecuación_de_movimiento_reescrita} y multipliquémosla por $m/h$:
+\begin{equation*}
+    \frac{m}{h}\,\ddot q_i
+    \;=\;
+    k\left(\frac{q_{i+1}-q_i}{h}\right)
+    \;-\;
+    k\left(\frac{q_i-q_{i-1}}{h}\right)
+    \;-\;
+    \frac{mg}{hr}\,q_i \;.
+\end{equation*}
+Tomando el límite continuo, esto se vuelve
+\begin{align*}
+    \frac{m}{h}\,
+    \frac{\partial^2 q(t,x)}{\partial t^2}
+    \;&=\;
+    k\left(\frac{q(t,x+h)-q(t,x)}{h}\right)
+    \;-\;
+    k\left(\frac{q(t,x)-q(t,x-h)}{h}\right)
+    \;-\;
+    \frac{mg}{hr}\,q(t,x)
+    \\[6pt]
+    &=\;
+    kh\left(\frac{q(t,x+h)-q(t,x)}{h^2}\right)
+    \;-\;
+    kh\left(\frac{q(t,x)-q(t,x-h)}{h^2}\right)
+    \;-\;
+    \frac{mg}{hr}\,q(t,x).
+\end{align*}
+
+Cuando $h \to 0$, el cociente $m/h$ se convierte en
+\begin{equation*}
+    \lambda \;=\; \frac{dm}{dx},
+\end{equation*}
+que identificamos como la \textbf{densidad lineal de masa} de la barra. Cuya dimensión es
+\begin{equation*}
+    [\lambda] \;=\; \frac{\text{masa}}{\text{longitud}}\,.
+\end{equation*}
+
+Para el factor $kh$, el límite requiere una interpretación elástica. Consideremos que, en el continuo, la barra obedece la \textbf{ley de Hooke}: la tensión es proporcional a la deformación unitaria. Denotemos por
+\begin{equation*}
+    S \;=\; \frac{q_{i+1}-q_i}{h}
+\end{equation*}
+la deformación (alargamiento relativo) por unidad de longitud. La fuerza necesaria para estirar el resorte entre los sitios $i$ e $i+1$ es
+\begin{align*}
+    F
+    \;&=\;
+    k\,(q_{i+1}-q_i)
+    \\[6pt]
+    &=\;
+    kh\left(\frac{q_{i+1}-q_i}{h}\right)
+    \\[6pt]
+    &=\;
+    (kh)\,S.
+\end{align*}
+
+En el límite continuo, esta fuerza se puede escribir como
+\begin{equation*}
+    F \;=\; T\,S,
+\end{equation*}
+donde $T$ es la \textbf{tensión efectiva} a lo largo de la cadena en el límite continuo. Por comparación, concluimos que
+\begin{equation*}
+    \lim_{h\to0} kh \;=:\; T\;,
+\end{equation*}
+donde es claro que la tensión $T$ tiene dimensión de fuerza, es decir 
+\begin{equation*}
+[T] \;=\; \frac{\text{masa}\cdot \text{longitud}}{\text{tiempo}^2}\,.
+\end{equation*}
+Por otro lado, el límite de las diferencias centradas reproduce la segunda derivada espacial:
+\begin{align*}
+    &\lim_{h\to0}
+    \Bigg[
+        \left(\frac{q(t,x+h)-q(t,x)}{h^2}\right)
+        -
+        \left(\frac{q(t,x)-q(t,x-h)}{h^2}\right)
+    \Bigg]
+    \\[6pt]
+    &=\;
+    \lim_{h\to0}
+    \frac{1}{h}
+    \Bigg[
+        \left(\frac{q(t,x+h)-q(t,x)}{h}\right)
+        -
+        \left(\frac{q(t,x)-q(t,x-h)}{h}\right)
+    \Bigg]
+    \\[6pt]
+    &=\;
+    \lim_{h\to0}
+    \frac{1}{h}
+    \Bigg[
+        \frac{\partial q(t,x)}{\partial x}
+        -
+        \frac{\partial q(t,x-h)}{\partial x}
+    \Bigg]
+    \\[6pt]
+    &=\;
+    \frac{\partial^2 q(t,x)}{\partial x^2}.
+\end{align*}
+
+Con estas identificaciones, la ecuación de movimiento en el continuo resulta
+\begin{equation*}
+    \lambda\,\frac{\partial^2 q(t,x)}{\partial t^2}
+    \;=\;
+    T\,\frac{\partial^2 q(t,x)}{\partial x^2}
+    \;-\;
+    \lambda\,\frac{g}{r}\,q(t,x),
+\end{equation*}
+o, equivalentemente,
+\begin{equation*}
+    \lambda\,\frac{\partial^2 q(t,x)}{\partial t^2}
+    \;-\;
+    T\,\frac{\partial^2 q(t,x)}{\partial x^2}
+    \;+\;
+    \lambda\,\frac{g}{r}\,q(t,x)
+    \;=\;
+    0 \;.
+\end{equation*}
+
+Dividiendo por $T$, obtenemos
+\begin{equation*}
+    \frac{\lambda}{T}\,\frac{\partial^2 q(t,x)}{\partial t^2}
+    \;-\;
+    \frac{\partial^2 q(t,x)}{\partial x^2}
+    \;+\;
+    \frac{\lambda}{T}\,\frac{g}{r}\,q(t,x)
+    \;=\;
+    0 \;.
+\end{equation*}
+
+El análisis dimensional muestra que
+\begin{equation*}
+    \left[\frac{\lambda}{T}\right]
+    \;=\;
+    \frac{\text{masa}/\text{longitud}}{\text{masa}\cdot \text{longitud}/\text{tiempo}^2}
+    \;=\;
+    \frac{\text{tiempo}^2}{\text{longitud}^2}\,,
+\end{equation*}
+y que
+\begin{equation*}
+    \left[\frac{g}{r}\right]
+    \;=\;
+    \frac{\text{longitud}/\text{tiempo}^2}{\text{longitud}}
+    \;=\;
+    \frac{1}{\text{tiempo}^2}\,.
+\end{equation*}
+
+Es entonces natural introducir la \textbf{velocidad característica de propagación} de las perturbaciones en la cadena como
+\begin{equation}\label{2.velocidad}
+    v_p \;:=\; \sqrt{\frac{T}{\lambda}} \;,
+\end{equation}
+y, a su vez, una \textbf{frecuencia de oscilación interna} asociada a cada péndulo elemental,
+\begin{equation}\label{2.frecuencia}
+    \omega_0 \;:=\; \sqrt{\frac{g}{r}} \;,
+\end{equation}
+de modo que
+\begin{equation*}
+    \frac{1}{v_p^2}\,\frac{\partial^2 q(t,x)}{\partial t^2}
+    \;-\;
+    \frac{\partial^2 q(t,x)}{\partial x^2}
+    \;+\;
+    \frac{\omega_0^2}{v_p^2}\,q(t,x)
+    \;=\;
+    0 \;.
+\end{equation*}
+
+De este modo se reconoce la \textbf{ecuación de Klein--Gordon} en una dimensión temporal $t$ y una dimensión espacial $x$ ($1+1$ dimensiones) : $v_p$ actúa como la velocidad de propagación de las perturbaciones a lo largo de la cadena, mientras que $\omega_0^2$ fija la frecuencia de oscilación local de cada oscilador del medio.
+
+
+Ahora tomemos el límite continuo en el Lagrangiano \eqref{2.Lagrangiano}:
+\begin{align*}
+    L
+    \;&=\;
+    \sum_{i=1}^{N}
+    \left(
+        \frac{1}{2}m\,\dot q_i^2
+        \;-\;
+        \frac{1}{2}k\,(q_{i+1}-q_i)^2
+        \;-\;
+        \frac{1}{2}\,\frac{mg}{r}\,q_i^2
+    \right)
+    \\[6pt]
+    &=\;
+    \sum_{i=1}^{N}
+    \left(
+        \frac{1}{2}h\,\frac{m}{h}\,\dot q_i^2
+        \;-\;
+        \frac{1}{2}kh^2\,\left(\frac{q_{i+1}-q_i}{h}\right)^2
+        \;-\;
+        \frac{1}{2}\,\frac{mg}{r}\,q_i^2
+    \right)
+    \\[6pt]
+    &=\;
+    \sum_{i=1}^{N}
+    h\left(
+        \frac{1}{2}\frac{m}{h}\,\dot q_i^2
+        \;-\;
+        \frac{1}{2}kh\,\left(\frac{q_{i+1}-q_i}{h}\right)^2
+        \;-\;
+        \frac{1}{2}\,\frac{mg}{hr}\,q_i^2
+    \right)\;.
+\end{align*}
+
+En el límite $h \to 0$, identificamos las correspondencias
+\begin{align*}
+    h \;&\longrightarrow\; dx, \\[4pt]
+    q_i(t) \;&\longrightarrow\; q(t,x), \\[4pt]
+    \frac{m}{h} \;&\longrightarrow\; \lambda, \\[4pt]
+    k\,h \;&\longrightarrow\; T, \\[4pt]
+    \sum_{i=1}^{N} h \;&\longrightarrow\; \int dx, \\[4pt]
+    \dot q_i(t) \;&\longrightarrow\; \frac{\partial q(t,x)}{\partial t}, \\[4pt]
+    \frac{q_{i+1}-q_i}{h} \;&\longrightarrow\; \frac{\partial q(t,x)}{\partial x}\;.
+\end{align*}
+
+Con estas sustituciones, el \textbf{Lagrangiano del sistema continuo} queda
+\begin{equation*}
+    L \;=\;
+    \frac{1}{2}
+    \superint
+    \Bigg(
+        \lambda \left(\frac{\partial q(t,x)}{\partial t}\right)^{2}
+        \;-\;
+        T \left(\frac{\partial q(t,x)}{\partial x}\right)^{2}
+        \;-\;
+        \lambda\,\frac{g}{r}\,q^{2}(t,x)
+    \Bigg) dx \;.
+\end{equation*}
+
+Este resultado ilustra las características generales de la transición desde un sistema discreto (un conjunto numerable de coordenadas generalizadas $q_i(t)$) a un sistema continuo (un campo $q(t,x)$ definido para todo punto en la barra).
+
+Debemos notar que $x$ no es aquí una nueva coordenada generalizada independiente en el sentido usual de la mecánica analítica, sino que actúa como un \textbf{índice continuo} que reemplaza al índice discreto $i$. En el sistema discreto, cada valor de $i$ etiqueta una coordenada generalizada $q_i(t)$; en el sistema continuo, cada valor de $x$ etiqueta el valor del campo $q(t,x)$.
+
+En este lenguaje de campos, el Lagrangiano puede escribirse como
+\begin{equation*}
+    L
+    \;=\;
+    \int \mathcal{L}
+    \!\left(
+        q,
+        \frac{\partial q}{\partial t},
+        \frac{\partial q}{\partial x}
+    \right) dx \;,
+\end{equation*}
+donde la \textbf{densidad lagrangiana} (o densidad de Lagrange) es
+\begin{equation}\label{2.densidad_lagrangeana}
+    \mathcal{L}
+    \!\left(
+        q,
+        \frac{\partial q}{\partial t},
+        \frac{\partial q}{\partial x}
+    \right)
+    \;=\;
+    \frac{1}{2}
+    \Bigg(
+        \lambda \left(\frac{\partial q(t,x)}{\partial t}\right)^{2}
+        \;-\;
+        T \left(\frac{\partial q(t,x)}{\partial x}\right)^{2}
+        \;-\;
+        \lambda\,\frac{g}{r}\,q^{2}(t,x)
+    \Bigg).
+\end{equation}
+El Lagrangiano total $L$ tiene dimensiones de energía. Por lo tanto,
+\begin{equation*}
+    [L] \;=\; \frac{\text{masa}\cdot\text{longitud}^{2}}{\text{tiempo}^{2}} \;.
+\end{equation*}
+En cambio, la densidad lagrangiana $\mathcal{L}$ es el Lagrangiano por unidad de longitud (recordando que $dx$ tiene dimensión de longitud), de modo que
+\begin{align*}
+    [\mathcal{L}]
+    \;&=\;
+    \left[\frac{L}{dx}\right] \\[6pt]
+    &=\; \frac{\text{masa}\cdot\text{longitud}^2/\text{tiempo}^{2}}{\text{longitud}} \\[6pt]
+    &=\; \frac{\text{masa}\cdot\text{longitud}}{\text{tiempo}^2} \;.
+\end{align*}
+es decir, las dimensiones de una fuerza.
+
+Hasta ahora modelamos la cadena como un sistema unidimensional cerrado (condiciones periódicas), lo que permitió construir el límite continuo y la densidad lagrangiana. Desde aquí trabajaremos en un intervalo espacial finito $x \in [x_i,x_f]$, imponiendo que los extremos permanezcan fijos. Esta sustitución elimina la periodicidad anterior: la cadena ya no es cerrada, sino abierta con condiciones de borde en $x_i$ y $x_f$.
+
+\begin{equation*}
+    L
+    \;=\;
+    \int_{x_i}^{x_f} \mathcal{L}
+    \!\left(
+        q,
+        \frac{\partial q}{\partial t},
+        \frac{\partial q}{\partial x}
+    \right) dx \;,
+\end{equation*}
+donde la densidad lagrangeana esta dada por \eqref{2.densidad_lagrangeana}
+
+El principio de acción del sistema continuo está dado por
+\begin{equation*}
+    S\;=\;\int_{t_i}^{t_f} L\,dt\;=\;\int_{t_i}^{t_f}\int_{x_i}^{x_f} \mathcal{L}
+    \!\left(
+        q,
+        \frac{\partial q}{\partial t},
+        \frac{\partial q}{\partial x}
+    \right) dx\,dt \;.
+\end{equation*}
+
+La variable física $q$ depende de dos coordenadas $(t,x)$, es decir, $q(t,x)$, y por cada una de estas coordenadas aparece una integral en el principio de acción. Podemos expresar la relación entre acción y densidad lagrangiana como
+\begin{equation*}
+    \mathcal{L}\;=\;\frac{d^2S}{dt\,dx} \;.
+\end{equation*}
+
+Para obtener la \textbf{ecuación de campo} debemos variar el principio de acción con respecto a $q$.
+
+Del cálculo variacional sabemos que, al aplicar la derivada funcional $\delta/\delta q$, comparamos dos configuraciones $q(t,x)$ infinitesimalmente cercanas en el espacio de configuraciones, que en este caso está determinado sólo por $q$.
+
+Variamos la acción 
+\begin{equation*}
+    S\;=\;\int_{t_i}^{t_f}\int_{x_i}^{ x_f} \frac{1}{2}
+    \Bigg(
+        \lambda \left(\frac{\partial q(t,x)}{\partial t}\right)^{2}
+        \;-\;
+        T \left(\frac{\partial q(t,x)}{\partial x}\right)^{2}
+        \;-\;
+        \lambda\,\frac{g}{r}\,q^{2}(t,x)
+    \Bigg) dx\,dt \;.
+\end{equation*}
+
+Usamos el operador $\delta$
+\begin{align*}
+    \delta S \;&=\; \delta\int_{t_i}^{t_f}\int_{x_i}^{ x_f} \frac{1}{2}
+    \Bigg(
+        \lambda \left(\frac{\partial q(t,x)}{\partial t}\right)^{2}
+        \;-\;
+        T \left(\frac{\partial q(t,x)}{\partial x}\right)^{2}
+        \;-\;
+        \lambda\,\frac{g}{r}\,q^{2}(t,x)
+    \Bigg) dx\,dt \\[6pt]
+    &=\; \int_{t_i}^{t_f}\int_{x_i}^{ x_f} \frac{1}{2}
+    \Bigg(
+        2\lambda \frac{\partial q}{\partial t} \delta\frac{\partial q}{\partial t}
+        \;-\;
+        2T \frac{\partial q}{\partial x}\delta\frac{\partial q}{\partial x}
+        \;-\;
+        2\lambda\,\frac{g}{r}\,q \,\delta q
+    \Bigg) dx\,dt \\[6pt]
+    &=\; \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+    \Bigg(
+        \lambda \frac{\partial q}{\partial t} \frac{\partial \delta q}{\partial t}
+        \;-\;
+        T \frac{\partial q}{\partial x}\frac{\partial \delta q}{\partial x}
+        \;-\;
+        \lambda\,\frac{g}{r}\,q\,\delta q
+    \Bigg) dx\,dt \\[6pt]
+    &=\; \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+    \Bigg(
+        \frac{\partial}{\partial t} \left( \lambda \frac{\partial q}{\partial t}\delta q  \right)
+        \;-\; 
+        \lambda \frac{\partial^2q}{\partial t^2} \delta q 
+        \;-\;
+        \frac{\partial}{\partial x}\left( T \frac{\partial q}{\partial x} \delta q \right)
+        \;+\;
+        T \frac{\partial^2 q}{\partial x^2} \delta q
+        \;-\;
+        \lambda\,\frac{g}{r}\,q\,\delta q
+    \Bigg) dx\,dt \\[6pt]
+    &=\; \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+    \Bigg(
+        T \frac{\partial^2 q}{\partial x^2} \delta q
+        \;-\; 
+        \lambda \frac{\partial^2q}{\partial t^2} \delta q 
+        \;-\; 
+        \lambda\,\frac{g}{r}\,q\,\delta q
+    \Bigg) dx\,dt
+        \;+\;
+    \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+    \Bigg(
+        \frac{\partial}{\partial t} \left( \lambda \frac{\partial q}{\partial t}\delta q  \right)
+        \;-\;
+        \frac{\partial}{\partial x}\left( T \frac{\partial q}{\partial x} \delta q \right)
+    \Bigg) dx\,dt
+\end{align*}
+Definimos la \textbf{derivada funcional de la densidad lagrangiana} de $\mathcal{L}$ como
+\begin{equation*}
+    \frac{\delta\mathcal{L}}{\delta q}\;=\;T\,\frac{\partial^2q}{\partial x^2}\;-\;\lambda\,\frac{\partial^2q}{\partial t^2}\;-\;\lambda\,\frac{g}{r}\,q
+\end{equation*}
+Luego,
+\begin{align*}
+    \delta S\; &= \; \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+       \frac{\delta\mathcal{L}}{\delta q} \; dx\,dt
+        \;+\;
+    \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+    \Bigg(
+        \frac{\partial}{\partial t} \left( \lambda \frac{\partial q}{\partial t}\delta q  \right)
+        \;-\;
+        \frac{\partial}{\partial x}\left( T \frac{\partial q}{\partial x} \delta q \right)
+    \Bigg) dx\,dt  \\[6pt]
+    &= \; \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+       \frac{\delta\mathcal{L}}{\delta q} \; dx\,dt
+        \;+\;
+        \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+            \frac{\partial}{\partial t} \left( \lambda \frac{\partial q}{\partial t}\delta q  \right)
+        dx\,dt          
+        \;-\;
+        \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+            \frac{\partial}{\partial x}\left( T \frac{\partial q}{\partial x} \delta q \right)
+        dx\,dt   \\[6pt]
+    &= \; \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+       \frac{\delta\mathcal{L}}{\delta q} \; dx\,dt
+        \;+\;
+        \int_{x_i}^{ x_f}
+         \lambda \frac{\partial q(t,x)}{\partial t}\delta q(t,x)\Bigg|_{t_i}^{t_f}
+        dx
+        \;-\;
+        \int_{t_i}^{t_f}
+            T \frac{\partial q(t,x)}{\partial x} \delta q (t,x)\Bigg|_{x_i}^{ x_f}\,dt   \\[6pt]
+        &= \; \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+       \frac{\delta\mathcal{L}}{\delta q} \; dx\,dt\\[6pt]
+        &+\;
+        \int_{x_i}^{ x_f} \lambda
+            \Bigg( 
+            \frac{\partial q(t_f,x)}{\partial t}\delta q(t_f,x) dx \;-\; \frac{\partial q(t_i,x)}{\partial t}\delta q(t_i,x)  \Bigg)dx \\[6pt]
+        &-\;
+        \int_{t_i}^{t_f} T
+            \Bigg(  \frac{\partial q(t,x_f)}{\partial x} \delta q(t,x_f)\,dt  \;-\; \frac{\partial q(t,x_i)}{\partial x} \delta q(t,x_i) \Bigg)\,dt  \;.
+\end{align*}
+
+De la mecánica clásica aprendemos que los extremos temporales de las trayectorias están fijos; esto se traslada a objetos extendidos (y luego a teorías de campos). Por lo tanto, imponemos
+\begin{equation*}
+    \delta q(t_i,x)\;=\;\delta q(t_f,x)\;=\;0 \;.
+\end{equation*}
+Entonces, la variación de la acción queda
+\begin{equation*}
+        \delta S\;= \; \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+       \frac{\delta\mathcal{L}}{\delta q} \; dx\,dt\;-\;
+        \int_{t_i}^{t_f} T
+            \Bigg(  \frac{\partial q(t,x_f)}{\partial x} \delta q(t,x_f)\,dt  \;-\; \frac{\partial q(t,x_i)}{\partial x} \delta q(t,x_i) \Bigg)\,dt  \;.
+\end{equation*}
+
+Para tener un principio de acción bien definido, debemos eliminar las dos últimas integrales (términos de frontera evaluados en los extremos espaciales del objeto extendido). Exigimos adicionalmente la condición
+\begin{equation*}
+    \delta q(t,x_i)\;=\;\delta q(t,x_f)\;=\;0 \;.
+\end{equation*}
+
+Luego, la variación de la acción finalmente queda 
+\begin{equation*}
+     \delta S\;=\; \int_{t_i}^{t_f}\int_{x_i}^{ x_f}
+       \frac{\delta\mathcal{L}}{\delta q} \; dx\,dt \;.
+\end{equation*}
+Imponiendo $\delta S=0$ se obtienen las ecuaciones de campo 
+\begin{equation*}
+    \frac{\delta \mathcal{L}}{\delta q}\;=\;T\,\frac{\partial^2q}{\partial x^2}\;-\;\lambda\,\frac{\partial^2q}{\partial t^2}\;-\;\lambda\,\frac{g}{r}\,q \;=\; 0
+\end{equation*}
+y, por tanto, la ecuación de campo del sistema:
+\begin{equation*}
+    T\,\frac{\partial^2q}{\partial x^2}\;-\;\lambda\,\frac{\partial^2q}{\partial t^2}\;-\;\lambda\,\frac{g}{r}\,q\;=\; 0 \;.
+\end{equation*}
+Dividiendo la ecuación de campo del sistema por $T$ y reordenando términos, se obtiene
+\begin{equation*}
+    \frac{\lambda}{T}\,\frac{\partial^2 q}{\partial t^2}
+    \;-\;
+    \frac{\partial^2 q}{\partial x^2}
+    \;+\;
+    \frac{\lambda}{T}\,\frac{g}{r}\,q
+    \;=\;
+    0 \;.
+\end{equation*}
+Sustituyendo \eqref{2.velocidad} y \eqref{2.frecuencia} en esta expresión, resulta
+\begin{equation*}
+    \frac{1}{v_p^2}\,\frac{\partial^2 q}{\partial t^2}
+    \;-\;
+    \frac{\partial^2 q}{\partial x^2}
+    \;+\;
+    \frac{\omega_0^{2}}{v_p^{2}}\,q
+    \;=\;
+    0 \;.
+\end{equation*}
+
+Observamos que la ecuación final tiene la forma de una \textbf{ecuación de Klein--Gordon en $1+1$ dimensiones} (una dimensión temporal $t$ y una dimensión espacial $x$). Este resultado aparece dos veces a lo largo del problema: primero, al tomar el límite continuo de la ecuación de movimiento discreta de las masas acopladas, y luego, de manera independiente, al formular el campo $q(t,x)$ mediante un principio variacional y anular las variaciones $\delta q$ en los bordes espacial y temporal. Ambas construcciones llevan a la misma estructura dinámica: en el régimen de oscilaciones pequeñas, la cadena discreta de péndulos acoplados se comporta como un \textbf{campo escalar con “masa efectiva” distinta de cero}.
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
