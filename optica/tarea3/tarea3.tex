@@ -1,0 +1,1025 @@
+\documentclass{article}
+\setlength{\headheight}{13.07204pt} % Adjust headheight as suggested
+\usepackage[letterpaper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+
+% Paquetes matemáticos y tipográficos
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{float}      % <— Necesario para [H]
+\usepackage{tikz}
+\captionsetup{labelfont=bf}
+
+
+% Numeración de ecuaciones por sección
+\numberwithin{equation}{section}
+
+% Carga paquetes
+\usepackage{minted}
+\usepackage{xcolor}
+
+% Define colores personalizados
+\definecolor{codebg}{gray}{0.95}    % Fondo gris clarito
+\definecolor{commentgray}{gray}{0.4} % Comentarios gris medio
+\definecolor{keywordgray}{gray}{0.2} % Palabras clave gris oscuro
+
+% Configura minted
+\setminted{
+    bgcolor=codebg, % Fondo del bloque
+    linenos,        % Mostrar números de línea
+    breaklines,     % Romper líneas largas
+    fontsize=\small,
+    style=default,  % Estilo base
+}
+
+
+
+% Para la terminal
+\usepackage{tcolorbox}
+\tcbuselibrary{listingsutf8}
+\usepackage{listings}
+\usepackage{bera} % Fuente monoespaciada bonita (opcional)
+
+% Idioma en español
+\usepackage[spanish]{babel}
+
+% Manejo de imágenes
+\usepackage{graphicx} 
+\graphicspath{ {images/} }
+
+% Configuración de márgenes
+\usepackage[letterpaper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+% Hiperreferencias
+\usepackage[hidelinks]{hyperref}
+
+% Tipografía mejorada
+\usepackage{lmodern}
+
+% Estilo de títulos con punto después del número
+\usepackage{titlesec}
+\titleformat{\section}{\huge\bfseries}{\thesection.}{1em}{}  % Título más grande
+
+% Encabezados sin pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\textit{Óptica ondulatoria}}
+\fancyhead[L]{Física V: 510355 - Óptica}
+
+% Mejor separación de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Evita hifenaciones excesivas
+\sloppy
+
+% Configuración del índice
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{3cm} % Ajuste en la posición vertical
+    % Logo centrado
+    \includegraphics[width=0.6\textwidth]{UdeC_azul_centrado.png} 
+    
+    \vspace{1cm}
+    \thispagestyle{empty} % Sin número en la portada
+
+    % Título de la tarea
+    {\Huge \textbf{Tarea 03 - Óptica ondulatoria} \par}
+    
+    \vspace{0.5cm}
+    {\Huge \textbf{Física V: 510355 - Óptica} \par}
+    \vspace{1.5cm}
+
+    % Nombre del autor
+    {\Large José Ignacio Rosas Sepúlveda \\ Nicolás Agustín Ulloa Campos \\ Joaquín Danilo Nicolás Ayala Acevedo\par}
+    \vspace{1cm}
+    
+    % Fechas de la tarea
+    {\Large Junio 2025 \par}
+    \vfill
+\end{titlepage}
+
+\newpage
+\section{Problema 1}
+
+Una onda propagándose en un dado medio y en la dirección del eje-$z$ es representanda por la función de onda $u(z, t)$.
+
+\textbf{a)} Escribiendo $u(z, t) = f(z', t)$, con $z' = z \mp v t$, donde $v$ es la rapidez de la onda en el medio y los signos $\mp$ indican propagación hacia la izquierda/derecha, respectivamente, obtenga, analíticamente, la ecuación de onda:
+    \begin{equation*}
+        \frac{\partial^2 u(z,t)}{\partial z^2} = \frac{1}{v^2} \frac{\partial^2 u(z,t)}{\partial t^2} \,.
+    \end{equation*}
+
+\textbf{Solución:}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+El cálculo de las derivadas parciales de $u(z,t)$ se efectúa aplicando la regla de la cadena sobre la expresión $u(z,t) = f(z',t)$, con $z' = z \mp v t$.
+
+\subsubsection*{Cálculo de $\partial^2 u / \partial z^2$:}
+
+Se tiene:
+\begin{equation*}
+    \frac{\partial u(z,t)}{\partial z} = \frac{\partial}{\partial z} \left(\, f(z',t)\, \right) \,.
+\end{equation*}
+
+Aplicando la regla de la cadena, se obtiene:
+\begin{equation}\label{1.1_du/dz}
+    \frac{\partial u(z,t)}{\partial z}
+    = \frac{\partial f(z',t)}{\partial z'} \cdot \frac{\partial z'(z,t)}{\partial z} \,.
+\end{equation}
+
+Donde el calculo explicito de la derivada de $z'$ respecto a z es:
+\begin{align*}
+    \frac{\partial z'}{\partial z}(z,t)&=\frac{\partial}{\partial z}\left(z\mp vt\right) \\
+    &=\frac{\partial z}{\partial z}+\frac{\partial (\mp vt)}{\partial z} \\
+    &=1+0\, ,
+\end{align*}
+\begin{equation}\label{1.1_dz'/dz}
+    \therefore \quad \frac{\partial z'}{\partial z}(z,t)=1 \,.
+\end{equation}
+
+Sustituyendo \eqref{1.1_dz'/dz} en \eqref{1.1_du/dz}, se obtiene:
+\begin{equation*}
+    \frac{\partial u(z,t)}{\partial z} = \frac{\partial f(z',t)}{\partial z'}\,.
+\end{equation*}
+Derivando nuevamente con respecto a $z$ y aplicando la regla de la cadena, se obtiene:
+
+\begin{align*}
+    \frac{\partial^2 u(z,t)}{\partial z^2} &= \frac{\partial}{\partial z}\left( \frac{\partial f(z',t)}{\partial z'} \right)\\[2pt]
+    &=\frac{\partial}{\partial z'}\left( \frac{\partial f(z',t)}{\partial z'} \right)\cdot\frac{\partial z'(z,t)}{\partial z} \,,
+\end{align*}
+\begin{equation}\label{1.1_d^2u/dz^2_incompleto}
+    \therefore \quad \frac{\partial^2 u(z,t)}{\partial z^2}=\frac{\partial^2 f(z',t)}{\partial z'^2} \cdot\frac{\partial z'(z,t)}{\partial z} \,.
+\end{equation}
+Sustituyendo \eqref{1.1_dz'/dz} en \eqref{1.1_d^2u/dz^2_incompleto}, se concluye:
+\begin{equation}\label{1.1_d^2u/dz^2}
+     \frac{\partial^2 u(z,t)}{\partial z^2}=\frac{\partial^2 f(z',t)}{\partial z'^2} \,.
+\end{equation}
+
+\subsubsection*{Cálculo de $\partial^2 u / \partial t^2$:}
+
+Se tiene:
+\begin{equation*}
+    \frac{\partial u(z,t)}{\partial t} = \frac{\partial}{\partial t} \left(\, f(z',t) \,\right) \,.
+\end{equation*}
+
+Aplicando la regla de la cadena, se obtiene:
+\begin{equation}\label{1.1_du/dt}
+    \frac{\partial u(z,t)}{\partial t}
+    = \frac{\partial f(z',t)}{\partial z'} \cdot \frac{\partial z'(z,t)}{\partial t} \,.
+\end{equation}
+
+Donde el calculo explicito de la derivada de $z'$ respecto a $t$ es:
+\begin{align*}
+    \frac{\partial z'}{\partial t}(z,t) &= \frac{\partial}{\partial t} \left( z \mp v t \right) \\
+    &= \frac{\partial z}{\partial t} + \frac{\partial (\mp v t)}{\partial t} \\[2pt]
+    &= 0 \mp v \, ,
+\end{align*}
+\begin{equation}\label{1.1_dz'/dt}
+    \therefore \quad \frac{\partial z'(z,t)}{\partial t} = \mp v \,.
+\end{equation}
+Sustituyendo \eqref{1.1_dz'/dt} en \eqref{1.1_du/dt}, se obtiene:
+\begin{equation*}
+    \frac{\partial u(z,t)}{\partial t} = \mp v \frac{\partial f(z',t)}{\partial z'} \,.
+\end{equation*}
+Derivando nuevamente con respecto a $t$ y aplicando la regla de la cadena, se obtiene:
+\begin{align*}
+    \frac{\partial^2 u(z,t)}{\partial t^2}
+    &= \frac{\partial}{\partial t} \left( \mp v \frac{\partial f(z',t)}{\partial z'} \right) \\[2pt]
+    &= \mp v \cdot \frac{\partial}{\partial t} \left( \frac{\partial f(z',t)}{\partial z'} \right) \\[2pt]
+    &= \mp v \cdot \frac{\partial}{\partial z'} \left( \frac{\partial f(z',t)}{\partial z'} \right) \cdot \frac{\partial z'(z,t)}{\partial t} \,,
+\end{align*}
+\begin{equation}\label{1.1_d^2u/dt^2_incompleto}
+    \therefore \quad \frac{\partial^2 u(z,t)}{\partial t^2}
+    = \mp v \cdot \frac{\partial^2 f(z',t)}{\partial z'^2} \cdot \frac{\partial z'(z,t)}{\partial t} \,.
+\end{equation}
+Sustituyendo \eqref{1.1_dz'/dt} en \eqref{1.1_d^2u/dt^2_incompleto}, se concluye:
+\begin{equation}\label{1.1_d^2u/dt^2}
+     \frac{\partial^2 u(z,t)}{\partial t^2} = v^2 \frac{\partial^2 f(z',t)}{\partial z'^2} \,.
+\end{equation}
+
+\subsubsection*{Deducción de la ecuación de onda unidimensional:}
+Sustituyendo \eqref{1.1_d^2u/dz^2} en \eqref{1.1_d^2u/dt^2}, se tiene:
+\begin{equation*}
+     \frac{\partial^2 u(z,t)}{\partial t^2} = v^2 \left( \frac{\partial^2 u(z,t)}{\partial z^2} \right)\,.
+\end{equation*}
+
+Al dividir la ecuación por $v^2$, finalmente, se obtiene:
+
+
+\begin{equation}\label{1.1_ecuacion_onda}
+    \frac{\partial^2 u(z,t)}{\partial z^2} = \frac{1}{v^2} \frac{\partial^2 u(z,t)}{\partial t^2} \,,
+\end{equation}
+
+la cual corresponde a la ecuación de onda unidimensional. Esta ecuación describe una onda que se propaga en un medio homogéneo, sin dispersión ni amortiguamiento. La constante $v$ representa la rapidez constante con que la onda avanza en el medio considerado, indicando la invariancia temporal y espacial del perfil de onda.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textbf{b)} Verifique el resultado del ítem a) usando el perfil de onda:
+\begin{equation}\label{1.2_perfil_de_onda}
+    u(z,t) = \frac{3}{10 (z - v t)^2 + 1} \,.
+\end{equation}
+
+\textbf{Solución:}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Se define la variable auxiliar:
+\begin{equation*}
+    z' = z - v t \,,
+\end{equation*}
+con lo cual el perfil de onda \eqref{1.2_perfil_de_onda} se reescribe como:
+\begin{equation*}
+    u(z,t) = \frac{3}{10 (z')^2 + 1} \,,
+\end{equation*}
+o bien:
+\begin{equation*}
+    f(z',t)=\frac{3}{10 (z')^2 + 1} \,,
+\end{equation*}
+donde por el ítem a) sabemos que $u(z,t)=f(z',t)$.
+
+\subsubsection*{Cálculo de $\partial^2 u / \partial z^2$:}
+
+Se tiene:
+\begin{equation*}
+    \frac{\partial u(z,t)}{\partial z} = \frac{\partial}{\partial z} \left( \,f(z',t)\, \right) \,.
+\end{equation*}
+
+Aplicando la regla de la cadena, se obtiene:
+\begin{equation}\label{1.2_du/dz}
+    \frac{\partial u(z,t)}{\partial z}
+    = \frac{\partial f(z',t)}{\partial z'} \cdot \frac{\partial z'(z,t)}{\partial z} \,.
+\end{equation}
+
+Donde el cálculo explícito de la derivada de $z'$ respecto a $z$ es:
+\begin{align*}
+    \frac{\partial z'}{\partial z}(z,t)
+    &= \frac{\partial}{\partial z} \left( z - v t \right) \\
+    &= \frac{\partial z}{\partial z} + \frac{\partial (-v t)}{\partial z} \\
+    &= 1 + 0 \,,
+\end{align*}
+\begin{equation}\label{1.2_dz'/dz}
+    \therefore \quad \frac{\partial z'}{\partial z}(z,t) = 1 \,.
+\end{equation}
+
+Y el cálculo explícito de la derivada de $f(z',t)$ respecto a $z'$ es:
+\begin{align*}
+    \frac{\partial f(z',t)}{\partial z'} 
+    &= \frac{\partial}{\partial z'}\left( \frac{3}{10 (z')^2 + 1}\right)\\[2pt]
+    &= \frac{\frac{\partial}{\partial z'}(3)\cdot(10 (z')^2 + 1)-3\cdot\frac{\partial }{\partial z' }(10 (z')^2 + 1)}{(10 (z')^2 + 1)^2}\\[2pt]
+    &= \frac{0\cdot(10 (z')^2 + 1)-3\cdot20z'}{( 10 (z')^2 + 1)^2}\\[2pt]
+    &=- \frac{3 \cdot 20 z'}{\left(10 (z')^2 + 1\right)^2} \,.
+\end{align*}
+\begin{equation}\label{1.2_df/dz'}
+    \therefore \quad  \frac{\partial f(z',t)}{\partial z'} = - \frac{60 z'}{(10 (z')^2 + 1)^2} \,.
+\end{equation}
+
+
+Sustituyendo \eqref{1.2_dz'/dz} y \eqref{1.2_df/dz'} en \eqref{1.2_du/dz}, se obtiene:
+\begin{equation}\label{1.2_du/dz_completo}
+    \frac{\partial u(z,t)}{\partial z} = - \frac{60 z'}{(10 (z')^2 + 1)^2} \,.
+\end{equation}
+
+Derivando \eqref{1.2_du/dz_completo} con respecto a $z$ y aplicando la regla de la cadena, se tiene:
+\begin{align*}
+    \frac{\partial^2 u(z,t)}{\partial z^2}
+    &= \frac{\partial}{\partial z}\left(\frac{\partial u(z,t)}{\partial z}\right)\\[2pt]
+    &= \frac{\partial}{\partial z} \left( - \frac{60 z'}{\left(10 (z')^2 + 1\right)^2} \right) \\[2pt]
+    &= \frac{\partial}{\partial z'} \left( - \frac{60 z'}{\left(10 (z')^2 + 1\right)^2} \right) \cdot \frac{\partial z'}{\partial z}(z,t) \,.
+\end{align*}
+
+Sustituyendo \eqref{1.2_dz'/dz} y desarrollando:
+\begin{align*}
+    \frac{\partial^2 u(z,t)}{\partial z^2}
+    &= \frac{\partial}{\partial z'} \left( - \frac{60 z'}{\left(10 (z')^2 + 1\right)^2} \right) \cdot 1 \\[3pt]
+    &= -60\cdot\left[ \frac{\partial}{\partial z'} \left( \frac{z'}{\left(10 (z')^2 + 1\right)^2} \right) \right] \\[3pt]
+    &=  -60\cdot \left[ \frac{ \frac{\partial}{\partial z'}(z')\cdot(\,10 (z')^2 + 1)^2- z' \cdot \frac{\partial}{\partial z'} [\,(\,10 (z')^2 + 1\,)^2\,] }{[\,(\,10 (z')^2 + 1\,)^2\,]^2} \right]\\[3pt]
+    &=  -60 \cdot \left[ \frac{ 1 \cdot(\,10 (z')^2 + 1)^2 - z' \cdot [\,2\cdot(\,10 (z')^2 + 1)\cdot(20z')\,] }{(\,10 (z')^2 + 1\,)^4} \right] \\[3pt]
+    &= -60 \cdot \left[ \frac{ 100(z')^4 + 20(z')^2+1 - z' \cdot (\,400 (z')^3 + 40z'\,) }{(\,10 (z')^2 + 1\,)^4} \right] \\[3pt]
+    &= -60 \cdot \left[ \frac{ 100(z')^4 + 20(z')^2+1 - 400(z')^4 - 40(z')^2 }{(\,10 (z')^2 + 1\,)^4} \right] \\[3pt]
+    &= -60 \cdot \left[ \frac{- 300(z')^4 - 20(z')^2 +1}{(\,10 (z')^2 + 1\,)^4} \right] \\[3pt]
+    &= 60 \cdot \left[ \frac{300(z')^4 + 20(z')^2 -1}{(\,10 (z')^2 + 1\,)^4} \right] \\[3pt]
+    &= 60 \cdot \frac{(10(z')^2 + 1)\cdot(30(z')^2 -1)}{(\,10 (z')^2 + 1\,)^4} \,.
+\end{align*}
+\begin{equation}\label{1.2_d^2u/dz^2}
+    \therefore \quad \frac{\partial^2 u(z,t)}{\partial z^2} = 60 \cdot \frac{(30(z')^2 -1)}{(\,10 (z')^2 + 1\,)^3} \,.
+\end{equation}
+
+\subsubsection*{Cálculo de $\partial^2 u / \partial t^2$:}
+
+Se tiene:
+\begin{equation*}
+    \frac{\partial u(z,t)}{\partial t} = \frac{\partial}{\partial t} \left[ f(z',t) \right] \,.
+\end{equation*}
+
+Aplicando la regla de la cadena, se obtiene:
+\begin{equation}\label{1.2_du/dt}
+    \frac{\partial u(z,t)}{\partial t}
+    = \frac{\partial f(z',t)}{\partial z'} \cdot \frac{\partial z'(z,t)}{\partial t} \,.
+\end{equation}
+
+Donde el cálculo explícito de la derivada de $z'$ respecto a $t$ es:
+\begin{align*}
+    \frac{\partial z'}{\partial t}(z,t)
+    &= \frac{\partial}{\partial t} \left( z - v t \right) \\
+    &= 0 - v \,,
+\end{align*}
+\begin{equation}\label{1.2_dz'/dt}
+    \therefore \quad \frac{\partial z'(z,t)}{\partial t} = -v \,.
+\end{equation}
+
+Sustituyendo \eqref{1.2_df/dz'} y \eqref{1.2_dz'/dt} en \eqref{1.2_du/dt}, se obtiene:
+\begin{equation}\label{1.2_du/dt_final}
+    \frac{\partial u(z,t)}{\partial t}
+    = +v \cdot \frac{60 z'}{\left(10 (z')^2 + 1\right)^2} \,.
+\end{equation}
+
+Derivando \eqref{1.2_du/dt_final} con respecto a $t$ y aplicando la regla de la cadena, se tiene:
+\begin{align*}
+    \frac{\partial^2 u(z,t)}{\partial t^2}
+    &= \frac{\partial}{\partial t}\left( \frac{\partial u(z,t)}{\partial t}\right)\\[2pt]
+    &= \frac{\partial}{\partial t} \left( v \cdot \frac{60 z'}{\left(10 (z')^2 + 1\right)^2} \right) \\[2pt]
+    &= v \cdot \frac{\partial}{\partial z'} \left( \frac{60 z'}{\left(10 (z')^2 + 1\right)^2} \right) \cdot \frac{\partial z'(z,t)}{\partial t} \,.
+\end{align*}
+
+Sustituyendo \eqref{1.2_du/dt} y desarrollando:
+
+\begin{align*}
+    \frac{\partial^2 u(z,t)}{\partial t^2}
+    &= v \cdot \frac{\partial}{\partial z'} \left( \frac{60 z'}{\left(10 (z')^2 + 1\right)^2} \right) \cdot (-v) \\
+    &=-60v^2 \cdot \frac{\partial}{\partial z'} \left( \frac{ z'}{\left(10 (z')^2 + 1\right)^2} \right) \\
+    &=-v^2 \cdot \left( -\frac{(30(z')^2 -1)}{(10(z')^2 + 1)^3} \right) \,.
+\end{align*}
+\begin{equation}\label{1.2_d^2u/dt^2}
+    \therefore \quad \frac{\partial^2 u(z,t)}{\partial t^2} =v^2 \cdot \frac{(30(z')^2 -1)}{(10(z')^2 + 1)^3}  \,.
+\end{equation}
+
+\subsubsection*{Verificación de la ecuación de onda unidimensional:}
+
+Comparando \eqref{1.2_d^2u/dz^2} y \eqref{1.2_d^2u/dt^2}, se concluye que:
+\begin{equation*}
+    \frac{\partial^2 u(z,t)}{\partial z^2} = \frac{1}{v^2} \frac{\partial^2 u(z,t)}{\partial t^2} \,,
+\end{equation*}
+
+lo cual confirma que la función de onda dada en \eqref{1.2_perfil_de_onda} constituye una solución de la ecuación de onda unidimensional.
+
+Físicamente, esta solución específica representa un pulso localizado cuyo perfil se mantiene inalterado mientras se desplaza con velocidad constante $v$. Esta característica refleja que el medio no presenta dispersión, manteniendo la forma inicial del pulso durante toda su propagación.
+
+
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textbf{c)} Grafique la función de onda del ítem b) para $t = 0,\ 1,\ 2$ y $3\,\text{s}$ en un mismo gráfico en el intervalo $z \in [-5, 7]$, asumiendo que $v = 1\,\text{m/s}$. Use una escala $y/z = 2/1$. \textbf{Pista:} sin la variable $t$, la función de onda dada representa solo un perfil de onda. Con la variable $t$, ese perfil viaja en la dirección positiva del eje-$z$. Grafique ese perfil para cada uno de los instantes indicados.
+
+
+\textbf{Solución:}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+La función de onda \eqref{1.2_perfil_de_onda} representa una onda viajera no dispersiva que se propaga en la dirección positiva del eje $z$. El término $(z - vt)$ indica que el perfil mantiene su forma pero experimenta un desplazamiento temporal completo según $z_0 = vt$. Para los instantes solicitados ($t = 0, \,1,\, 2,\, 3\,\text{s}$), los perfiles corresponden a traslaciones sucesivas del pulso original.
+
+Se genera el gráfico solicitado mediante la implementación \texttt{Python} para el siguiente script. En este se tomaron las siguientes consideraciones:
+
+\begin{itemize}
+    \item \textbf{Dominio espacial:} $z \in [-5, 7],\text{m}$ con 1000 puntos.
+    \item \textbf{Relación de aspecto} $y/z = 2/1$ (1 unidad en $z$ equivale visualmente a 2 unidades en $u$).
+    \item \textbf{Límites verticales:} $u \in [0, 3.1]$ para enfatizar el rango dinámico.
+\end{itemize}
+
+El script es el siguiente:
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Velocidad de propagación de la onda:
+v = 1 # m/s            
+
+# z \in [-5,7] :
+z = np.linspace(-5, 7, 1000) # m
+
+# Función de onda del ítem b):
+def u(z, t): return [ 3 / (10 * (z - v * t)**2 + 1) ] # m
+
+# Conjunto de instantes discretos:
+t_values = [0, 1, 2, 3] # s
+
+# Generación del grafico:
+plt.figure(figsize=(10, 5))
+for t in t_values:
+plt.plot(z, u(z, t), label=f't = {t} s')
+
+# Aspectos esteticos del grafico:
+plt.xlabel('z [m]', fontsize=12)
+plt.ylabel('u(z,t) [m]', fontsize=12)
+plt.title('Evolución temporal del pulso viajero', fontsize=14)
+plt.legend()
+plt.grid(alpha=0.3)
+plt.xlim(-5, 7)
+plt.ylim(0, 3.1)
+
+ax = plt.gca()
+ax.set_aspect(0.5) # Escala y/z = 2/1
+
+plt.show()
+\end{verbatim}
+
+\clearpage
+
+\textbf{Observaciones:}
+
+\begin{itemize}
+\item \textbf{Traslación temporal}: Cada instante desplaza el máximo según $z_{\text{máx}}(t) = vt$.
+\item \textbf{Escala $y/z=2/1$}: Implementada con \texttt{set\_aspect(0.5)}, garantizando que distancias visuales iguales representen:
+\begin{align*}
+\Delta z &= 1\,\text{m} \quad \leftrightarrow \quad \Delta u = 2\,\text{m}
+\end{align*}
+\item \textbf{Forma invariante}: La conservación del perfil confirma la naturaleza no dispersiva de la onda
+
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{img/1.3_fig1.png}
+\caption{Propagación del pulso en el eje $z$ para $t = {0,1,2,3}\,\text{s}$. Se observa el desplazamiento uniforme del máximo ($u=3$) manteniendo la simetría y amplitud. Las marcas de grilla permiten verificar la escala $y/z=2/1$ (cuadrículas verticales: 0.5 u.a./div, horizontales: 1 m/div).}
+\label{fig:onda_propagacion}
+\end{figure}
+
+El gráfico demuestra que:
+\begin{itemize}
+    \item \textbf{Conservación de energía}: La amplitud máxima ($u_{\text{máx}} = 3$) permanece constante.
+    \item \textbf{Velocidad constante}: El pico se desplaza $\Delta z = 1\,\text{m}$ por cada $1\,\text{s}$ ($v = 1\,\text{m/s}$).
+    \item \textbf{No dispersión}: La forma gaussiana inversa se preserva sin deformación.
+    \item \textbf{Límite asintótico}: $u(z,t) \to 0$ cuando $|z - vt| \gg 1$, como requiere un pulso localizado.
+\end{itemize}
+
+En sintesis, el gráfico ilustra claramente la propagación no dispersiva del pulso, destacando cómo la amplitud máxima permanece constante mientras el pulso se traslada a velocidad constante hacia la dirección positiva del eje $z$. Este comportamiento ideal refleja la ausencia de pérdidas energéticas o cambios estructurales en la onda durante su propagación en el medio considerado.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Problema 2}
+
+Los colores sobre una lámina de aceite sobre el agua, en una burbuja de jabón o en las alas de los pavos reales o mariposas son explicados interferométricamente. Considere una lámina delgada y transparente de espesor $t$ uniforme de un cierto material de índice de refracción $n'$ como esquematizado en la Figura \ref{fig:problema_2_figura}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{img/img1.png}
+    \caption{Interferencia por lámina delgada con luz incidiendo un ángulo $\theta$ arbitrario.}
+    \label{fig:problema_2_figura}
+\end{figure}
+
+Un rayo de luz incide desde el medio de índice de refracción $n$ sobre la lámina delgada con un ángulo $\theta$ en el punto \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=1pt] (char) {a};
+}, donde se divide en un rayo reflejado y otro transmitido. El rayo transmitido en el punto \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=1pt] (char) {a};
+} es reflejado en el interior de la lámina en el punto \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=1pt] (char) {b};
+}. El rayo reflejado en el punto \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=1pt] (char) {b};
+} se propaga, en el interior de la lámina, hasta el punto \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=1pt] (char) {c};
+} de la frontera superior donde es parcialmente transmitido y reflejado (no mostrado).
+
+\clearpage
+
+\textbf{a)} Derive la expresión matemática que permite calcular la diferencia de camino óptico $\Delta \ell$ entre el rayo reflejado en el punto \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=1pt] (char) {a};
+} y el rayo transmitido en el punto \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=1pt] (char) {c};
+}. Reduzca su expresión al máximo para que ella quede expresada solo como función de $n'$, $t$ y $\theta'$.
+
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+Se identifican de forma explícita los datos que proporciona el problema:
+\begin{itemize}
+    \item Índice del medio externo: $n$.
+    \item Índice del medio interno (lámina): $n'$.
+    \item Espesor de la lámina: $t$
+    \item Ángulo de incidencia en el exterior: $\theta$.
+    \item Ángulo refractado dentro de la lámina: $\theta'$.
+\end{itemize}
+
+Se pide determinar la diferencia de camino óptico $\Delta \ell$ entre los rayos solicitados, reflejado en \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=1pt] (char) {a};
+} y transmitido en \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=1pt] (char) {c};
+}. Para ello consideramos dos rayos:
+\begin{itemize}
+    \item \textbf{Rayo 1}: se refleja directamente en la cara superior de la lámina (punto A).
+    \item \textbf{Rayo 2}: se transmite, recorre la lámina hasta la cara inferior (punto B), se refleja y vuelve a salir por la cara superior (punto C).
+\end{itemize}
+
+
+
+%Ambos rayos parten de la misma fuente y llegan al mismo punto de observación, pero recorren trayectorias diferentes. Los rayos emergen con la misma dirección, de modo que pueden interferir en el mismo punto del espacio. Por lo tanto, las partes comunes del trayecto (desde la fuente hasta A y desde C hasta el observador) no contribuyen a la diferencia de fase, y sólo es necesario considerar la diferencia de camino óptico entre A y C.
+
+Se toma como referencia el camino óptico del \textbf{rayo 1}, el cual no recorre ninguna distancia dentro del medio $n'$, y escribimos:
+\begin{equation*}
+    \ell_{\text{rayo 1}} = 0\,.
+\end{equation*}
+
+Por otro lado, el \textbf{rayo 2} recorre dos veces una distancia oblicua $d$ dentro de la lámina, bajo un ángulo de refracción $\theta'$. Dicha distancia se obtiene mediante la razón trigonométrica:
+\begin{equation*}
+    \cos\theta'=\frac{\text{cateto adyacente}}{\text{hipotenusa}} \,.
+\end{equation*}
+Donde la hipotenusa caracteriza a la distancia $d$ y cateto adyacente a $\theta'$ caracteriza el espesor de la lamina $t$. Se obtiene:
+\begin{equation}\label{2.1_d}
+    d = \frac{t}{\cos\theta'}\,.
+\end{equation}
+
+La distancia geometrica recorrida por el rayo 2 al interior de la lámina es entonces:
+\begin{align*}
+    d_{\text{rayo 2}} &= 2\cdot d \\
+    &= 2\cdot \left(\frac{t}{\cos\theta'}\right)\,
+\end{align*}
+\begin{equation*}
+    \therefore \quad d_{\text{rayo 2}}= \frac{2t}{\cos\theta'} \,.
+\end{equation*}
+Y su correspondiente camino óptico es:
+\begin{align*}
+    \ell_{\text{rayo 2}} &= n' \cdot d_{\text{rayo 2}} \\
+    &= n' \cdot \left(\frac{2t}{\cos\theta'}\right)\;.
+\end{align*}
+\begin{equation*}
+    \therefore \quad\ell_{\text{rayo 2}}= \frac{2n't}{\cos\theta'}\,.
+\end{equation*}
+
+La diferencia de camino óptico $\Delta \ell$ entre ambos rayos se define como:
+\begin{equation*}
+   \Delta \ell = \ell_{\text{rayo 2}} - \ell_{\text{rayo 1}}\,.
+\end{equation*}
+
+Pero dado que el rayo 2 emerge se transmite desde el punto C al aire, no en el punto A, se introduce un desfase adicional $\ell_\text{desfase}$ cuya distancia geométrica es AD. 
+Consideremos un triangulo rectángulo $\triangle ABE$, rectángulo en $\angle AEB$. Notamos que el segmento $AC$ es dos veces el segmento $EB$, donde por trigonometría:
+\begin{align*}
+    AC&=2\cdot EB \\
+    &=2\cdot\left(d\sin\theta'\right)
+\end{align*}
+\begin{equation}\label{2.1_AC}
+    \therefore \quad AC=2d\sin\theta'\,.
+\end{equation}
+Sustituyendo \eqref{2.1_d} en \eqref{2.1_AC}, se obtiene:
+\begin{equation}\label{2.1_AC_final}
+    AC =2t\tan\theta'\,.
+\end{equation}
+Consideremos un triángulo rectángulo $\triangle ACD$, rectángulo en $\angle ADC$. Notamos que el segmento $AD$ es opuesto al ángulo $\theta$, donde por trigonometría:
+\begin{equation}\label{2.1_AD}
+    AD = AC\cdot\sin\theta\,.
+\end{equation}
+
+Sustituyendo \eqref{2.1_AC_final} en \eqref{2.1_AD} y considerando de la ley de Snell ($n\sin\theta=n'\sin\theta'\Rightarrow\sin\theta=n'\sin\theta'/n$):
+    \begin{align*}
+        AD&=AC \cdot \sin \theta \\
+        &= (2 t \tan \theta') \cdot \sin \theta \\
+        &= 2 t \cdot \frac{\sin \theta'}{\cos \theta'} \cdot \left( \frac{n'}{n} \sin \theta' \right)  \\
+        &= \frac{2n't \sin^2 \theta'}{n' \cos \theta'}
+    \end{align*}
+    \begin{equation*}
+        \therefore \quad AD=\frac{2n't \sin^2 \theta'}{n' \cos \theta'}.
+    \end{equation*}
+Así, el desfase entre los rayos 1 y 2 queda dado por:
+    \[
+    \ell_\text{desfase} = n \cdot AD = \frac{2n't \sin^2 \theta'}{\cos \theta'}\,.
+    \]
+    
+La Diferencia de camino óptico efectiva es:
+\begin{align*}
+    \Delta\ell &= \ell_\text{rayo 2} -  \ell_\text{desfase} \\
+    &= \frac{2n't}{\cos \theta'} - \frac{2n't \sin^2 \theta'}{\cos \theta'} \\
+    &= \frac{2n't}{\cos \theta'} (1 - \sin^2 \theta') \\
+    &= \frac{2n't}{\cos \theta'} \cos^2 \theta' \\
+    &= 2n't \cos \theta'
+\end{align*}
+Por lo tanto
+\[
+\boxed{\Delta\ell = 2n't \cos \theta'}\,.
+\]
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+\textbf{b)} Del resultado obtenido en el ítem a), derive la expresión para la diferencia de fase $\varphi_\ell$, asociada a la diferencia de longitud de camino óptico $\Delta \ell$. Escriba su expresión final en términos de $n'$, $t$, $\theta'$ y $\lambda_0$ (la longitud de onda de la luz en el vacío).
+
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+La diferencia de fase $\varphi_\ell$, considerando la longitud de onda en el vacío $\lambda_0$ está definida por la expresión: 
+\begin{equation*}
+    \varphi_\ell= \frac{2 \pi}{\lambda_0}\cdot d
+\end{equation*}
+ Donde $d$ es la distancia recorrida, la cual es la expresión que derivamos en a) para $\Delta_l$. Así, reemplazando este valor en la ecuación anterior obtenemos:
+
+ \begin{equation*}
+     \varphi_\ell= \frac{2 \pi}{\lambda_0} \cdot 2n't \cos \theta'
+ \end{equation*}
+\begin{equation*}
+     \varphi_\ell= \frac{4 \pi}{\lambda_0} n' t \cos \theta '
+\end{equation*}
+
+Expresión que corresponde al desfase $\varphi$ en términos de $n'$, $t$, $\theta'$ y $\lambda_0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textbf{Datos y cantidades a determinar:}
+\begin{itemize}
+    \item Longitud de onda en el vacío: $\lambda_0$.
+    \item Diferencia de fase: $\phi_\ell$.
+\end{itemize}
+
+\textbf{Derivación detallada:}
+
+La relación general entre diferencia de camino óptico y diferencia de fase se expresa como:
+\begin{equation*}
+    \phi_\ell = \frac{2\pi}{\lambda_0}\Delta \ell\,.
+\end{equation*}
+
+Sustituyendo la expresión encontrada para $\Delta \ell$ obtenemos explícitamente:
+\begin{equation*}
+    \phi_\ell = \frac{2\pi}{\lambda_0}\frac{2 n' t}{\cos\theta'}\,,
+\end{equation*}
+
+finalmente simplificando a la forma:
+\begin{equation*}
+    \phi_\ell = \frac{4\pi n' t \cos\theta'}{\lambda_0}\,.
+\end{equation*}
+
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+\textbf{c)} Adicione una diferencia de fase relativa de $-\pi$ (un haz es reflejado externamente y otro es reflejado internamente y luego transmitido) a la diferencia de fase $\varphi_\ell$ y derive la expresión para $t \cos \theta'$, en términos de $\lambda_0$, $n'$ y el orden de interferencia $m$ para el que acontecen los máximos (franjas brillantes) por reflexión.
+
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Considerando que el rayo incidente viene desde el medio con índice de refracción $n$ y pasa a la lámina de índice de refracción $n'$, suponemos que el cambio de índices es mayor, es decir $n<n'$ para que exista un desfase, cuya expresión para su desfase $\varphi$ con el término de fase relativa $-\pi$ resulta de la forma:
+
+\begin{equation*}
+    \varphi_{total} = \varphi_\ell + \varphi_{fase} = \frac{4 \pi}{\lambda_0} n' t \cos \theta ' - \pi
+\end{equation*} 
+
+Ahora, con la condición de relacionar con el término de orden de interferencia para que acontezcan las franajas brillantes, la diferencia total de desfase debe ser un múltiplo entero de $2\pi$ es decir, $\varphi = 2\pi m$. Ahora derivamos la expresión para estos valores enteros, despejando para $t \cos \theta'$ resultando:
+
+\begin{equation*}
+     \varphi = \frac{4 \pi}{\lambda_0} n' t \cos \theta ' - \pi
+\end{equation*}
+
+\begin{equation*}
+    2\pi m = \frac{4 \pi}{\lambda_0} n' t \cos \theta ' - \pi  /\cdot\frac{1}{\pi}
+\end{equation*}
+
+\begin{equation*}
+    2m+1=\frac{4}{\lambda_0} n' t \cos \theta ' 
+\end{equation*}
+
+\begin{equation*}
+    t \cos \theta' = \frac{\lambda_0}{4n'}(2m+1) = \frac{\lambda_0}{2n'}\left(m+\frac{1}{2}\right)
+\end{equation*}
+
+Notamos que aparece un término semi entero sumado al valor de $m$ cuando adicionamos la fase relativa $\pi$, esto quiere decir que el desfase total de la reflexión del rayo incidente corresponde a media longitud de onda (desplazamiento de medio orden).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textbf{Condición de interferencia constructiva (máximos):}
+
+Considerando un desfase adicional de $-\pi$, la condición general para interferencia constructiva es:
+\begin{equation*}
+    \phi_\ell - \pi = 2\pi m\,,
+\end{equation*}
+donde $m$ es un número entero.
+
+Sustituyendo $\phi_\ell$ obtenemos:
+\begin{align*}
+    \frac{4\pi n' t \cos\theta'}{\lambda_0} - \pi &= 2\pi m\\[6pt]
+    4 n' t \cos\theta' - \lambda_0 &= 2 m \lambda_0\\[6pt]
+    4 n' t \cos\theta' &= \lambda_0 (2 m + 1)\\[6pt]
+    t \cos\theta' &= \frac{\lambda_0}{4 n'} (2 m + 1)\,.
+\end{align*}
+
+Finalmente, simplificando:
+\begin{equation*}
+    t \cos\theta' = \frac{\lambda_0}{2 n'} \left(m+\frac{1}{2}\right)\,.
+\end{equation*}
+
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textbf{d)} La luz emitida por una fuente de luz láser tiene una longitud de onda de $633\,\text{nm}$ en el vacío. Suponga que un haz de esa luz incide con un ángulo de $30.0^\circ$ sobre la superficie de una lámina delgada de aceite de soya ($n' = 1.47$) que yace sobre la mesa. Calcule el espesor mínimo $t_{\text{mín}}$ que debe tener alguna región de la lámina para que ella refleje completamente esa luz. Asuma que el material óptico desde el cual la luz incide es el aire, $n = 1.00$.
+
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Para poder encontrar el espesor mínimo $t$ que debe tener la lámina  usaremos expresión encontrada en c), por lo cual debemos calcular el ángulo de refracción $\theta'$ usando la ley de refracción de Snell:
+
+\begin{equation*}
+    n\sin \theta= n' \sin \theta'
+\end{equation*}
+\begin{equation*}
+    1.0 \cdot \sin(30^\circ) = 1.47 \sin\theta'
+\end{equation*}
+\begin{equation*}
+   \sin \theta'  = \frac{1}{1.47\cdot 2} = 0.34 \implies \theta' = \arcsin(0.34) = 19.88^\circ
+\end{equation*}
+
+Ahora, utilizando la expresión en c), usamos el ángulo $\theta'$ y el valor mínimo de $m=0$ para encontrar el espesor $t$, el cual depejamos como sigue:
+
+\begin{equation*}
+     t \cos \theta' = \frac{\lambda_0}{2n'}\left(m+\frac{1}{2}\right) 
+\end{equation*}
+
+\begin{equation*}
+    t \cos (19.88^\circ)= \frac{\lambda_0}{2\cdot 1.47}\left(\frac{1}{2}\right)
+\end{equation*}
+\begin{equation*}
+    t = \frac{\lambda_0}{4\cdot 1.47 \cdot 0.94} = \frac{633 [nm]}{5.52}
+\end{equation*}
+\begin{equation*}
+    t=114.67 [nm]
+\end{equation*}
+
+Así encontramos una forma fácil de encontrar el espesor mínimo $t$ necesario para que suceda una reflexión completa de la luz, siendo $t=114.67$ [nm].
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+
+\textbf{Cálculo numérico explícito:}
+
+Datos del problema:
+\begin{itemize}
+    \item $\lambda_0 = 633\,\text{nm}$
+    \item $n' = 1,47$
+    \item $\theta = 30^\circ$
+\end{itemize}
+
+Primero, calculamos $\theta'$ por la Ley de Snell:
+\begin{align*}
+    n\sin\theta &= n'\sin\theta'\\[3pt]
+    1,00 \cdot \sin(30^\circ) &= 1,47\sin\theta'\\[3pt]
+    \sin\theta' &= \frac{0,5}{1,47}\\[3pt]
+    \theta' &= 19,88^\circ\,.
+\end{align*}
+
+Finalmente, con $m=0$ (mínimo espesor):
+\begin{align*}
+    t\cos(19,88^\circ)&=\frac{633\,\text{nm}}{2\times 1,47}\left(\frac{1}{2}\right)\\[3pt]
+    t &= \frac{633\,\text{nm}}{2\times1,47\times\cos(19,88^\circ)\times2}\\[3pt]
+    t &= 114,67\,\text{nm}\,.
+\end{align*}
+
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Problema 3}
+
+\textbf{a)} Compruebe que un haz de luz Gaussiano, de envolvente compleja de onda
+\begin{equation*}
+    A(x, y, z) = \frac{A_1}{q(z)} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \,,
+\end{equation*}
+donde $q(z) = z + i z_0$ (con $z_0$ una constante) y $\rho^2(x, y) = x^2 + y^2$, es solución de la ecuación paraxial de Helmholtz:
+\begin{equation*}
+    \vec\nabla^2_{\perp} A(x, y, z) - 2 i k_0 \frac{\partial A(x, y, z)}{\partial z} = 0 \,.
+\end{equation*}
+
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Para verificar que el haz Gaussiano es solución primero se debe calcular el laplaciano transversal, esto es \[ \nabla^2_{\perp} A(x, y, z) = \partial^2_xA(x, y, z) + \partial^2_yA(x, y, z) \]
+se calculan las derivadas parciales, primero con la derivada respecto a $x$,
+\begin{align*}
+    \partial^2_xA(x, y, z) &= \partial^2_x\frac{A_1}{q(z)} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\\
+    &= \frac{A_1}{q(z)} \partial^2_x\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\\
+    &= \frac{A_1}{q(z)} \partial_x\left[ \partial_x\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\right]\\
+    &= \frac{A_1}{q(z)} \partial_x\left[ \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \cdot \partial_x\left(-i k_0 \frac{ x^2 + y^2 }{2 q(z)} \right)\right]\\
+    &= \frac{A_1}{q(z)} \partial_x\left[ \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \cdot \left(-i k_0 \frac{ x }{ q(z)} \right)\right]\\
+    &= -\frac{A_1 k_0 i}{q^2(z)} \partial_x\left[ \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)x \right]\\
+    &= -\frac{A_1 k_0 i}{q^2(z)} \left[ \partial_x\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)x + \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\partial_xx \right]\\
+    &= -\frac{A_1 k_0 i}{q^2(z)} \left[ \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \cdot \left(-i k_0 \frac{ x^2 }{ q(z)} \right) + \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \right]
+\end{align*}
+
+\begin{equation}
+    \partial^2_xA(x, y, z) = -\frac{A_1 k_0 i}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left[ 1 - i k_0 \frac{ x^2 }{ q(z)} \right] \label{eq:partialx}
+\end{equation}
+
+luego la derivada respecto a $y$,
+
+\begin{align*}
+    \partial^2_yA(x, y, z) &= \partial^2_y\frac{A_1}{q(z)} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\\
+    &= \frac{A_1}{q(z)} \partial^2_y\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\\
+    &= \frac{A_1}{q(z)} \partial_y\left[ \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \cdot \left(-i k_0 \frac{ y }{ q(z)} \right) \right]\\
+    &= -\frac{A_1 k_0 i}{q^2(z)} \partial_y\left[ \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)y \right]\\
+    &= -\frac{A_1 k_0 i}{q^2(z)} \left[ \partial_y\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)y + \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\partial_yy\right]\\
+    &= -\frac{A_1 k_0 i}{q^2(z)} \left[ \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \cdot \left(-i k_0 \frac{ y^2 }{ q(z)} \right) + \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\right]
+\end{align*}
+
+\begin{equation}
+    \partial^2_yA(x, y, z) = -\frac{A_1 k_0 i}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \left[ 1 -i k_0 \frac{ y^2 }{ q(z)} \right]\label{eq:partialy}
+\end{equation}
+
+Luego, a partir de \eqref{eq:partialx} y \eqref{eq:partialy} se calcula el laplaciano
+
+\begin{align*}
+    \partial^2_xA(x, y, z) + \partial^2_yA(x, y, z) &= -\frac{A_1 k_0 i}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left[ 1 - i k_0 \frac{ x^2 }{ q(z)} \right] -\frac{A_1 k_0 i}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \left[ 1 -i k_0 \frac{ y^2 }{ q(z)} \right]\\
+    &= -\frac{A_1 k_0 i}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left[ 1 - i k_0 \frac{ x^2 }{ q(z)} + 1 -i k_0 \frac{ y^2 }{ q(z)} \right]\\
+    &= -\frac{A_1 k_0 i}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left[ 2 - i k_0 \frac{ x^2 + y^2 }{ q(z)}  \right]
+\end{align*}
+
+\begin{equation}
+     \vec\nabla^2_{\perp} A(x, y, z) = \partial^2_xA(x, y, z) + \partial^2_yA(x, y, z) = -\frac{A_1 k_0 i}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left[ 2 - i k_0 \frac{ \rho^2(x,y) }{ q(z)}  \right]
+\end{equation}
+
+Después, para completar la comprobación se necesita derivar respecto a $z$, esto es
+
+\begin{align*}
+    \partial_zA(x, y, z) &= \partial_z\left[\frac{A_1}{q(z)} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\right]\\
+    &= A_1\left[ \partial_z\left( \frac{1}{q(z)} \right)\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) + \left( \frac{1}{q(z)} \right)\partial_z\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \right]\\
+    &= A_1\left[ - \frac{1}{q^2(z)} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) +  \frac{1}{q(z)} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left( -\frac{ik_0\rho^2(x,y)}{2} \right)\partial_z \left( \frac{1}{q(z)} \right)\right]\\
+    &=A_1\left[ - \frac{1}{q^2(z)} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) - \frac{1}{q(z)} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left( -\frac{ik_0\rho^2(x,y)}{2} \right)\frac{1}{q^2(z)}\right]
+\end{align*}
+
+\begin{equation}
+    \partial_zA(x, y, z) = -\frac{A_1}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left[ 1 -\frac{ik_0\rho^2(x,y)}{2q(z)}  \right]\label{eq:partialz}
+\end{equation}
+
+Entonces, la ecuación diferencial parcial reemplazando las ecuaciones \eqref{eq:partialx}, \eqref{eq:partialy} y \eqref{eq:partialz} queda de la forma
+
+\begin{align*}
+    \vec\nabla^2_{\perp} A(x, y, z) - 2 i k_0 \frac{\partial A(x, y, z)}{\partial z} &= 0\\
+    -\frac{A_1 k_0 i}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left[ 2 - i k_0 \frac{ \rho^2(x,y) }{ q(z)}  \right] + 2ik_0\frac{A_1}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left[ 1 -\frac{ik_0\rho^2(x,y)}{2q(z)}  \right] &= 0\\
+    \frac{A_1 k_0 i}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left( -\left[ 2 - i k_0 \frac{ \rho^2(x,y) }{ q(z)} \right] + 2\left[ 1 -\frac{ik_0\rho^2(x,y)}{2q(z)}  \right] \right) &= 0\\
+    \frac{A_1 k_0 i}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left( -2 + i k_0 \frac{ \rho^2(x,y) }{ q(z)}  + 2 -\frac{ik_0\rho^2(x,y)}{q(z)} \right) &= 0\\
+    \frac{A_1 k_0 i}{q^2(z)}\exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right)\left( 0 \right) &=0\\
+    0&=0
+\end{align*}
+
+De esta forma se comprueba que el haz de luz Gaussiano es solución de la ecuación paraxial de Helmholtz.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+\textbf{b)} Escriba $[q(z)]^{-1} = (z + i z_0)^{-1}$ para redefinir el parámetro $q(z)$ de modo tal que
+\begin{equation*}
+    \frac{1}{q(z)} = \frac{1}{R(z)} - i \frac{\lambda_0}{\pi W^2(z)} \,,
+\end{equation*}
+y deduzca expresiones para $R(z)$ (el radio de curvatura del haz Gaussiano en la posición $z$), $W(z)$ (el ancho del haz Gaussiano en la posición $z$) y $W_0$ (el radio de la cintura del haz Gaussiano en la posición $z = 0$).
+    
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Se tiene que
+\begin{align*}
+    \frac{1}{q(z)} &= \frac{1}{z + iz_0}\cdot\frac{z - iz_0}{z - iz_0}\\
+    &= \frac{z-iz_0}{z^2 + z_0^2}
+\end{align*}
+
+\begin{equation}
+   \frac{1}{q(z)} = \frac{z}{z^2 + z_0^2} - i\frac{z_0}{z^2 + z_0^2} \label{eq:qzeta}
+\end{equation}
+
+Si se igualan las partes reales con las partes imaginarias se tiene que
+
+\[ \frac{1}{R(z)} = \frac{z}{z^2 + z_0^2} \]
+\[ -\frac{\lambda_0}{\pi W^2(z)} = - \frac{z_0}{z^2 + z_0^2} \]
+
+De estas, se deduce
+
+\begin{equation}
+    R(z) = \frac{z^2 + z_0^2}{z} \label{eq:rzeta}
+\end{equation}
+
+y 
+
+\begin{align*}
+    -\frac{\lambda_0}{\pi W^2(z)} &= - \frac{z_0}{z^2 + z_0^2}\\
+    \frac{\pi W^2(z)}{\lambda_0} &= \frac{z^2 + z_0^2}{z_0}\\
+    W^2(z) &= \frac{z^2 + z_0^2}{z_0}\frac{\lambda_0}{\pi}
+\end{align*}
+\begin{equation}
+     W(z) = \sqrt{\frac{z^2 + z_0^2}{z_0}\frac{\lambda_0}{\pi}}
+\end{equation}
+quedándose con el valor positivo dado que representa un ancho, si se expresa $W(z)$ con $W_0$ se tiene
+\begin{align*}
+    W(z) &= \sqrt{\frac{z^2 + z_0^2}{z_0}\frac{\lambda_0}{\pi}}\\
+    &= \sqrt{\frac{z^2 + z_0^2}{z_0}\frac{\lambda_0}{\pi}\frac{z_0}{z_0}}\\
+    &= \sqrt{\frac{z^2 + z_0^2}{z_0^2}\frac{\lambda_0 z_0}{\pi}}\\
+    &= W_0\sqrt{\frac{z^2 + z_0^2}{z_0^2}}
+\end{align*}
+
+Por ende, el radio de curvatura del haz Gaussiano en la posición $z$ es \[ R(z) = \frac{z^2+z_0^2}{z} \]
+
+Y el ancho del haz Gaussiano en la posición $z$ es
+\[ W(z) = W_0\sqrt{\frac{z^2 + z_0^2}{z_0^2}} \]
+con $W_0$ el radio de la cintura del haz Gaussiano en la posición $z=0$.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   
+\paragraph{Extra.} No está obligado a realizar esta parte, pero se le encoraja a hacerlo.
+
+Usando los resultados del ítem b), compruebe que $U(x, y, z) = A(x, y, z) e^{-i k_0 z}$, la amplitud compleja de onda del haz Gaussiano, puede ser escrita como:
+
+\begin{equation*}
+    U(x, y, z) = A_0 \exp \left( - \frac{\rho^2}{W^2(z)} \right) \exp \left( i \zeta(z) - i k_0 z - i k_0 \frac{\rho^2}{2 R(z)} \right) \,,
+\end{equation*}
+
+donde $A_0 = \frac{A}{i z_0}$ es una constante definida por conveniencia.
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Se tiene que la amplitud compleja de onda del haz Gaussiano es \[ 
+U(x, y, z) = A(x, y, z) e^{-i k_0 z} \]
+
+reemplazando el haz 
+\[ A(x, y, z) = \frac{A_1}{q(z)} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \]
+
+resulta
+
+\begin{align*}
+    U(x, y, z) &= A(x, y, z) e^{-i k_0 z}\\
+    &= \frac{A_1}{q(z)} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \exp(-i k_0 z)
+\end{align*}
+
+usando la propiedad $A_0 = \frac{A_1}{i z_0}$ se tiene que
+
+\begin{align*}
+    U(x, y, z) &= \frac{A_1}{q(z)} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \exp(-i k_0 z)\\
+    &= \frac{A_0 iz_0}{z + iz_0} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \exp(-i k_0 z)\\
+    &= \frac{A_0 iz_0}{z + iz_0}\left( \frac{z - iz_0}{z - iz_0} \right) \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \exp(-i k_0 z)\\
+    &= A_0\left( \frac{z_0^2 + zz_0i}{z^2 + z_0^2} \right) \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \exp(-i k_0 z)
+\end{align*}
+
+Se reescribe \[ \frac{z_0^2 + zz_0i}{z^2 + z_0^2}  \]
+como su forma polar, esto es, su magnitud
+
+\begin{align*}
+    \left| \frac{z_0^2 + zz_0i}{z^2 + z_0^2} \right| &= \sqrt{\frac{z_0^4}{(z^2 + z_0^2)^2} + \frac{z^2z_0^2}{(z^2 + z_0^2)^2}}\\
+    &= \sqrt{\frac{z_0^4 + z^2z_0^2}{(z^2 + z_0^2)^2}}\\
+    &= \sqrt{\frac{z_0^2(z_0^2 + z^2)}{(z^2 + z_0^2)^2}}\\
+    &= \sqrt{\frac{z_0^2}{(z^2 + z_0^2)}}\\
+    &=\frac{z_0}{\sqrt{z^2 + z_0^2}}
+\end{align*} 
+ y su ángulo
+
+ \begin{align*}
+     \varphi &= \tan\left(\frac{y}{x}\right)\\
+     &= \tan\left(\frac{\frac{zz_0}{z^2 + z_0^2}}{\frac{z_0^2}{z^2 + z_0^2}}\right)\\
+     &= \tan\left(\frac{zz_0}{z_0^2}\right)\\
+     &= \tan\left(\frac{z}{z_0}\right)
+ \end{align*}
+
+ luego, se tiene que \[ \varphi = \zeta(z) \]
+
+ Esto es
+
+ \[ \frac{z_0^2 + zz_0i}{z^2 + z_0^2} = \frac{z_0}{\sqrt{z^2 + z_0^2}}\exp(i\zeta(z)) = \frac{W_0}{W(z)}\exp(i\zeta(z)) \]
+
+Dado esto, se sigue
+
+\begin{align*}
+    U(x, y, z) &= A_0\left( \frac{z_0^2 + zz_0i}{z^2 + z_0^2} \right) \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \exp(-i k_0 z)\\
+    &= A_0\frac{W_0}{W(z)} \exp \left( -i k_0 \frac{ \rho^2(x, y) }{2 q(z)} \right) \exp(-i k_0 z)\exp(i\zeta(z))\\
+    &= A_0\frac{W_0}{W(z)} \exp \left( -i \frac{2\pi}{\lambda_0} \frac{ \rho^2(x, y) }{2 q(z)} \right) \exp(-i k_0 z)\exp(i\zeta(z))\\
+    &= A_0\frac{W_0}{W(z)} \exp \left( -i \frac{\pi}{\lambda_0} \frac{ \rho^2(x, y) }{z+iz_0}\frac{z-iz_0}{z-iz_0} \right) \exp(-i k_0 z)\exp(i\zeta(z))\\
+    &= A_0\frac{W_0}{W(z)} \exp \left( -i \frac{\pi}{\lambda_0} \frac{ \rho^2(x, y) (z-iz_0)}{z^2+z_0^2} \right) \exp(-i k_0 z)\exp(i\zeta(z))\\
+    &= A_0\frac{W_0}{W(z)} \exp \left( - \frac{\pi}{\lambda_0} \frac{ \rho^2(x, y) (zi+z_0)}{z^2+z_0^2} \right) \exp(-i k_0 z)\exp(i\zeta(z))\\
+    &= A_0\frac{W_0}{W(z)} \exp \left( - \frac{\pi}{\lambda_0} \frac{ \rho^2(x, y) z}{z^2+z_0^2}i - \frac{\pi}{\lambda_0} \frac{ \rho^2(x, y) z_0}{z^2+z_0^2} \right) \exp(-i k_0 z)\exp(i\zeta(z))\\
+    &= A_0\frac{W_0}{W(z)} \exp \left( - ik_0 \frac{ \rho^2(x, y)}{2R(z)} - \frac{ \rho^2(x, y) }{W^2(z)} \right) \exp(-i k_0 z)\exp(i\zeta(z))\\
+    &= A_0\frac{W_0}{W(z)} \exp \left( - \frac{ \rho^2(x, y) }{W^2(z)} \right)\exp \left( - ik_0 \frac{ \rho^2(x, y)}{2R(z)} \right) \exp(-i k_0 z)\exp(i\zeta(z))\\
+\end{align*}
+ Finalmente se comprueba que
+\begin{equation}
+    U(x, y, z) = A_0\frac{W_0}{W(z)} \exp \left( - \frac{ \rho^2(x, y) }{W^2(z)} \right)\exp \left( i\zeta(z)-i k_0 z- ik_0 \frac{ \rho^2(x, y)}{2R(z)} \right)
+\end{equation}
+
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

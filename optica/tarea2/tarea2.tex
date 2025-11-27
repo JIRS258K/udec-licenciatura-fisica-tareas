@@ -1,0 +1,1297 @@
+\documentclass{article}
+\setlength{\headheight}{13.07204pt} % Adjust headheight as suggested
+\usepackage[letterpaper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+
+% Paquetes matemáticos y tipográficos
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{float}      % <— Necesario para [H]
+\captionsetup{labelfont=bf}
+
+
+% Numeración de ecuaciones por sección
+\numberwithin{equation}{section}
+
+% Carga paquetes
+\usepackage{minted}
+\usepackage{xcolor}
+
+% Define colores personalizados
+\definecolor{codebg}{gray}{0.95}    % Fondo gris clarito
+\definecolor{commentgray}{gray}{0.4} % Comentarios gris medio
+\definecolor{keywordgray}{gray}{0.2} % Palabras clave gris oscuro
+
+% Configura minted
+\setminted{
+    bgcolor=codebg, % Fondo del bloque
+    linenos,        % Mostrar números de línea
+    breaklines,     % Romper líneas largas
+    fontsize=\small,
+    style=default,  % Estilo base
+}
+
+
+
+% Para la terminal
+\usepackage{tcolorbox}
+\tcbuselibrary{listingsutf8}
+\usepackage{listings}
+\usepackage{bera} % Fuente monoespaciada bonita (opcional)
+
+% Idioma en español
+\usepackage[spanish]{babel}
+
+% Manejo de imágenes
+\usepackage{graphicx} 
+\graphicspath{ {images/} }
+
+% Configuración de márgenes
+\usepackage[letterpaper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+
+% Tipografía mejorada
+\usepackage{lmodern}
+
+% Estilo de títulos con punto después del número
+\usepackage{titlesec}
+\titleformat{\section}{\huge\bfseries}{\thesection.}{1em}{}  % Título más grande
+
+% Encabezados sin pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\textit{Óptica matricial}}
+\fancyhead[L]{Física V: 510355 - Óptica}
+
+% Mejor separación de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Evita hifenaciones excesivas
+\sloppy
+
+% Configuración del índice
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{3cm} % Ajuste en la posición vertical
+    % Logo centrado
+    \includegraphics[width=0.6\textwidth]{UdeC_azul_centrado.png} 
+    
+    \vspace{1cm}
+    \thispagestyle{empty} % Sin número en la portada
+
+    % Título de la tarea
+    {\Huge \textbf{Tarea 02 - Óptica matricial} \par}
+    
+    \vspace{0.5cm}
+    {\Huge \textbf{Física V: 510355 - Óptica} \par}
+    \vspace{1.5cm}
+
+    % Nombre del autor
+    {\Large José Ignacio Rosas Sepúlveda \par
+    Kevin Andrés Vergara González \par
+    Víctor Patricio Maureira Cárdenas}
+    \vspace{1cm}
+    
+    % Fechas de la tarea
+    {\Large Junio 2025 \par}
+    \vfill
+\end{titlepage}
+
+\newpage
+\section*{Situación 1}
+Un pequeño objeto está dentro de un recipiente de ámbar. El recipiente es una esfera maciza de vidrio de índice de refracción $n' = \frac{8}{5}$, radio de curvatura $|R| = 3\,\text{cm}$ y se encuentra rodeado de aire de índice de refracción $n = 1$. El objeto está sobre el eje óptico y cuando es visto a lo largo del eje, y a través de la superficie, parece estar enterrado $5\,\text{cm}$ dentro del recipiente. Calcule la distancia a la cual el mosquito está realmente dentro de la esfera.
+
+\textbf{Solución:}
+\renewcommand{\arraystretch}{1.5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Para mejor entendimiento del desarrollo de esta situación, iremos paso a paso realizándolo en base a la estructura mencionada en la tarea
+\subsection*{Paso 1}
+Identificamos el sistema optico y la matriz $[ABCD]$, pero antes, identificaremos los datos importantes como:
+\begin{itemize}
+    \item Indice de refraccion del vidrio: $n_1=\frac{8}{5}$
+    \item Indice de refraccion del aire: $n_2=1$
+    \item Radio de curvatura de la superficie $R=-3$(dado que es convexo desde la perspectiva del aire)
+    \item La imagen aparente se observa a $s'=-5\,[\mathrm{cm}]$ desde la superficie
+    \item La luz se propaga de derecha a izquierda
+\end{itemize}
+Notemos que como el sistema consta de una sola superficie esférica convexa que separa dos medios, usamos la matriz de refracción esférica, que es de la forma:
+\begin{align*}
+    M_s=&\left[\begin{matrix}
+         1 & 0\\ \frac{(n_1-n_2)}{n_2R}& \frac{n_1}{n_2}
+    \end{matrix}\right ]\\
+    M_s=&\left[\begin{matrix}1&0\\\left(\frac{\frac{8}{5}-1}{1\cdot(-3)}\right)&\frac{8}{5} 
+    \end{matrix}\right]\\
+\end{align*}
+Por lo tanto la matriz [ABCD] está dada por
+\begin{align}
+    \left[\begin{matrix}
+        A&B\\C&D
+    \end{matrix}\right]=\left[\begin{matrix}
+        1&0\\-\frac{1}{5}&\frac{8}{5}
+    \end{matrix}\right]
+\end{align}
+\subsection*{Paso 2}
+Es muy importatnte notar que un punto en el eje optico se representa como un vector, esto nos ayudara a encontrar la distancia a la cual se encuentra el objeto(en este caso el mosquito). Por tanto nuestro vector seria de la forma:
+\begin{align*}
+    \vec v=\left[\begin{matrix}
+        y\\\theta
+    \end{matrix}\right]
+\end{align*}
+Para un objeto puntual sobre el eje optico, usamos su posicion relativa $s$ como parte del sistema de propagacion. Como solo tenemos una superficie usaremos la matriz para vincular la imagen y el objeto.
+Notemos que el vector imagen en optica matricial esta dado por:
+\begin{align*}
+    \vec v'=\left[\begin{matrix}
+        0\\\theta'
+    \end{matrix}\right]
+\end{align*}
+Y ya con esto planteado, relacionamos el objeto con:
+\begin{align*}
+    \vec v'=M\cdot \vec v
+\end{align*}
+Para un objeto a una distancia $s$, el rayo que parte del objeto y llega perpendicular al eje llega a altura $y$, con un angulo de $\theta=-\frac{y}{s}$. Usando $y=1$(ya que todo es lineal)
+\begin{align*}
+    \vec v_{obj}&=\left[\begin{matrix}
+        1\\
+        -\frac{1}{s}
+    \end{matrix}\right]\\
+    \vec v_{img}&=M\cdot\vec v_{obj}\\
+    \vec v_{img}&=\left[\begin{matrix}
+        1&0\\-\frac{1}{5}&\frac{8}{5}
+    \end{matrix}\right]\cdot\left[\begin{matrix}
+        1\\-\frac{1}{s}
+    \end{matrix}\right]\\
+    \vec v_{img}&=\left[\begin{matrix}
+        1\\-\frac{1}{5}-\frac{8}{5s}
+    \end{matrix}\right] 
+\end{align*}
+Notemos que el vector $v_{img}$ es el vector que corresponde al rayo en el aire despues de la refraccion. Como queremos que este rayo forme una imagen virtual a una distancia $s'=-5cm$, el angulo con respecto al eje debe ser el siguiente:
+\begin{align*}
+    \theta'=-\frac{1}{s'}=\frac{1}{5}
+\end{align*}
+entonces:
+\begin{align*}
+    -\frac{1}{5}-\frac{8}{5s}=\frac{1}{5}\implies -\frac{8}{5s}=\frac{1}{5}+\frac{1}{5}\implies -\frac{8}{5s}=\frac{2}{5}\implies -\frac{8}{s}=2
+\end{align*}
+De esto obtenemos que la posicion real del mosquito es de \boxed{4 cm \text{ dentro del vidrio}}
+
+\subsection*{Paso 3}
+Calcularemos los datos de la tabla anteriormente mencionada  
+\begin{itemize}
+    \item Distancia focal de salida $f'$:
+\begin{align*}
+    f'&=-\frac{1}{C}=-\frac{1}{-\frac{1}{5}}=\boxed{5cm}\\
+\end{align*}
+\item Distancia focal de entrada
+\begin{align*}
+    f=\frac{D}{-C}=\frac{\frac{8}{5}}{-(-\frac{1}{5})}=\boxed{8cm}
+\end{align*}
+\item Radio de curvatura:
+\begin{align*}
+    r=R=\boxed{3cm}
+\end{align*}
+\item Distancia imagen (v):
+Relacion matricial para propagacion desde objeto:
+\begin{align*}
+    \vec v_{in}=\left[\begin{matrix}
+        1\\-\frac{1}{s}
+    \end{matrix}\right]=\left[\begin{matrix}
+        1\\\frac{1}{4}
+    \end{matrix}\right]\implies \vec v_{ext}=\left[\begin{matrix}
+        1&0\\ -\frac{1}{5}&\frac{8}{5}
+    \end{matrix}\right]\cdot\left[\begin{matrix}
+        1\\ \frac{1}{4}
+    \end{matrix}\right]= \left[\begin{matrix}
+        1\\\frac{1}{5}
+    \end{matrix}\right]
+\end{align*}
+Entonces el angulo en el aire es:
+\begin{align*}
+    \theta = \frac{1}{v}\implies v = \frac{1}{\frac{1}{5}}=\boxed{5cm}
+\end{align*}
+\item Posicion imagen $(w)$:
+Distancia desde el vertice de la superficie hasta la imagen:
+\begin{align*}
+    \boxed{w=-5cm}
+\end{align*}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Situación 2}
+Una lente delgada convergente de longitud focal $|f| = 15\,\text{cm}$ forma la imagen de un objeto colocado a una distancia de $5\,\text{cm}$ a la izquierda de la lente. 
+
+\textbf{Solución:}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+En este caso la matriz del sistema óptico consiste de una refracción en la \textbf{lente delgada convergente}. Con $f = +15\,\text{cm}$, se tiene:
+
+\begin{equation}
+    M =
+    \left[\begin{matrix}
+        1 & 0\\[2pt]
+        -\frac{1}{f} & 1
+    \end{matrix}\right]  =\boxed{\left[\begin{matrix}1 & 0\\[4pt]-\frac{1}{15}\,\text{cm}^{-1} & 1\end{matrix}\right]}\, ,
+\end{equation}
+
+donde $A=1$, $B=0$, $C=-\frac{1}{15}\,\text{cm}^{-1}$ y $D=1$.
+
+Notar que el \textbf{determinante} de esta matriz es 
+\begin{align*}
+    \det M &= (1\cdot1)-\left[0\cdot\left(-\frac{1}{15}\,\text{cm}^{-1}\right)\right] \\
+    &=1 \,,
+\end{align*}
+es decir, 
+\begin{equation*}
+    \boxed{\det M =1}
+\end{equation*}
+lo que implica
+\begin{equation*}
+    \frac{n_1}{n_3}=1 \quad \Rightarrow \quad n_1=n_3 \,,
+\end{equation*}
+es decir, la lente delgada esta inmersa en un mismo medio de indice de refracción $n_1$.
+
+Ahora, calculamos los \textbf{puntos cardinales}:
+
+\begin{align*}
+    f =\left(\frac{n_1}{n_3}\right)\frac{1}{C}=(1)\left(\frac{1}{-\frac{1}{15}\,\text{cm}^{-1}}\right) \quad &\rightarrow \quad \boxed{f=-15 \, \text{cm}}\,. \\
+    f' = -\frac{1}{C}=-\left(\frac{1}{-\frac{1}{15}\,\text{cm}^{-1}}\right) \quad &\rightarrow \quad \boxed{f'=+15 \, \text{cm}}\,. \\
+    r = \left( D -\frac{n_1}{n_3}\right) \frac{1}{C} = (1-1)\left(\frac{1}{-\frac{1}{15}\,\text{cm}^{-1}}\right)\quad &\rightarrow \quad \boxed{r=0 \, \text{cm}}\,.\\
+    s = (1 - A) \frac{1}{C}=(1-1)\left(\frac{1}{-\frac{1}{15}\,\text{cm}^{-1}}\right) \quad &\rightarrow \quad \boxed{s= 0\, \text{cm}}\,.\\
+v = (D - 1)\frac{1}{C}\quad=(1-1)\left(\frac{1}{-\frac{1}{15}\,\text{cm}^{-1}}\right) &\rightarrow \quad \boxed{v= 0\, \text{cm}}\,.\\
+w = \left(\frac{n_1}{n_3}- A\right)\frac{1}{C}=(1-1)\left(\frac{1}{-\frac{1}{15}\,\text{cm}^{-1}}\right) \quad &\rightarrow \quad \boxed{s= 0 \, \text{cm}}\,.
+\end{align*}
+
+En resumen:
+
+\begin{itemize}
+    \item El \textbf{primer foco} está a $15~\text{cm}$ a la izquierda del centro óptico de la lente.
+    \item El \textbf{segundo foco} está a $15~\text{cm}$ a la derecha del centro óptico de la lente.
+    \item El \textbf{centro óptico} de la lente se toma como el origen, es decir, $0~\text{cm}$.
+    \item El \textbf{primer plano principal}, el \textbf{segundo plano principal}, el \textbf{primer plano nodal} y el \textbf{segundo plano nodal} coinciden en el centro de la lente para una lente delgada ideal, por lo tanto, se encuentran en $0~\text{cm}$.
+\end{itemize}
+
+Esto se resume en la siguiente tabla:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}\hline
+         $f$&  $f'$&  $r$&  $s$&  $v$& $w$\\\hline
+         $-15 \, \text{cm}$&  $+15 \, \text{cm}$&  $0\, \text{cm}$& $ 0\, \text{cm}$& $ 0\, \text{cm}$& $0\, \text{cm}$\\ \hline
+    \end{tabular}
+    \caption{Tabla con las distancias cardinales.}
+\end{table}
+
+La distancia imagen $z_2$ se obtiene a partir de los elementos de la matriz [\textbf{ABCD}] y la distancia objeto $z_1$. Con $z_1=5\,\text{cm}$ se tiene:
+\begin{align*}
+    z_2&=-\left( \frac{z_1A+B}{z_1C+D} \right) \\
+    &=-\left( \frac{(5\,\text{cm})1+0}{(5\,\text{cm})\left(-\frac{1}{15}\,\text{cm}^{-1}\right)+1} \right) \\
+    &=-\left( \frac{5\,\text{cm}}{\left(-\frac{1}{3}\right)+1} \right) \\
+    &=-\left( \frac{5\,\text{cm}}{\frac{2}{3}} \right) \\[2pt]
+    &= -\frac{15}{2} \, \text{cm} \, .
+\end{align*}
+
+Por lo tanto la distancia imagen $z_2$ es:
+
+\begin{equation*}
+    \boxed{z_2=-\frac{15}{2}  \, \text{cm} }\, .
+\end{equation*}
+
+Sabemos que para una matriz de planos conjugado el elemento A de esa matriz representa el aumento lateral del sistema, así:
+\begin{align*}
+   m &= A+z_2C\\
+   &=1+(-\frac{15}{2}  \, \text{cm})\left(-\frac{1}{15}\,\text{cm}^{-1}\right)\\
+   &=1+\frac{1}{2} \\
+   &=\frac{3}{2}\ \, .
+\end{align*}
+
+Por lo tanto el aumento lateral del sistema es:
+
+\begin{equation*}
+    \boxed{m=\frac{3}{2} }\, .
+\end{equation*}
+
+\subsection*{Características de la imagen}
+
+\begin{itemize}
+  \item \textbf{Tipo:} virtual (la imagen aparece en el mismo lado que el objeto, $z_2=-\tfrac{15}{2}\,\mathrm{cm}<0$).
+  \item \textbf{Orientación:} derecha (erecta, $m=+\tfrac{3}{2}>0$).
+  \item \textbf{Tamaño:} aumentada, $|m| = \tfrac{3}{2}$ veces el objeto.
+  \item \textbf{Escala:} en el eje $x$, cada cuadrito vale 1\,cm; en el eje $y$, cada 2 cuadritos valen 1\,cm.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{sit_2.png}
+  \caption{
+    Construcción geométrica de la formación de imagen para la \textbf{Situación 2}: una lente delgada convergente de distancia focal $f = +15$\,cm, con un objeto situado a $z_1 = -5$\,cm a la izquierda de la lente (origen en el centro óptico $H_1$). Se muestran los puntos focales ($F_1$, $F_2$), los planos principales y nodales ($PH_1$, $PH_2$, $PO$), y la trayectoria de los rayos principales: \textbf{Rayo 1} (rojo) paralelo al eje óptico que tras la lente pasa por el foco posterior $F_2$; \textbf{Rayo 2} (verde) que atraviesa el foco anterior $F_1$ y emerge paralelo al eje óptico; \textbf{Rayo 3} (azul) que atraviesa el centro óptico sin desviarse. El cruce de las prolongaciones de los rayos determina la posición de la \textbf{imagen virtual}, situada a $z_2 = -7.5$\,cm, mayor y derecha respecto al objeto. Se indican además las distancias $z_1$, $z_2$, $f$ y $f'$ para referencia.
+  }
+  \label{fig:rayos-sit2}
+\end{figure}
+
+
+\textbf{Caracterización de los rayos principales:}
+
+\begin{itemize}
+  \item \textbf{Rayo 1 (R1):} Parte del objeto paralelo al eje óptico, atraviesa la lente y se refracta pasando por el foco posterior \(F_2\). En el caso de imagen virtual, su prolongación (línea punteada hacia la izquierda) converge hacia la posición de la imagen detrás del objeto.
+  \item \textbf{Rayo 2 (R2):} Se dirige hacia el foco anterior \(F\) de la lente, y al atravesarla, emerge paralelo al eje óptico. Para la imagen virtual, la prolongación de este rayo también converge con la prolongación de R1 en la ubicación de la imagen.
+  \item \textbf{Rayo 3 (R3):} Cruza el centro óptico de la lente y continúa en línea recta sin desviación, ya que en la aproximación de lente delgada el centro óptico no introduce desplazamiento angular.
+  \item La \textbf{imagen virtual} se forma en el punto donde se cruzan las prolongaciones de $R1$ y $R2$. En este caso, la imagen aparece a la izquierda de la lente, es mayor que el objeto y está derecha, coherente con el aumento positivo.
+\end{itemize}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Situación 3}
+A la derecha de la lente de la Situación 2, y a una distancia de $60\,\text{cm}$ desde su centro, se coloca una segunda lente delgada divergente de longitud focal $|f| = 15\,\text{cm}$. Un objeto es colocado a $25\,\text{cm}$ a la izquierda de la primera lente.
+
+\textbf{Solución:}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+En este caso, la matriz del sistema óptico consiste en una refracción en la primera lente delgada convergente, una propagación entre las lentes y una última refracción en la segunda lente delgada divergente. Con $f = +15\,\text{cm}$, $d = 60\,\text{cm}$ y $f' = -15\,\text{cm}$, se tiene:
+
+\begin{align*}
+    M &=
+    \left[\begin{matrix}
+        1 & 0\\[2pt]
+        -\frac{1}{f'} & 1
+    \end{matrix}\right]  
+    \left[\begin{matrix}
+        1 & d \\
+        0 & 1 
+    \end{matrix}\right] \left[\begin{matrix}
+        1 & 0\\[2pt]
+        -\frac{1}{f} & 1
+    \end{matrix}\right] \\[3pt]
+    &=
+    \left[\begin{matrix}
+        1 & 0\\[2pt]
+        -\frac{1}{-15\,\text{cm}} & 1
+    \end{matrix}\right]  
+    \left[\begin{matrix}
+        1 & 60\,\text{cm} \\
+        0 & 1 
+    \end{matrix}\right] \left[\begin{matrix}
+        1 & 0\\[2pt]
+        -\frac{1}{15\,\text{cm}} & 1
+    \end{matrix}\right] \\[3pt]
+    &=\left[\begin{matrix}
+        1 & 0\\[2pt]
+        \frac{1}{15}\,\text{cm}^{-1} & 1
+    \end{matrix}\right]  
+    \left[\begin{matrix}
+        -3 & 60\,\text{cm} \\
+        -\frac{1}{15} \,\text{cm}^{-1}& 1 
+    \end{matrix}\right] \\
+    &=\left[\begin{matrix}
+        -3 & 60 \,\text{cm}\\[2pt]
+        -\frac{3}{15}\,\text{cm}^{-1}-\frac{1}{15}\,\text{cm}^{-1} & 5
+    \end{matrix}\right]  \\
+    &=\left[\begin{matrix}
+        -3 & 60 \,\text{cm}\\[2pt]
+         -\frac{4}{15}\,\text{cm}^{-1} & 5
+    \end{matrix}\right]  \,.
+\end{align*}
+
+Por lo tanto, la matriz de trayectoria de un rayo o matriz [\textbf{ABCD}] que caracteriza el sistema es:
+\begin{equation*}
+    \boxed{M=\left[\begin{matrix}
+        -3 & 60 \,\text{cm}\\[2pt]
+         -\frac{4}{15}\,\text{cm}^{-1} & 5
+    \end{matrix}\right]  } \,,
+\end{equation*}
+
+donde $A=-3$, $B=60 \,\text{cm}$, $C=-\frac{4}{15}\,\text{cm}^{-1}$ y $D=5$.
+
+Notar que el \textbf{determinante} de esta matriz es 
+\begin{align*}
+    \det M &= (-3)\cdot(5)-(60 \,\text{cm})\cdot\left(-\frac{4}{15}\,\text{cm}^{-1}\right) \\
+    &=-15+16\\
+    &=1
+\end{align*}
+es decir, 
+\begin{equation*}
+    \boxed{\det M =1}
+\end{equation*}
+lo que implica
+\begin{equation*}
+    \frac{n_1}{n_3}=1 \quad \Rightarrow \quad n_1=n_3 \,,
+\end{equation*}
+es decir, el sistema óptico esta inmerso en un mismo medio de indice de refracción $n_1$.
+
+Ahora, calculamos los \textbf{puntos cardinales}:
+
+\begin{align*}
+    f =\left(\frac{n_1}{n_3}\right)\frac{1}{C}=(1)\left(\frac{1}{-\frac{4}{15}\,\text{cm}^{-1}}\right) \quad &\rightarrow \quad \boxed{f=-\frac{15}{4} \, \text{cm}}\,. \\
+    f' = -\frac{1}{C}=-\left(\frac{1}{-\frac{4}{15}\,\text{cm}^{-1}}\right) \quad &\rightarrow \quad \boxed{f'=+\frac{15}{4} \, \text{cm}}\,. \\
+    r = \left( D -\frac{n_1}{n_3}\right) \frac{1}{C} = (5-1)\left(\frac{1}{-\frac{4}{15}\,\text{cm}^{-1}}\right)\quad &\rightarrow \quad \boxed{r=-15 \, \text{cm}}\,.\\
+    s = (1 - A) \frac{1}{C}=[1-(-3)]\left(\frac{1}{-\frac{4}{15}\,\text{cm}^{-1}}\right) \quad &\rightarrow \quad \boxed{s= -15\, \text{cm}}\,.\\
+v = (D - 1)\frac{1}{C}\quad=(5-1)\left(\frac{1}{-\frac{4}{15}\,\text{cm}^{-1}}\right) &\rightarrow \quad \boxed{v= -15\, \text{cm}}\,.\\
+w = \left(\frac{n_1}{n_3}- A\right)\frac{1}{C}=[1-(-3)]\left(\frac{1}{-\frac{4}{15}\,\text{cm}^{-1}}\right) \quad &\rightarrow \quad \boxed{s= -15 \, \text{cm}}\,.
+\end{align*}
+
+En resumen:
+
+\begin{itemize}
+    \item El \textbf{primer foco} está a $\dfrac{15}{4}~\text{cm}$ a la izquierda del centro óptico de la lente.
+    \item El \textbf{segundo foco} está a $\dfrac{15}{4}~\text{cm}$ a la derecha del centro óptico de la lente.
+    \item El \textbf{centro óptico} de la lente se ubica en $-15~\text{cm}$.
+    \item El \textbf{primer plano principal}, el \textbf{segundo plano principal}, el \textbf{primer plano nodal} y el \textbf{segundo plano nodal} coinciden en el centro óptico de la lente para una lente delgada ideal, por lo tanto, se encuentran todos en $-15~\text{cm}$.
+\end{itemize}
+
+Los puntos cardinales del sistema compuesto de dos lentes, obtenidos a partir de la matriz total del sistema (con origen de coordenadas en el centro óptico de la primera lente, $z=0$), son:
+
+Esto se resume en la siguiente tabla:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}\hline
+         $f$&  $f'$&  $r$&  $s$&  $v$& $w$\\\hline
+         $-\frac{15}{4} \, \text{cm}$&  $+\frac{15}{4} \, \text{cm}$&  $-15\, \text{cm}$&  $-15\, \text{cm}$&  $-15\, \text{cm}$& $-15\, \text{cm}$\\ \hline
+    \end{tabular}
+    \caption{Tabla con las distancias cardinales.}
+\end{table}
+
+La distancia imagen $z_2$ se obtiene a partir de los elementos de la matriz [\textbf{ABCD}] y la distancia objeto $z_1$. Con $z_1=25\,\text{cm}$ se tiene:
+\begin{align*}
+    z_2&=-\left( \frac{z_1A+B}{z_1C+D} \right) \\
+    &=-\left( \frac{(25\,\text{cm})(-3)+(60 \,\text{cm})}{(25\,\text{cm})\left(-\frac{4}{15}\,\text{cm}^{-1}\right)+5} \right) \\
+    &=-\left( \frac{-75\,\text{cm}+60\,\text{cm}}{-\frac{20}{3}+5} \right) \\
+    &=-\left( \frac{-15\,\text{cm}}{\frac{-20+15}{3}} \right) \\[2pt]
+    &= -\frac{15}{\frac{5}{3}} \, \text{cm} \\
+    &= -9 \, \text{cm} 
+\end{align*}
+
+Por lo tanto la distancia imagen $z_2$ es:
+
+\begin{equation*}
+    \boxed{z_2=-9  \, \text{cm} }\, .
+\end{equation*}
+
+Sabemos que para una matriz de planos conjugado el elemento A de esa matriz representa el aumento lateral del sistema, así:
+\begin{align*}
+   m &= A+z_2C\\
+   &=-3+(-9\,\text{cm})\left(-\frac{4}{15}\,\text{cm}^{-1}\right)\\
+   &=-3+\frac{12}{5} \\
+   &=-\frac{3}{5} \, .
+\end{align*}
+
+Por lo tanto el aumento lateral del sistema es:
+
+\begin{equation*}
+    \boxed{m=-\frac{3}{5}  }\, .
+\end{equation*}
+
+La imagen se ubica a $z_2 = -9$~cm, es decir, a la izquierda de la primera lente, lo cual indica que es una imagen virtual. El valor negativo del aumento ($m=-\tfrac{3}{5}$) indica que la imagen está invertida respecto al objeto, y el valor absoluto menor que uno implica que es reducida.
+
+\subsection{Características de la imagen}
+ 
+\begin{itemize}
+  \item \textbf{Tipo:} virtual (la imagen aparece en el mismo lado que el objeto, $z_2=-9\;\mathrm{cm}<0$).
+  \item \textbf{Orientación:} invertida (debido a que $m=-\tfrac{3}{5}<0$).
+  \item \textbf{Tamaño:} reducida, $|m| = \tfrac{3}{5}$ veces el objeto.
+  \item \textbf{Escala:} en el eje $x$, cada cuadrito vale 1\,cm; en el eje $y$, cada 2 cuadritos valen 1\,cm.
+\end{itemize}
+ 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{sit_3.png}
+  \caption{Diagrama de rayos (Situación 3).  
+    Objeto a $z_1 = -25\,$cm, lente 1 en $z=0$, lente 2 en $z=+60\,$cm, imagen virtual en $z_2=-9\,$cm (a 9\,cm a la izquierda de la lente 2).}
+  \label{fig:rayos-sit3}
+\end{figure}
+ 
+\vspace{1em}
+\noindent
+\textbf{Dibujo del diagrama de rayos:}
+\begin{itemize}
+  \item \textbf{R1} – Rayo paralelo al eje óptico que, tras la lente convergente, se refracta pasando por su foco posterior, se propaga 60\,cm y luego, al atravesar la lente divergente, sale como si proviniera de su foco anterior.  
+  \item \textbf{R2} – Rayo dirigido hacia el foco anterior de la primera lente que, tras ella, emerge paralelo; después de los 60\,cm atraviesa la segunda lente y se desvía como rayo divergente paralelo al eje (prolongación apunta hacia la izquierda).  
+  \item \textbf{R3} – Rayo que atraviesa el centro óptico de la primera lente sin desviarse, viaja 60\,cm y atraviesa el centro óptico de la segunda lente también sin desviarse.  
+  \item El cruce de las prolongaciones de R1 y R2 (líneas punteadas) marca la posición de la \emph{imagen virtual} entre las dos lentes.
+\end{itemize}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema 1}
+
+    \textbf{A.} Demuestre, analíticamente, que una placa SELFOC de longitud $d <\pi/2\alpha$ e índice de refracción dado por la expresión
+    \begin{equation}
+        n^2(y) = n_0^2 \left( 1 - \alpha^2 y^2 \right)
+    \end{equation}
+    actúa como una lente cilíndrica (una lente con poder focalizador en el plano $y-z$) de longitud focal
+    \begin{equation}
+        f_2 = \frac{1}{\alpha \sin (\alpha d)}\, .
+    \end{equation}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{fig1.png}
+        \caption{La placa SELFOC usada como una lente; $f_2$ es el segundo punto focal y $H_2$ es el segundo punto principal.}
+        \label{fig:1_a_fig}
+    \end{figure}
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consideremos un rayo propagándose por una placa SELFOC por el plano $y-z$, con eje óptico paralelo al eje $z$. Dicha placa tiene indice de refracción homogéneo en $x$ y $z$, pero variable en $y$ de forma:
+\begin{equation}\label{p1_coeficiente_refracción}
+        n^2(y) = n_0^2 \left( 1 - \alpha^2 y^2 \right) \,,
+\end{equation}
+
+Considerando que $n(y)$ es una función siempre positiva y $n_0>0$, tomamos la raíz cuadrada de esta ecuación y la expresamos de forma:
+\begin{equation}\label{p1_index}
+    n(y)=n_0\,(1-\alpha^2\,y^2)^{\frac{1}{2}}
+\end{equation}
+
+Consideramos el desarrollo en serie de Taylor para una función $f(x) = (1 - x)^n$,
+
+\begin{equation}\label{p1_taylor}
+    (1 - x)^n = 1 - nx + \frac{n(n-1)}{2}x^2 - \frac{n(n-1)(n-2)}{3!}x^3 + \cdots 
+\end{equation}
+
+Tomando $x=\alpha^2\,y^2$ y $n=\frac{1}{2}$ en \eqref{p1_taylor}. A su vez, suponiendo que $\alpha$ es tal que $\alpha^2\,y^2 \ll1$, para todo $y$ de interés. Se obtiene la aproximación:
+\begin{equation}\label{p1_taylor_approx}
+    (1 - \alpha^2\,y^2)^{\frac{1}{2}} \approx 1 - \frac{1}{2}\alpha^2\,y^2
+\end{equation}
+
+Empleando la aproximación \eqref{p1_taylor_approx} en \eqref{p1_index}, tenemos:
+
+\begin{equation*}
+    n(y)\approx n_0\,\left(1 - \frac{1}{2}\alpha^2\,y^2\right)
+\end{equation*}
+
+Reordenamos factores
+
+\begin{equation*}
+\frac{n_0}{n(y)} \approx \left(1 - \frac{1}{2}\alpha^2 y^2\right)^{-1}\,.
+\end{equation*}
+Utilizando el desarrollo en serie de Taylor para una función $f(x) = (1 - x)^{-1}$:
+\begin{equation*}
+(1-x)^{-1} = 1 + x + x^2 + x^3 + \cdots\,,\qquad |x| < 1\,,
+\end{equation*}
+teniendo $x = \frac{1}{2}\alpha^2 y^2$, obtenemos:
+\begin{equation*}
+\frac{n_0}{n(y)} \approx 1 + \frac{1}{2}\alpha^2 y^2 + \left(\frac{1}{2}\alpha^2 y^2\right)^2 + \cdots\,.
+\end{equation*}
+
+Dado que $\alpha^2 y^2 \ll 1$, el término de orden $\alpha^4 y^4$ puede despreciarse,
+\begin{equation*}
+\frac{n_0}{n(y)} \approx 1 + \frac{1}{2}\alpha^2 y^2 \,,
+\end{equation*}
+Elevamos esta aproximación al cuadrado, tenemos:
+\begin{align*}
+\left(\frac{n_0}{n(y)}\right)^2 &\approx \left(1 + \frac{1}{2}\alpha^2 y^2\right)^2 \\
+&= 1 + 2 \left(\frac{1}{2}\alpha^2 y^2\right) + \left(\frac{1}{2}\alpha^2 y^2\right)^2 \\
+&= 1 + \alpha^2 y^2 + \frac{1}{4}\alpha^4 y^4\,.
+\end{align*}
+
+Nuevamente, dado que $\alpha^2 y^2 \ll 1$, el término de orden $\alpha^4 y^4$ puede despreciarse. Obtenemos así:
+\begin{equation}\label{p1_aproximación_n_0/n(y)}
+\left(\frac{n_0}{n(y)}\right)^2 \approx 1 + \alpha^2 y^2\,.
+\end{equation}
+
+A continuación, derivamos la ecuación \eqref{p1_coeficiente_refracción} respecto a $y$:
+
+\begin{equation*}
+    \frac{d}{dy}[n^2(y)]=\frac{d}{dy}\left[n_0^2\,(1-\alpha^2\,y^2)\right] \, ,
+\end{equation*}
+
+obtenemos:
+
+\begin{equation}\label{p1_dn/dy}
+    \frac{dn}{dy}(y)=-\frac{n_0^2}{n(y)}\,\alpha^2y \,.
+\end{equation}
+
+Sabemos que la ecuación de un rayo en un medio con índice variable es, en general,
+\begin{equation}
+    \frac{d}{ds}\left(n\, \frac{d\vec{r}}{ds}\right) = \nabla n\,,
+\end{equation}
+donde $s$ es la longitud de arco, y $\vec{r}(s)$ la posición del rayo. Para rayos que se propagan en el plano $y$-$z$ (eje óptico en $z$) y variación sólo en $y$, esto se reduce a
+\begin{equation}
+    \frac{d}{ds}\left(n\, \frac{dy}{ds}\right) = \frac{d n}{d y}\,.
+    \label{eq:trayectoria_general}
+\end{equation}
+
+En la aproximación paraxial ($\theta \approx dy/dz \ll 1$, $ds \approx dz$), esto se convierte en:
+\begin{equation}
+    \frac{d}{dz}\left(n\, \frac{dy}{dz}\right) \approx \frac{dn}{d y}\,.
+    \label{eq:ecuacion_paraxial}
+\end{equation}
+
+Dado que el indicie de refracción $n$ es no homogéneo solo en $y$, es decir $n=n(y)$, se tiene:
+
+\begin{equation*}
+    n(y)\frac{d^2y}{dz^2} =\frac{d n}{d y} \,.
+\end{equation*}
+
+Dividiendo ambos lados por $n(y)$ (asumiendo $n(y) \neq 0$ en la región relevante),
+\begin{equation}\label{p1_edo}
+    \frac{d^2y}{dz^2} = \frac{1}{n(y)}\frac{d n}{d y}.
+\end{equation}
+
+Sustituyendo \eqref{p1_dn/dy} en \eqref{p1_edo},
+
+\begin{equation} \label{p1_edo_2}
+    \frac{d^2y}{dz^2} \approx -\left(\frac{n_0}{n(y)}\right)^2\,\alpha^2y.
+\end{equation}
+
+Sustituyendo \eqref{p1_aproximación_n_0/n(y)} en \eqref{p1_edo_2}, 
+
+\begin{equation*} 
+    \frac{d^2y}{dz^2} \approx -\left(1 + \alpha^2 y^2\right)\,\alpha^2y=-\left(\alpha^2y + \alpha^4 y^3\right)\,.
+\end{equation*}
+
+Siendo $\alpha^2 y^2 \ll 1$, el término $\alpha^4 y^3$ puede despreciarse a primer orden, quedando
+
+\begin{equation*}
+    \frac{d^2y}{dz^2} \approx -\,\alpha^2y \,.
+\end{equation*}
+
+Así, la ecuación para la trayectoria del rayo a travez de la placa SELFOC es:
+
+\begin{equation}
+    \frac{d^2 y}{dz^2} + \alpha^2 y = 0.
+    \label{eq:edo_oscilador}
+\end{equation}
+
+Esto es la ecuación de un \textbf{oscilador armónico simple} de frecuencia $\alpha$. Cuya solución general de es:
+\begin{equation*}
+    y(z) = A \cos(\alpha z) + B \sin(\alpha z) \,.
+\end{equation*}
+Supongamos una posición inicial $y(0) = y_0$ y una pendiente inicial $\frac{dy}{dz}= \theta_0$ en $z=0$. Con tales condiciones iniciales se definen los coeficientes $A$ y $B$, de modo:
+\begin{equation*}
+    A=y_0 \quad  \text{y} \quad B=\frac{\theta_0}{\alpha} \,.
+\end{equation*}
+
+Así, se tiene la siguiente ecuación para la trayectoria del rayo:
+\begin{equation*}
+    y(z) = y_0 \cos (\alpha z) + \frac{\theta_0}{\alpha} \sin (\alpha z) \,.
+\end{equation*}
+De la ecuación anterior se tiene que la pendiente de la trayectoria es
+\begin{equation*}
+    \frac{dy}{dz}(z) = -y_0 \,\alpha \sin (\alpha z) + \theta_0 \cos (\alpha z) \,.
+\end{equation*}
+
+
+Al recorrer la placa SELFOC de longitud $d$, el estado del rayo evoluciona de $(y_0, \theta_0)$ en $z=0$ a $(y_d, \theta_d)$ en $z=d$:
+\begin{align*}
+    y(d) &= y_0 \cos(\alpha d) + \frac{\theta_0}{\alpha} \sin(\alpha d) \\[1ex]
+    \frac{dy}{dz}(d) &= -y_0 \alpha \sin(\alpha d) + \theta_0 \cos(\alpha d)
+\end{align*}
+
+Es decir, la evolución es lineal y se puede escribir en forma matricial:
+\begin{equation}
+    \begin{pmatrix}
+        y(d) \\[2pt]
+        \theta(d)
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \cos(\alpha d) & \dfrac{1}{\alpha}\sin(\alpha d) \\[8pt]
+        -\alpha\sin(\alpha d) & \cos(\alpha d)
+    \end{pmatrix}
+    \begin{pmatrix}
+        y_0 \\[2pt]
+        \theta_0
+    \end{pmatrix}
+    \label{eq:matriz_selfoc}
+\end{equation}
+
+Identificamos que en este sistema optico la \textbf{matriz de transformación del rayo} es
+
+\begin{equation*}
+    M=\begin{pmatrix}
+    A & B \\ C & D
+\end{pmatrix} = \begin{pmatrix}
+        \cos(\alpha d) & \dfrac{1}{\alpha}\sin(\alpha d) \\[8pt]
+        -\alpha\sin(\alpha d) & \cos(\alpha d)
+    \end{pmatrix}
+\end{equation*}
+
+Queremos demostrar que este sistema actúa como una \textbf{lente cilíndrica} y encontrar su distancia focal de salida $f_2$. Es sabido que $f_2$ puede calcularse a partir de $C$ de modo:
+\begin{equation}    \label{eq:f2_de_C}
+    f_2 = \frac{1}{-C} \, ,
+\end{equation}
+
+donde $C=-\alpha\sin(\alpha d)$. Sustituyendo en \eqref{eq:f2_de_C}, obtenemos:
+\begin{equation*}
+    f_2 = \frac{1}{\alpha \sin(\alpha d)}    
+\end{equation*}
+
+Hemos demostrado que una placa SELFOC de perfil cuadrático, longitud $d$, y parámetro $\alpha$ actúa, en régimen paraxial, como una lente cilíndrica cuya distancia focal de salida es
+\begin{equation*}
+\boxed{
+f_2 = \frac{1}{\alpha \sin(\alpha d)}
+}    
+\end{equation*}
+
+válida mientras $d < \frac{\pi}{2\alpha}$, pues para mayores valores la función seno se anula y la trayectoria de los rayos se vuelve periódica (no focalizadora).
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \textbf{B.} Demuestre que el segundo plano principal $H_2$ (mostrado en la figura adjunta) reside a la distancia
+    \begin{equation*}
+        s = - \left(\frac{1}{\alpha}\right) \tan \left(\frac{\alpha d}{2} \right)\,.
+    \end{equation*}
+    
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Para el calculo de $s$, consideremos nuevamente la matriz de transferencia del rayo de este sistema óptico formado por la placa SELFOC,
+\begin{equation*}
+    M=\begin{pmatrix}
+    A & B \\ C & D
+\end{pmatrix} = \begin{pmatrix}
+        \cos(\alpha d) & \dfrac{1}{\alpha}\sin(\alpha d) \\[8pt]
+        -\alpha\sin(\alpha d) & \cos(\alpha d)
+    \end{pmatrix} \,.
+\end{equation*}
+
+Sabemos que la distancia $s$ si relaciona con los elementos $A$ y $C$ de esta matriz según la ecuación:
+\begin{equation}\label{p1_s}
+    s=(1-A)\frac{1}{C} \,.
+\end{equation}
+
+Donde tenemos que:
+\begin{equation*}
+    A=\cos(\alpha d) \quad \text{y} \quad C=-\alpha\sin(\alpha d) \,.
+\end{equation*}
+Sustituyendo $A$ y $C$ en \eqref{p1_s}, tenemos:
+\begin{equation*}
+     s=[1-\cos(\alpha d)]\left(\frac{1}{-\alpha\sin(\alpha d)}\right) \,.
+\end{equation*}
+Expresamos la ecuación de forma conveniente:
+\begin{equation}\label{1b_sss}
+     s =-\left(\frac{1}{\alpha}\right)\left(\frac{1-\cos(\alpha d)}{\sin(\alpha d)}\right) \,.
+\end{equation}
+Recordemos las identidades trigonométricas:
+\begin{equation*}
+    \sin^2\left(\frac{\theta}{2}\right)=\frac{1}{2}-\frac{\cos\theta}{2} \,.
+\end{equation*}
+\begin{equation*}
+    \sin(2\varphi) =2\sin(\varphi)\cos(\varphi) \,.
+\end{equation*}
+
+Definiendo de manera conveniente a los ángulos $\theta:=\alpha d$ y $\varphi:=\frac{\alpha d}{2}$, estas identidades se expresan de forma:
+
+\begin{equation}\label{p1_b_sin^2}
+    2\sin^2\left(\frac{\alpha d}{2}\right)=1-\cos(\alpha d) \,.
+\end{equation}
+\begin{equation}\label{p1_b_sin}
+    \sin\left(\alpha d\right) =2\sin\left(\frac{\alpha d}{2}\right)\cos\left(\frac{\alpha d}{2}\right) \,.
+\end{equation}
+
+Sustituyendo \eqref{p1_b_sin^2} y \eqref{p1_b_sin} en \eqref{1b_sss}, se tiene:
+
+\begin{align*}
+    s &=-\left(\frac{1}{\alpha}\right)\left(\frac{1-\cos(\alpha d)}{\sin(\alpha d)}\right) \\[2pt]
+    &=-\left(\frac{1}{\alpha}\right)\left(\frac{2\sin^2\left(\frac{\alpha d}{2}\right)}{2\sin\left(\frac{\alpha d}{2}\right)\cos\left(\frac{\alpha d}{2}\right)}\right) \\[2pt]
+    &=-\left(\frac{1}{\alpha}\right)\left(\frac{\sin\left(\frac{\alpha d}{2}\right)}{\cos\left(\frac{\alpha d}{2}\right)}\right)\\[2pt]
+    &=-\left(\frac{1}{\alpha}\right)\tan\left(\frac{\alpha d}{2}\right)
+\end{align*}
+    
+Así, queda demostrado que el segundo plano principal $H_2$ (mostrado en la figura adjunta) reside a la distancia
+    \begin{equation*}
+        \boxed{s = - \left(\frac{1}{\alpha}\right) \tan \left(\frac{\alpha d}{2} \right)}\,.
+    \end{equation*}
+    
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \textbf{C.} Haga gráficos (separados) para mostrar la trayectoria del rayo mostrado en la Fig.~\ref{fig:1_a_fig} en los siguientes casos particulares:
+    \begin{enumerate}
+        \item[i)] $d = \frac{\pi}{\alpha}$
+        \item[ii)] $d = \frac{\pi}{2\alpha}$
+        \item[iii)] $d = \frac{\pi}{4\alpha}$
+    \end{enumerate}
+    Para sus gráficos considere $\alpha = 0.5$ e $y_0 = 2.5$. Para cada caso evalúe $s$ y $f$.
+
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{c)}
+Para abordar este ejercicio desde la óptica matricial debemos notar ciertas cosas, como que el vector de rayos se representa como:
+\begin{align*}
+    \left[\begin{matrix}
+        y\\\theta
+    \end{matrix}\right]
+\end{align*}
+y se transforma a través del sistema óptico por:
+\begin{align*}
+\left[\begin{matrix}
+    y_{ex}\\
+    \theta_{ex}
+\end{matrix}\right]=\left[\begin{matrix}
+    A&B\\C&D
+\end{matrix}\right]\left[\begin{matrix}
+    y_{in}\\
+    \theta_{in}
+\end{matrix}\right]
+\end{align*}
+\subsubsection{Paso 1}
+Primero identificamos el sistema optico, para esto es necesario tener en cuenta que el indice de refraccion variable se nos da por enunciado y es $n^2(y)=n^2_0(1-\alpha^2y^2)$. Notemos que este medio puede ser representado mediante una matriz de trasnferencia ABCD en coordenadas paraxiales. La matriz de propagación a través de una longitud $d$ es:
+\begin{align*}
+    M_{GRIN}=\left[\begin{matrix}
+        \cos({\alpha d}) &\frac{1}{d}\sin({\alpha d})\\-\alpha\sin({\alpha d})&\cos({\alpha d})
+    \end{matrix}\right]
+\end{align*}
+La salida del rayo se obtiene aplicando:
+\begin{align*}
+    \left[\begin{matrix}
+        y_d\\\theta_d
+    \end{matrix}\right]=\left[\begin{matrix}
+        \cos({\alpha d}) &\frac{1}{d}\sin({\alpha d})\\-\alpha\sin({\alpha d})&\cos({\alpha d})
+    \end{matrix}\right]\cdot\left[\begin{matrix}
+        y_0\\\theta_0
+    \end{matrix}\right]
+\end{align*}
+Notemos que $\theta=0$, con esto el resultado se simplifica a:
+\begin{align*}
+    y_d&=y_0\cos(\alpha d)\\
+    \theta_d&=-\alpha y_0\sin(\alpha   d)
+\end{align*}
+\subsubsection{Paso 2}
+Ahora veámoslo por casos
+
+Caso 1: $d=\frac{\pi}{\alpha}$
+\begin{itemize}
+    \item $\alpha d=\pi$
+    \item $\cos(\pi)=-1,\sin(\pi)=0$
+    \item $y_d=-2.5,\theta_d=0$
+\end{itemize}
+\includegraphics[scale=0.7]{image0.png}\\
+Caso 2: $d=\frac{\pi}{2\alpha}$
+\begin{itemize}
+    \item $\alpha d=\frac{\pi}{2}$
+    \item $\cos(\frac{\pi}{2})=0,\sin(\frac{\pi}{2})=1$
+    \item $y_d=0,\theta_d=-1.25$
+    \end{itemize}
+    \includegraphics[scale=0.7]{image.png}\\
+Caso 3: $d=\frac{\pi}{4\alpha}$
+\begin{itemize}
+    \item $\alpha d=\frac{\pi}{4}$
+    \item $\cos(\frac{\pi}{4})=\frac{\sqrt{2}}{2},\sin(\frac{\pi}{4})=\frac{\sqrt{2}}{2}$
+    \item $y_d=2.5\cdot\frac{\sqrt{2}}{2}\approx1.768,\theta_d=-0.5\cdot 2.5\cdot\frac{\sqrt{2}}{2}\approx-0.884$
+\end{itemize}
+\includegraphics[scale=0.7]{image.png}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problema 2}
+
+Con base en una lente bi-convexa genérica de radios de curvatura $R_1$ y $R_2$ y de espesor central $t$ derive las Ecs.~(1) a la (6) del archivo \textit{Óptica-Matricial-1.pdf}. La lente es de material óptico transparente de índice de refracción $n_\ell$ y a la izquierda limita con un material óptico transparente de índice de refracción $n_1$, y a la derecha, con uno de índice de refracción $n_2$.
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+En el problema se analiza un lente bi--convexa con radios \(R_1 > 0,   R_2 < 0\), un espesor
+central \(t\), con índice interno \(n_\ell\) (material del lente) y
+dos medios exteriores de índices \(n_1\) que seria del lado del objeto(medio entrante) y
+\(n_2\) del lado de la imagen (medio saliente) . Esto con el objetivo de construir su matriz global \(M\) y, a partir de ella, obtener lo siguiente:
+
+\begin{enumerate}
+  \item Longitudes focales \(f_1\) y \(f_2\).
+  \item Posición de los planos principales \(H_1,H_2\).
+  \item Posición de los puntos nodales \(N_1,N_2\).
+  \item Ecuación de Gauss gruesa y aumento \(m\).
+  \item Límite de lente delgada en aire.
+\end{enumerate}
+
+La gracia en la óptica paraxial es que cada rayo se puede codificar mediante un vector
+\[
+\mathbf r=\begin{pmatrix}y\\ n\theta\end{pmatrix},
+\]
+donde \(y\) es la altura sobre el eje óptico y \(n\theta\) seria su
+\emph{ángulo reducido}.
+
+Para seguir con el desarrollo se usaran convenciones y aproximaciones básicas.Considerando el eje óptico $z$ con direccion hacia la derecha, y $y>0$ arriba y $\theta>0$ cuando el rayo se esta  inclina hacia arriba. $R$ se toma como positiva si es convexa hacia la izquierda y negativa si es convexa hacia la derecha. Con la aproximación paraxial, los ángulos son muy pequeños
+\[
+\tan\theta\approx\theta,\quad
+\sin\theta\approx\theta,\quad
+\cos\theta\approx1.
+\]
+Facilitando linealizar las leyes de Snell y la geometría de propagación, para que cada elemento del sistema óptico queda descrito por una transformación lineal en $(y,\theta)$.
+
+
+\subsection{Matriz $M_{1}$: refracción en la primera superficie}
+
+La refracción de un rayo que incide desde el medio $n_{1}$ a $n_{\ell}$ en una superficie de radio $R_{1}$, usamos la ley de Snell linealizada :  
+\[
+n_{1}\,\alpha_{1} = n_{\ell}\,\alpha'
+\quad\Longrightarrow\quad
+\alpha' = \frac{n_{1}}{n_{\ell}}\Bigl(\theta_{1} - \frac{y_{1}}{R_{1}}\Bigr).
+\]
+Se suma la inclinación de la normal, asi obteniendo el ángulo respecto al eje:  
+\[
+\theta' = \alpha' + \frac{y_{1}}{R_{1}}
+= \frac{n_{1}}{n_{\ell}}\,\theta_{1}
+  + \frac{n_{\ell}-n_{1}}{n_{\ell}}\,\frac{y_{1}}{R_{1}}.
+\]
+
+La matriz que relaciona $(y_{1},\theta_{1})$ con $(y',\theta')$ quedaria como:
+\[
+M_{1} =
+\begin{pmatrix}
+1 & 0 \\[6pt]
+\dfrac{n_{\ell}-n_{1}}{n_{\ell}\,R_{1}}
+& \dfrac{n_{1}}{n_{\ell}}
+\end{pmatrix}.
+\]
+
+\subsection{Matriz $M_{2}$: traslación en el espesor}
+
+Nuestra $M_{2}$ describe la propagación del rayo a por medio del espesor central $t$ en  $n_{\ell}$. 
+\[
+y'' = y' + t\,\tan\theta' \approx y' + t\,\theta',
+\qquad
+\theta'' = \theta'.
+\]
+Sin cambios ni en el índice ni curvatura, quedando
+\[
+M_{2} =
+\begin{pmatrix}
+1 & t \\[6pt]
+0 & 1
+\end{pmatrix},
+\]
+
+
+\subsection{Matriz $M_{3}$: refracción en la segunda superficie}
+
+$M_{3}$ modela la refracción de el rayo cuando este va hacia el material con índice $n_{\ell}$ hasta $n_{2}$, con radio $R_{2}$ de la superficie.
+De manera similar a $M_{2}$ la ley de Snell paraxial produce  
+\[
+n_{\ell}\,\alpha'' = n_{2}\,\alpha_{2}
+\quad\Longrightarrow\quad
+\alpha_{2} = \frac{n_{\ell}}{n_{2}}\Bigl(\theta'' + \frac{y''}{R_{2}}\Bigr).
+\]
+quedando similares, a diferencia de los signos
+\[
+\theta_{2} = \alpha_{2} - \frac{y''}{R_{2}}
+= \frac{n_{\ell}}{n_{2}}\,\theta''
+  - \frac{n_{\ell}-n_{2}}{n_{2}}\,\frac{y''}{R_{2}},
+\]
+Como la altura final obtenida $y_{2}=y''$. Entonces:
+\[
+M_{3} =
+\begin{pmatrix}
+1 & 0 \\[6pt]
+-\,\dfrac{n_{\ell}-n_{2}}{n_{2}\,R_{2}}
+& \dfrac{n_{\ell}}{n_{2}}
+\end{pmatrix}.
+\]
+
+
+
+
+
+
+La matriz total se obtiene por la composición
+\[
+M=M_{3}M_{2}M_{1}=
+\begin{pmatrix}A& B\\C& D\end{pmatrix}.
+\]
+Definiendo
+\[
+M_{1}=\begin{pmatrix}1&0\\m_{1}&k_{1}\end{pmatrix},
+\quad
+M_{2}=\begin{pmatrix}1&t\\0&1\end{pmatrix},
+\quad
+M_{3}=\begin{pmatrix}1&0\\m_{3}&k_{3}\end{pmatrix},
+\]
+con
+\[
+m_{1}=\frac{n_{\ell}-n_{1}}{n_{\ell}R_{1}},
+\quad k_{1}=\frac{n_{1}}{n_{\ell}},
+\quad m_{3}=-\frac{n_{\ell}-n_{2}}{n_{2}R_{2}},
+\quad k_{3}=\frac{n_{\ell}}{n_{2}},
+\]
+el producto directo da:
+\[
+M_{2}M_{1}=\begin{pmatrix}1+t\,m_{1}&t\,k_{1}\\m_{1}&k_{1}\end{pmatrix},
+\quad
+M=M_{3}(M_{2}M_{1})=
+\begin{pmatrix}A&B\\C&D\end{pmatrix},
+\]
+y los elementos son
+\[
+\begin{aligned}
+A&=1+t\,m_{1},\\
+B&=t\,k_{1},\\
+C&=m_{3}(1+t\,m_{1})+k_{3}m_{1},\\
+D&=m_{3}(t\,k_{1})+k_{3}k_{1}.
+\end{aligned}
+\]
+Sustituyendo y simplificando:
+\[
+\begin{aligned}
+A&=1+\frac{n_{\ell}-n_{1}}{n_{\ell}R_{1}}\,t,\\
+B&=\frac{n_{1}}{n_{\ell}}\,t,\\
+C&=-\frac{n_{\ell}-n_{2}}{n_{2}R_{2}}\Bigl(1+\frac{n_{\ell}-n_{1}}{n_{\ell}R_{1}}\,t\Bigr)
++\frac{n_{\ell}-n_{1}}{n_{2}R_{1}},\\
+D&=-\frac{n_{\ell}-n_{2}}{n_{2}R_{2}}\,t\,\frac{n_{1}}{n_{\ell}}+\frac{n_{1}}{n_{2}}.
+\end{aligned}
+\]
+
+
+
+En óptica paraxial, cualquier rayo se describe por
+\[
+\begin{pmatrix}y_2\\\theta_2\end{pmatrix}
+=
+\begin{pmatrix}A & B\\C & D\end{pmatrix}
+\begin{pmatrix}y_1\\\theta_1\end{pmatrix}.
+\]
+
+\subsection{Focal frontal \(f_{1}\)}
+
+Partimos de la matriz total del sistema M, para definir el foco frontal \(F_{1}\) imponemos la condición de que un rayo que parte de la altura \(y_{1}\) con ángulo  
+\[
+\theta_{1} \;=\; -\,\frac{y_{1}}{f_{1}}
+\]
+emerja paralelo al eje óptico, es decir \(\theta_{2}=0\). Del segundo componente del producto matricial se extrae  
+\[
+\theta_{2} \;=\; C\,y_{1} \;+\; D\,\theta_{1}\,,
+\]
+y al sustituir \(\theta_{1}=-y_{1}/f_{1}\) se obtiene  
+\[
+0 = C\,y_{1} - D\,\frac{y_{1}}{f_{1}}
+\quad\Longrightarrow\quad
+\frac{1}{f_{1}} \;=\;\frac{C}{D}.
+\]
+Se factoriza el índice de entrada para escribir  
+\[
+C = -\,\frac{n_{1}}{n_{2}}\,\frac{1}{f_{1}}
+\quad\Longrightarrow\quad
+\frac{1}{f_{1}} = -\,\frac{n_{2}}{n_{1}}\,C.
+\]
+Por otra parte, la combinación de las matrices lleva a la expresión  
+\[
+C \;=\;
+\frac{n_{\ell}-n_{1}}{n_{1}\,R_{1}}
+\;+\;
+\frac{n_{2}-n_{\ell}}{n_{2}\,R_{2}}
+\;+\;
+\frac{(n_{\ell}-n_{1})(n_{2}-n_{\ell})}{n_{1}\,n_{2}}\,
+\frac{t}{R_{1}R_{2}},
+\]
+de modo que al sustituir en \(\,1/f_{1}=-\tfrac{n_{2}}{n_{1}}\,C\)  
+\[
+\boxed{
+\frac{1}{f_{1}}
+=
+\frac{n_{\ell}-n_{1}}{n_{1}\,R_{1}}
++
+\frac{n_{2}-n_{\ell}}{n_{2}\,R_{2}}
++
+\frac{(n_{\ell}-n_{1})(n_{2}-n_{\ell})}{n_{1}\,n_{2}}
+\,\frac{t}{R_{1}R_{2}}.
+}
+\]
+
+
+
+\subsection{Foco trasero $f_{2}$}
+
+Con la formulación de Newton definimos
+\[
+x = z_{1} - f_{1},\quad x' = z_{2} - f_{2},\quad x\,x' = f_{1}\,f_{2}.
+\]
+Si invertimos el sentido de propagación (intercambiando $n_{1}\leftrightarrow n_{2}$), la expresión para $1/f_{2}$ es idéntica a la de $1/f_{1}$ salvo un signo por convención de ejes. De ahí surge de forma inmediata
+\[
+\boxed{%
+f_{2} = -\,\frac{n_{2}}{n_{1}}\,f_{1}.
+}
+\]
+Alternativamente, colocando el objeto en el plano focal trasero invertido ($x=0$), la condición $x'\to\infty$ también conduce al mismo factor $-\,n_{2}/n_{1}$.
+
+
+
+\subsection{Plano principal frontal $r$}
+
+Definimos $P$ como el punto sobre el eje (a distancia $p$ del vértice de entrada) tal que un rayo que parte de él con altura $y_1$ y pendiente $\theta_1$ emerja paralelo ($\theta_2=0$).  
+
+Como $\theta_1\approx y_1/p$, se cumple
+\[
+y_1 = p\,\theta_1.
+\]
+La condición $\theta_2=0$ conduce a
+\[
+0 = C\,y_1 + D\,\theta_1 = (C\,p + D)\,\theta_1
+\;\Longrightarrow\;
+p = -\frac{D}{C}.
+\]
+Usando la convención $p = D/C$, el plano principal frontal $H_1$, a distancia $r$ del vértice, queda
+\[
+\boxed{%
+r = p - f_{1} = \frac{D}{C} \;-\; f_{1}.
+}
+\]
+
+\subsection{Plano principal trasero $s$}
+
+Consideremos un rayo que entra paralelo al eje ($\theta_1=0$). Al atravesar la lente, sus valores de salida son
+\[
+y_2 = A\,y_1,
+\qquad
+\theta_2 = C\,y_1.
+\]
+Si prolongamos este rayo hacia atrás desde el segundo vértice, el punto de intersección con el eje se sitúa a
+\[
+q = \frac{y_2}{\theta_2} = \frac{A}{C}.
+\]
+Como el foco trasero $F_2$ está a la distancia $f_2$ del vértice, el plano principal trasero $H_2$ se encuentra en
+\[
+\boxed{s = q \;-\; f_{2} = \frac{A}{C} \;-\; f_{2}.}
+\]
+
+\subsection{Plano nodal frontal $v$}
+
+El plano nodal frontal $N_1$ es aquel desde el cual un rayo dirigido hacia él emerge manteniendo su ángulo. Primero imponemos que al llegar paralelo ($\theta_2=0$) se cumpla
+\[
+\theta_{2} = C\,y_{1} + D\,\theta_{1} = 0,
+\]
+y si suponemos $\theta_{1}\approx -y_{1}/v$, obtenemos
+\[
+v = \frac{D}{C}.
+\]
+Luego, para asegurar que la altura de salida sea cero, sustituimos $\theta_{1}=-y_{1}/f_{1}$ en
+\[
+y_{2} = A\,y_{1} + B\,\theta_{1},
+\]
+lo que da $B = A\,f_{1}$. Con ambas condiciones alcanzamos la fórmula final:
+\[
+\boxed{%
+v \;=\;\frac{A\,f_{1} - B}{C}.
+}
+\]
+
+
+
+
+
+\subsection{Plano nodal trasero $w$}
+
+El plano nodal trasero $N_{2}$, medido desde el vértice de salida, es el punto donde un rayo paralelo ($\theta_{1}=0$) mantiene su inclinación al salir. 
+
+Al atravesar la lente:
+\[
+y_{2} = A\,y_{1}, 
+\qquad
+\theta_{2} = C\,y_{1}.
+\]
+Prolongando el rayo hacia atrás hasta que recupere altura cero:
+\[
+0 = A\,y_{1} - w\,(C\,y_{1})
+\;\Longrightarrow\;
+w = \frac{A}{C}.
+\]
+Por último, descontamos la distancia al foco trasero $f_{2}$:
+\[
+\boxed{%
+w = \frac{A}{C} \;-\; f_{2}.
+}
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Relación de Newton}
+
+Usando las coordenadas de Newton,
+\[
+x = z_{1} - f_{1},\quad x' = z_{2} - f_{2},\quad x\,x' = f_{1}\,f_{2},
+\]
+sustituimos para obtener
+\[
+(z_{1}-f_{1})(z_{2}-f_{2}) = f_{1}f_{2}
+\;\Longrightarrow\;
+z_{1}z_{2} - f_{1}z_{2} - f_{2}z_{1} = 0.
+\]
+Dividiendo por $z_{1}z_{2}$ y reorganizando términos resulta
+\[
+\boxed{%
+-\,\frac{f_{1}}{z_{1}} + \frac{f_{2}}{z_{2}} = 1.
+}
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Aumento lateral $m$}
+
+Introducimos traslaciones desde $H_1$ y hasta $H_2$:
+\[
+T_{\rm in}=\begin{pmatrix}1 & z_1\\0 & 1\end{pmatrix},\quad
+T_{\rm out}=\begin{pmatrix}1 & z_2\\0 & 1\end{pmatrix}.
+\]
+La matriz conjugada
+\[
+M' = T_{\rm out}\,M\,T_{\rm in}
+= \begin{pmatrix}A' & B'\\C' & D'\end{pmatrix}
+\]
+tiene
+\[
+B' = z_1A + B + z_2\,(z_1C + D).
+\]
+Imponiendo $B'=0$ (planos conjugados) hallamos
+\[
+z_2 = -\frac{z_1A + B}{z_1C + D},
+\]
+y el elemento
+\[
+A' = A + C\,z_2
+\]
+es la razón de alturas, esto es
+\[
+\boxed{%
+m = A + C\,z_2.
+}
+\]
+Aplicando la forma de Gauss con $n_1,n_2$,
+\[
+z_2 = -\frac{n_1}{n_2}\frac{A\,z_1+B}{C\,z_1+D}
+\;\Longrightarrow\;
+m = -\frac{n_1}{n_2}\frac{z_2}{z_1}.
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Caso $n_1=n_2$: lente delgada}
+
+En aire ($n_1=n_2$) y usando $D=Cf_1$, la condición $B'=0$ conduce a
+\[
+A\,z_1 + B + z_2(C\,z_1+D)=0
+\;\Longrightarrow\;
+\frac{1}{z_1} + \frac{1}{z_2} = \frac{1}{f_1}.
+\]
+El elemento $A'=A+Cz_2$ sigue siendo la relación de alturas, de modo que
+\[
+m = A + C\,z_2
+\quad\Longrightarrow\quad
+\boxed{m = -\frac{z_2}{z_1}.}
+\]
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

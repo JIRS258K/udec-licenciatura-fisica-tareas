@@ -1,0 +1,1387 @@
+\documentclass{article}
+\setlength{\headheight}{13.07204pt} % Adjust headheight as suggested
+\usepackage[letterpaper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+
+% Paquetes matemáticos y tipográficos
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+% Numeración de ecuaciones por sección
+\numberwithin{equation}{section}
+
+% --- Código con minted en estilo Monokai ---
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{minted}
+
+% Colores Monokai
+\definecolor{monokai-bg}{HTML}{272822} % fondo
+\definecolor{monokai-fg}{HTML}{F8F8F2} % texto base (útil si lo necesitas en otros lugares)
+
+% Estilo global para minted
+\usemintedstyle{monokai}
+\setminted{
+  style=monokai,
+  bgcolor=monokai-bg, % asegura fondo oscuro
+  linenos,            % números de línea
+  breaklines,         % partir líneas largas
+  tabsize=2,
+  fontsize=\small,
+}
+
+% (Opcional) hacer los números de línea más tenues, en el color de comentarios Monokai
+\makeatletter
+\renewcommand{\theFancyVerbLine}{\sffamily\textcolor[HTML]{75715E}{\arabic{FancyVerbLine}}}
+\makeatother
+
+% (Opcional) fuente mono agradable
+\usepackage{bera}
+
+% --- Si quieres mantener una "terminal" con tcolorbox/listings ---
+\usepackage{tcolorbox}
+\tcbuselibrary{listingsutf8}
+\usepackage{listings}
+
+% Idioma en español
+\usepackage[spanish]{babel}
+
+% Manejo de imágenes
+\usepackage{graphicx} 
+\graphicspath{ {images/} }
+
+% Configuración de márgenes
+\usepackage[letterpaper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+
+% Tipografía mejorada
+\usepackage{lmodern}
+
+% Estilo de títulos con punto después del número
+\usepackage{titlesec}
+\titleformat{\section}{\huge\bfseries}{\thesection.}{1em}{}  % Título más grande
+
+% Encabezados sin pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\textit{Óptica de rayos}}
+\fancyhead[L]{Física V: 510355 - Óptica}
+
+% Mejor separación de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Evita hifenaciones excesivas
+\sloppy
+
+% Configuración del índice
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{3cm} % Ajuste en la posición vertical
+    % Logo centrado
+    \includegraphics[width=0.6\textwidth]{UdeC_azul_centrado.png} 
+    
+    \vspace{1cm}
+    \thispagestyle{empty} % Sin número en la portada
+
+    % Título de la tarea
+    {\Huge \textbf{Tarea 01 -  Óptica de rayos} \par}
+    
+    \vspace{0.5cm}
+    {\Huge \textbf{Física V: 510355 - Óptica} \par}
+    \vspace{1.5cm}
+
+    % Nombre del autor
+    {\Large José Ignacio Rosas Sepúlveda \par}
+    \vspace{1cm}
+    
+    % Fechas de la tarea
+    {\Large Abril 2025 \par}
+    \vfill
+\end{titlepage}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema 1}
+Un rayo de luz incide sobre un bloque de vidrio de índice de refracción $1.55$ como esquematizado en la Figura~\ref{fig:problema1}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=1\linewidth]{fig1.png}
+    \caption{Figura relacionada al Problema 1.}
+    \label{fig:problema1}
+\end{figure}
+
+Calcule y/o determine los ángulos —argumentando correspondientemente— $\theta_1$, $\theta_2$, $\theta_3$, $\theta_4$, $\theta_5$, $\theta_6$, $\theta_7$ y $\theta_8$. Asuma que la fibra está rodeada de aire de índice de refracción $n = 1,00$.
+
+
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Se observa que el rayo de luz que incide sobre el bloque de vidrio forma un \textbf{ángulo de incidencia} $\theta = 35.0^\circ$ con respecto a la normal. Por otro lado, el rayo reflejado forma un \textbf{ángulo de reflexión} $\theta_1$, también medido respecto a la normal. De acuerdo con la \textbf{ley de la reflexión}, ambos ángulos son iguales:
+
+\begin{equation}
+    \theta = \theta_1 = 35.0^\circ .
+\end{equation}
+
+
+Para el rayo refractado, se define un \textbf{ángulo de refracción} $\theta_2$ con respecto a la normal. Este ángulo puede determinarse aplicando la \textbf{Ley de Snell}, la cual relaciona los índices de refracción de los medios involucrados con los respectivos ángulos de incidencia y refracción:
+
+\begin{equation}\label{pr1:Snell_1}
+    n_1 \sin \theta = n_2 \sin \theta_2,
+\end{equation}
+
+donde:
+\begin{itemize}
+    \item $n_1$ es el indice de refracción del aire.
+    \item $n_2$ es el indice de refracción del vidrio.
+\end{itemize}
+
+Despejando $\theta_2$ en la ecuación \eqref{pr1:Snell_1}, de modo
+\begin{equation*}
+\begin{aligned}
+    n_1\sin \theta = n_2 \sin \theta_2 \quad &\Rightarrow \quad  \frac{n_1}{n_2}\sin \theta =\sin \theta_2 \\
+    &\Rightarrow \quad \arcsin \left( \frac{n_1}{n_2}\sin \theta \right) = \arcsin \left( \sin \theta_2 \right) \\
+     &\Rightarrow \quad \theta_2=\arcsin\left(\frac{n_1}{n_2}\sin\theta \right)
+\end{aligned}
+\end{equation*}
+
+Así, obtenemos la ecuación \eqref{pr1:Snell_2},
+\begin{equation}\label{pr1:Snell_2}
+\theta_2=\arcsin\left(\frac{n_1}{n_2}\sin\theta \right),
+\end{equation}
+
+en la cual sustituimos los valores de $n_1=1,00$, $n_2=1,55$ y $\theta=35,0^\circ$, de modo
+
+\begin{equation*}
+\theta_2=\arcsin\left[\frac{(1,00)}{(1,55)}\sin(35,0^\circ) \right] \approx 21,71 ^\circ.    
+\end{equation*}
+
+El rayo de luz refractado, con un ángulo de refracción $\theta_2$, se refleja en el interior del vidrio con un \textbf{ángulo de incidencia} $\theta_3$ y un \textbf{ángulo de reflexión} $\theta_4$. Estos ángulos cumplen la siguiente relación, de acuerdo con la \textbf{ley de la reflexión}:
+
+\begin{equation}\label{pr1:th_3=th_4}
+    \theta_3 = \theta_4
+\end{equation}
+
+Para calcular el ángulo $\theta_3$, consideremos un triángulo rectángulo en el cual dos de sus ángulos internos son $\theta_2$ y $\theta_3$. Aplicando el teorema de la geometría euclidiana que establece que \textbf{la suma de los ángulos interiores de cualquier triángulo es igual a $180^\circ$}, se tiene que:
+
+\begin{equation*}
+\begin{aligned}
+\theta_2+\theta_3+90^\circ=180^\circ \quad &\Rightarrow \quad \theta_3 = 90^\circ-\theta_2 \\
+&\Rightarrow \quad \theta_3 = 90^\circ - (21,71^\circ) \\
+&\Rightarrow \quad \theta_3 = 68,29^\circ .
+\end{aligned}
+\end{equation*}
+
+Considerando la relación en \eqref{pr1:th_3=th_4}, tendremos que
+
+\begin{equation*}
+    \theta_3 = \theta_4 =  68,29^\circ .
+\end{equation*}
+
+Así, se establece que el rayo permanece con el mismo ángulo durante su primera reflexión interna dentro del vidrio.
+
+El rayo de luz previamente reflejado, que emerge con un ángulo de reflexión $\theta_4$, vuelve a reflejarse en el interior del vidrio. En esta nueva reflexión, el rayo incide con un \textbf{ángulo de incidencia} $\theta_5$ y se refleja con un \textbf{ángulo de reflexión} $\theta_6$. De acuerdo con la \textbf{ley de la reflexión}, estos ángulos son iguales:
+
+\begin{equation}\label{pr1:th_5=th_6}
+    \theta_5 = \theta_6
+\end{equation}
+
+Para determinar el ángulo $\theta_5$, observamos en la Figura~\ref{fig:problema1} la formación de un triangulo rectángulo con dos ángulos $\theta_4$ y $\beta$, tal que $\beta$ y $\theta_5$ son \textbf{ángulos complementarios}, es decir, su suma es igual a un \textbf{ángulo recto}. A partir de esto podemos deducir la siguiente relación:
+
+\begin{equation*}
+\begin{aligned}
+    \theta_4 + \beta + 90^\circ = 180^\circ  \quad \wedge \quad \theta_5+\beta= 90^\circ  \quad &\Rightarrow \quad \theta_4 + \beta + 90^\circ = 180^\circ   \quad \wedge \quad \beta= 90^\circ - \theta_5\\
+    &\Rightarrow \quad \theta_4 + (90^\circ - \theta_5) + 90^\circ = 180^\circ \\
+    &\Rightarrow \quad \theta_4 - \theta_5= 0 \\
+    &\Rightarrow \quad \theta_4 = \theta_5 \\
+    &\Rightarrow \quad \theta_5 = 68,29^\circ.
+\end{aligned}
+\end{equation*}
+
+Luego, considerando la relación dada en la ecuación~\eqref{pr1:th_5=th_6}, obtenemos:
+
+\begin{equation*}
+    \theta_5 = \theta_6 = 68,29^\circ.
+\end{equation*}
+
+Por lo tanto, el ángulo del segundo rebote interno también se mantiene igual al primero, confirmando la simetría del trayecto dentro del bloque.
+
+
+Para calcular el angulo $\theta_7$, volvemos a considerar un triángulo rectángulo cuyos ángulos internos son $\theta_6$ y $\theta_7$. Aplicando nuevamente el teorema que establece que \textbf{la suma de los ángulos interiores de cualquier triángulo es igual a $180^\circ$}, se obtiene:
+
+\begin{equation*}
+\begin{aligned}
+    \theta_6 + \theta_7 + 90^\circ = 180^\circ \quad &\Rightarrow \quad \theta_7 = 90^\circ - \theta_6 \\
+    &\Rightarrow \quad \theta_7 = 90^\circ - 68,29^\circ \\
+    &\Rightarrow \quad \theta_7 =21,71^\circ. 
+\end{aligned}
+\end{equation*}
+
+Este valor, coincidente con $\theta_2$, anticipa que el ángulo de salida del rayo será cercano al ángulo de entrada.
+
+\begin{equation*}
+    \theta_2=\theta_7 =21,71^\circ. 
+\end{equation*}
+
+El rayo reflejado, con un ángulo de reflexión correspondiente a $\theta_6$, incide sobre la \textbf{superficie de separación} entre el vidrio y el aire con un \textbf{ángulo de incidencia} $\theta_7$. El rayo atraviesa la interfaz refractándose en el aire con un \textbf{ángulo de refracción} $\theta_8$. 
+
+Para determinar $\theta_8$, aplicamos nuevamente la \textbf{Ley de Snell}, la cual establece:
+
+\begin{equation*}
+\begin{aligned}
+    n_2 \sin \theta_7 = n_1 \sin \theta_8 \quad &\Rightarrow \quad \frac{n_2}{n_1} \sin \theta_7 = \sin \theta_8 \\
+    &\Rightarrow \quad \theta_8 = \arcsin\left(\frac{n_2}{n_1} \sin \theta_7 \right).
+\end{aligned}
+\end{equation*}
+Así, obtenemos la ecuación \eqref{pr1:Snell_3},
+\begin{equation}\label{pr1:Snell_3}
+\theta_8 = \arcsin\left(\frac{n_2}{n_1} \sin \theta_7 \right).
+\end{equation}
+
+en la cual sustituimos los valores de $n_1=1,00$,  $n_2=1,55$ y $\theta=21,71^\circ$, de modo
+
+\begin{equation*}
+\theta_8=\arcsin\left[\frac{(1,55)}{(1,00)}\sin(21,71^\circ) \right] \approx 34.98 ^\circ.   
+\end{equation*}
+
+Observamos que el valor del \textbf{ángulo de refracción} $\theta_8$, correspondiente al rayo de luz que emerge del vidrio, se aproxima al valor del \textbf{ángulo de incidencia} $\theta$, asociado al rayo de luz que incide en él. Esta coincidencia se debe a que las caras del bloque de vidrio son planas y paralelas, y el medio externo (aire) es el mismo en ambos lados. Por lo tanto, podemos considerar que
+
+\begin{equation}
+    \theta \approx \theta_8 = 35,0^\circ.
+\end{equation}
+
+
+
+
+\subsection*{Conclusión:}
+
+En resumen, se han obtenido los siguientes valores de ángulos para la situación mostrada en la Figura~\ref{fig:problema1}. Estos valores corresponden a los \textbf{ángulos de incidencia}, \textbf{reflexión} y \textbf{refracción} en los distintos puntos de interacción entre el rayo de luz y las superficies del \textbf{vidrio} y del \textbf{aire}, de acuerdo con las \textbf{leyes de la reflexión} y \textbf{refracción}.
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Ángulo} & \textbf{Valor} \\ \hline
+Ángulo de incidencia $\theta$ & $35{,}0^\circ$ \\ \hline
+Ángulo de reflexión $\theta_1$ & $35{,}0^\circ$ \\ \hline
+Ángulo de refracción $\theta_2$ & $21,71^\circ$ \\ \hline
+Ángulo de incidencia $\theta_3$ & $68,29^\circ$ \\ \hline
+Ángulo de reflexión $\theta_4$ & $68,29^\circ$ \\ \hline
+Ángulo de incidencia $\theta_5$ & $68,29^\circ$ \\ \hline
+Ángulo de reflexión $\theta_6$ & $68,29^\circ$ \\ \hline
+Ángulo de incidencia $\theta_7$ & $21,71^\circ$ \\ \hline
+Ángulo de refracción $\theta_8$ & $35,0^\circ.$ \\ \hline
+\end{tabular}
+\caption{Valores de los ángulos obtenidos en el análisis.}
+\label{tab:valores_angulos}
+\end{table}
+
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problema 2}
+
+El principio de Fermat puede enunciarse, aunque no rigurosamente, de la siguiente manera: \emph{el camino seguido por un rayo de luz entre dos puntos es aquel que se recorre en el menor tiempo posible}. Con esto en mente y apoyándose en la Figura~\ref{fig:fermat}, demuestre analíticamente que se cumple la ley de la refracción. Asuma que el camino representado por la línea continua es el seguido por el rayo, y que la línea segmentada representa un camino alternativo que debe minimizarse. Recuerde que la velocidad de la luz en un medio está dada por $C = \frac{C_0}{n}$, donde $n$ es el índice de refracción. Debe demostrar que el tiempo total $t_{SP}$ es un mínimo. Se sugiere revisar la aplicación del principio de Fermat en la reflexión, como se analizó en clases.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{fig2.png}
+    \caption{Figura relacionada al Problema 2.}
+    \label{fig:fermat}
+\end{figure}
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Sabemos que la velocidad de propagación de la luz en un medio homogéneo es constante. Por lo tanto, para un elemento infinitesimal de camino óptico $dl$ recorrido en un intervalo infinitesimal de tiempo $dt$, la razón de cambio de posición de la luz será constante:
+
+\begin{equation}\label{pr2:razon_c0_1}
+    C = \frac{dl}{dt}.
+\end{equation}
+
+Por otra parte, la velocidad de propagación de la luz en un medio de índice de refracción $n$ se relaciona con la velocidad de la luz en el vacío $C_0$ mediante la expresión
+
+\begin{equation}\label{pr2:razon_n}
+    C = \frac{C_0}{n}.
+\end{equation}
+
+Sustituyendo \eqref{pr2:razon_n} en \eqref{pr2:razon_c0_1}, obtenemos
+
+\begin{equation}\label{pr2:razon_c0_2}
+    \frac{C_0}{n} = \frac{dl}{dt}.
+\end{equation}
+
+Multiplicando ambos lados de \eqref{pr2:razon_c0_2} por $n\,dt$, resulta:
+
+\begin{equation}\label{pr2:razon_c0_3}
+    C_0\,dt = n\,dl.
+\end{equation}
+
+Integrando esta expresión desde un instante inicial $t_A$ hasta un instante final $t_B$, o equivalentemente, desde un punto $A$ hasta un punto $B$ en el trayecto de la luz, se obtiene:
+
+\begin{equation}\label{pr2:camino_1}
+    l= C_0\int_{t_A}^{t_B} dt = n \int_{A}^{B} dl.
+\end{equation}
+
+La ecuación \eqref{pr2:camino_1} muestra que el \emph{camino óptico} es la distancia recorrida ponderada por el índice de refracción del medio homogéneo, es decir, depende tanto del trayecto como del medio atravesado.
+
+Consideremos ahora la situación representada en la Figura~\ref{fig:fermat}. Un rayo de luz parte desde el punto $S$, se propaga en un medio homogéneo de índice de refracción $n$ y llega al punto $O$, donde con un angulo de incidencia $\theta$ incide sobre una interfase plana con un segundo medio de índice $n'$. El rayo se refracta con un ángulo $\theta'$ y llega finalmente al punto $P$. 
+
+Según la ecuación \eqref{pr2:camino_1}, la \textbf{longitud del camino óptico real}, $l$, está dada por la suma de los trayectos recorridos en cada medio, es decir:
+
+\begin{equation*}
+    l = n \int_S^O dl + n' \int_O^P dl = n l_1 + n' l_2,
+\end{equation*}
+
+donde $l_1$ y $l_2$ representan las distancias efectivas recorridas en cada medio, las cuales están dadas por:
+
+\begin{equation*}
+    l_1= \sqrt{x^2+y^2} \quad \text{y} \quad l_2=\sqrt{x'^2+y'^2}.
+\end{equation*}
+
+Consideremos ahora una \textbf{longitud de camino óptico alternativa}, denotada por $l'(\epsilon)$, correspondiente a un rayo de luz que parte desde el punto $S$, incide sobre la interfase en un punto $O'$ ligeramente desplazado respecto al punto de incidencia real $O$, y finalmente llega al punto $P$. Según la ecuación \eqref{pr2:camino_1}, esta longitud de camino óptico está dada por
+
+\begin{equation*}
+    l'(\epsilon) = n \int_S^{O'} dl + n' \int_{O'}^P dl = n \, l_1'(\epsilon) + n' \, l_2'(\epsilon),
+\end{equation*}
+
+donde $l_1'(\epsilon)$ y $l_2'(\epsilon)$ representan las distancias efectivas recorridas por el rayo en los medios de índices $n$ y $n'$, respectivamente. Estas se expresan como
+
+\begin{equation*}
+    l_1'(\epsilon) = \sqrt{(x+\epsilon)^2 + y^2}, \qquad l_2'(\epsilon) = \sqrt{(x' - \epsilon)^2 + y'^2},
+\end{equation*}
+
+donde $\epsilon$ es un parámetro real que cuantifica el desplazamiento horizontal del punto de incidencia $O'$ respecto de $O$.
+
+La función longitud de camino óptico alternativa queda entonces expresada como
+
+\begin{equation}\label{pr2:camino_alternativo}
+    l'(\epsilon) = n \sqrt{(x+\epsilon)^2 + y^2} + n' \sqrt{(x' - \epsilon)^2 + y'^2}.
+\end{equation}
+
+Aplicamos ahora el \textbf{principio de Fermat}, según el cual el camino real seguido por la luz corresponde a un mínimo (o más generalmente, un punto crítico) del tiempo de propagación, y por tanto de la longitud de camino óptico. Derivamos entonces la expresión \eqref{pr2:camino_alternativo} respecto al parámetro $\epsilon$:
+
+\begin{equation*}
+\begin{aligned}
+\frac{dl'}{d\epsilon} &= \frac{d}{d\epsilon}\left(n\sqrt{(x+\epsilon)^2+y^2}+n'\sqrt{(x'-\epsilon)^2+y'^2}\right) \\
+&= n\frac{d}{d\epsilon}\left(\sqrt{(x+\epsilon)^2+y^2}\right)+n'\frac{d}{d\epsilon}\left(\sqrt{(x'-\epsilon)^2+y'^2}\right) \\
+&= n\left(\frac{1}{2}\frac{2(x+\epsilon)}{\sqrt{(x+\epsilon)^2+y^2}}\right) + n'\left(\frac{1}{2}\frac{2(x'-\epsilon)(-1)}{\sqrt{(x'-\epsilon)^2+y'^2}}\right) \\
+&=n \cdot \frac{x+\epsilon}{\sqrt{(x+\epsilon)^2 + y^2}} - n' \cdot \frac{x'-\epsilon}{\sqrt{(x'-\epsilon)^2 + y'^2}}
+\end{aligned}   
+\end{equation*}
+
+Por lo tanto,
+
+\begin{equation}\label{pr2:derivada_camino_alternativo}
+    \frac{d l'}{d\epsilon} = n \cdot \frac{x+\epsilon}{\sqrt{(x+\epsilon)^2 + y^2}} - n' \cdot \frac{x'-\epsilon}{\sqrt{(x'-\epsilon)^2 + y'^2}}.
+\end{equation}
+
+Finalmente, aplicando el principio de Fermat e imponiendo que $\epsilon = 0$ corresponde a un mínimo del camino óptico, se deduce que
+
+\begin{equation*}
+\begin{aligned}
+    \frac{dl'}{d\epsilon}\Bigg|_{\epsilon=0} = 0 \quad &\Rightarrow \quad \frac{nx}{\sqrt{x^2+y^2}} -\frac{n'x'}{\sqrt{x'^2+y'^2}} = 0 \\
+    &\Rightarrow \quad \frac{nx}{\sqrt{x^2+y^2}} = \frac{n'x'}{\sqrt{x'^2+y'^2}} \\
+    &\Rightarrow \quad n\left(\frac{x}{\sqrt{x^2+y^2}}\right) = n'\left(\frac{x'}{\sqrt{x'^2+y'^2}}\right) .
+\end{aligned}
+\end{equation*}
+
+Obtenemos así la siguiente expresión:
+
+\begin{equation}\label{pr2:fermat_resultado}
+    n\left(\frac{x}{\sqrt{x^2+y^2}}\right) = n'\left(\frac{x'}{\sqrt{x'^2+y'^2}}\right).
+\end{equation}
+
+Observando la Figura~\ref{fig:fermat}, notamos que estas razones corresponden a las funciones trigonométricas del seno de los ángulos de incidencia y refracción, respectivamente. En efecto, se cumple que
+
+\begin{equation}\label{pr2:razones_trigonometricas}
+    \sin\theta = \frac{x}{\sqrt{x^2 + y^2}}, \qquad \sin\theta' = \frac{x'}{\sqrt{x'^2 + y'^2}}.
+\end{equation}
+
+Sustituyendo estas relaciones en la ecuación \eqref{pr2:fermat_resultado}, obtenemos finalmente
+
+\begin{equation}\label{pr2:snell}
+    n \sin\theta = n' \sin\theta'.
+\end{equation}
+
+De este modo, hemos deducido la \textbf{ley de Snell} a partir de la relación fundamental para el camino óptico en un medio homogéneo, dada por la ecuación \eqref{pr2:camino_1}, y el \emph{principio de Fermat}, que postula que la trayectoria seguida por un rayo de luz entre dos puntos es aquella que minimiza el tiempo de propagación.
+
+Cabe destacar que el resultado obtenido en la ecuación~\eqref{pr2:snell} no depende de las coordenadas específicas de los puntos $S$, $O$ y $P$, sino únicamente de las propiedades ópticas de los medios involucrados y de la interfase plana separa que separa a estos.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problema 3}
+
+Un grupo importante de prismas son los llamado prismas de dispersión, como el esquematizado en la Figura~\ref{fig:problema3}. Típicamente, un rayo de luz que entra al prisma sale de él desviado de su dirección original en un ángulo $\delta$ conocido como la desviación angular.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{fig5.png}
+    \caption{Esquema de un prisma de dispersión.}
+    \label{fig:problema3}
+\end{figure}
+
+\subsection{Desviación angular en términos de $n'$, $\theta$ y $\alpha$}
+Derive una expresión para $\delta$ en términos de $n'$, $\theta$ y $\alpha$. Note que no hay aproximación paraxial. Asuma que el prisma está rodeado por aire y de material de fabricación homogéneo.
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Observando la Figura~\ref{fig:problema3}, consideremos el triángulo $\triangle BED$. En él, se puede identificar que el ángulo $\angle EBD$ está determinado por la diferencia entre el ángulo de incidencia $\theta$ y el ángulo de refracción $\theta'$, es decir:
+
+\begin{equation}\label{pr3.1:angulo_EBD}
+    \angle EBD = \theta - \theta'.
+\end{equation}
+
+Asimismo, el ángulo $\angle BDE$ está relacionado con el ángulo de incidencia $\theta'_1$ y el de refracción $\theta_1$ en la segunda cara del prisma, de manera que:
+
+\begin{equation}\label{pr3.1:angulo_BDE}
+    \angle BDE = \theta'_1 - \theta_1.
+\end{equation}
+
+Considerando que en geometría plana la suma de los ángulos internos de cualquier triángulo es igual a un ángulo llano, para el triángulo $\triangle BED$ se cumple la siguiente relación entre sus ángulos internos:
+
+\begin{equation}\label{pr3.1:angulos_internos}
+    \angle EBD + \angle BDE + \angle DEB = 180^\circ.
+\end{equation}
+
+Sustituyendo en la ecuación~\eqref{pr3.1:angulos_internos} las expresiones para los ángulos $\angle EBD$ y $\angle BDE$ dadas en las ecuaciones~\eqref{pr3.1:angulo_EBD} y~\eqref{pr3.1:angulo_BDE}, se obtiene:
+
+\begin{equation}\label{pr3.1:angulos_internos_2}
+    (\theta - \theta') + (\theta'_1 - \theta_1) + \angle DEB = 180^\circ.
+\end{equation}
+
+Por otra parte, de la Figura~\ref{fig:problema3} se observa que el ángulo de desviación angular $\delta$ es \textbf{suplementario} al ángulo $\angle DEB$, es decir:
+
+\begin{equation}\label{pr3.1:angulos_suplementario}
+    \delta + \angle DEB = 180^\circ.
+\end{equation}
+
+Combinando las ecuaciones~\eqref{pr3.1:angulos_internos_2} y~\eqref{pr3.1:angulos_suplementario}, se llega al siguiente razonamiento:
+
+\begin{equation*}
+\begin{aligned}
+\left.
+    \begin{aligned}
+        (\theta - \theta') + (\theta'_1 - \theta_1) + \angle DEB = 180^\circ \\
+        \delta + \angle DEB = 180^\circ
+    \end{aligned}
+\right\} \quad &\Rightarrow \quad
+\left.
+\begin{aligned}
+        (\theta - \theta') + (\theta'_1 - \theta_1) = 180^\circ - \angle DEB  \\
+        \delta = 180^\circ - \angle DEB 
+    \end{aligned}
+\right\} \\
+&\Rightarrow \quad \delta = (\theta - \theta') + (\theta'_1 - \theta_1).
+\end{aligned}
+\end{equation*}
+
+Reordenando los términos, se obtiene una expresión para el ángulo de desviación $\delta$, que relaciona todos los ángulos involucrados en el paso del rayo de luz desde el aire, a través del prisma, y de regreso al aire:
+
+\begin{equation}\label{pr3.1:delta_1}
+    \delta = (\theta + \theta'_1) - ( \theta' + \theta_1).
+\end{equation}
+
+Ahora consideremos el triángulo $\triangle BCD$, en el cual dos de sus ángulos internos son $\angle DBC = \theta'$ y $\angle CDB = \theta_1$. Además, el ángulo $\angle BCD$ es \textbf{suplementario} al ángulo del vértice del prisma $\alpha$, lo que implica que:
+
+\begin{equation}\label{pr3.1:suplementario_bcd}
+    \alpha + \angle BCD = 180^\circ.
+\end{equation}
+
+La suma de los ángulos internos del triángulo $\triangle BCD$ también cumple:
+
+\begin{equation}\label{pr3.1:internos_bcd}
+    \theta' + \theta_1 + \angle BCD = 180^\circ.
+\end{equation}
+
+Combinando las ecuaciones~\eqref{pr3.1:suplementario_bcd} y~\eqref{pr3.1:internos_bcd}, se puede razonar lo siguiente:
+
+\begin{equation*}
+\begin{aligned}
+\left.
+    \begin{aligned}
+        \theta' + \theta_1 + \angle BCD = 180^\circ \\
+        \alpha + \angle BCD = 180^\circ
+    \end{aligned}
+\right\} \quad &\Rightarrow \quad
+\left.
+\begin{aligned}
+        \theta' + \theta_1 = 180^\circ - \angle BCD \\
+        \alpha = 180^\circ - \angle BCD
+    \end{aligned}
+\right\} \\
+&\Rightarrow \quad \alpha = \theta' + \theta_1.
+\end{aligned}
+\end{equation*}
+
+De este modo, obtenemos la relación:
+
+\begin{equation}\label{pr3.1:alpha}
+    \alpha = \theta' + \theta_1.
+\end{equation}
+
+Sustituyendo la ecuación~\eqref{pr3.1:alpha} en la expresión para $\delta$ obtenida anteriormente en~\eqref{pr3.1:delta_1}, se llega a una nueva forma del ángulo de desviación angular:
+
+\begin{equation}\label{pr3.1:delta_2}
+    \delta = \theta + \theta'_1 - \alpha.
+\end{equation}
+
+Para expresar \textbf{el ángulo de desviación $\delta$ en función de los parámetros} $n'$, $\theta$ y $\alpha$, es decir,
+
+\begin{equation*}
+    \delta = \delta(n', \theta, \alpha),
+\end{equation*}
+
+consideramos lo siguiente:
+
+\begin{enumerate}
+    \item Aplicamos la \textbf{ley de Snell} al rayo que incide desde el aire sobre la superficie del prisma en el punto $B$. Suponiendo que el índice de refracción del aire es $n = 1$, se cumple:
+
+    \begin{equation}\label{pr3.1:snell_1}
+        \sin \theta = n' \sin \theta',
+    \end{equation}
+
+    de donde se despeja el ángulo $\theta'$:
+
+    \begin{equation}\label{pr3.1:theta_prima}
+        \theta' = \arcsin\left( \frac{\sin \theta}{n'} \right).
+    \end{equation}
+
+    \item Consideramos ahora la relación geométrica interna del prisma entre los ángulos $\theta'$ y $\theta_1$, dada por \eqref{pr3.1:alpha} de la cual se deduce:
+
+    \begin{equation}\label{pr3.1:theta_1}
+        \theta_1 = \alpha - \theta'.
+    \end{equation}
+
+    Sustituyendo en \eqref{pr3.1:theta_1} la expresión de $\theta'$ obtenida en \eqref{pr3.1:theta_prima}, se obtiene:
+
+    \begin{equation}\label{pr3.1:theta_1_usar}
+        \theta_1 = \alpha - \arcsin\left( \frac{\sin \theta}{n'} \right).
+    \end{equation}
+
+    Esta ecuación muestra que $\theta_1$ queda expresado explícitamente en función de $n'$, $\theta$ y $\alpha$.
+
+    \item Volvemos a aplicar la \textbf{ley de Snell}, esta vez para el rayo que se propaga dentro del prisma y se refracta al salir hacia el aire en el punto $D$. Se tiene:
+
+    \begin{equation}\label{pr3.1:snell_2}
+        n' \sin \theta_1 = \sin \theta'_1,
+    \end{equation}
+
+    de donde se despeja el ángulo de salida $\theta'_1$:
+
+    \begin{equation}\label{pr3.1:theta_prima_1}
+        \theta'_1 = \arcsin \left( n' \sin \theta_1 \right).
+    \end{equation}
+
+    Al reemplazar \eqref{pr3.1:theta_1_usar} en \eqref{pr3.1:theta_prima_1}, se obtiene finalmente:
+
+    \begin{equation}\label{pr3.1:theta_prima_1_usar}
+        \theta'_1 = \arcsin \left\{ n' \sin \left[ \alpha - \arcsin \left( \frac{\sin \theta}{n'} \right) \right] \right\}.
+    \end{equation}
+
+    Con esto, el ángulo $\theta'_1$ también queda expresado únicamente en función de los parámetros $n'$, $\theta$ y $\alpha$.
+
+    \item Finalmente, sustituimos la expresión obtenida en \eqref{pr3.1:theta_prima_1_usar} en la ecuación de la desviación angular \eqref{pr3.1:delta_2}, lo cual nos permite escribir:
+    
+    \begin{equation}\label{pr3.1:delta_n'_theta_alpha}
+        \delta = \theta + \arcsin \left\{ n' \sin \left[ \alpha - \arcsin \left( \frac{\sin \theta}{n'} \right) \right] \right\} - \alpha.
+    \end{equation}
+    
+\end{enumerate}
+
+De este modo, en \eqref{pr3.1:delta_n'_theta_alpha} hemos expresado el ángulo de desviación $\delta$ exclusivamente en términos de los parámetros $n'$, $\theta$ y $\alpha$. Esta expresión permite analizar cuantitativamente cómo varía la desviación angular $\delta$ en función de la geometría del prisma y del índice de refracción del material, sin recurrir a la aproximación paraxial.
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Gráfico de la desviación angular $\delta$ para $n' = 1.5$, $\alpha = 60^\circ$ y $\theta \in [30^\circ, 90^\circ]$}
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{grafico1.png}
+    \caption{Desviación angular $\delta$ en función del ángulo de incidencia $\theta$, para un prisma de índice de refracción $n' = 1{,}5$ y ángulo del vértice $\alpha = 60^\circ$.}
+    \label{pr3.2:grafico}
+\end{figure}
+
+Para construir el gráfico mostrado en la Figura~\ref{pr3.2:grafico}, utilizamos el siguiente código en \texttt{Python}, haciendo uso de las librerías \texttt{numpy} y \texttt{matplotlib.pyplot}.
+
+Comenzamos definiendo los parámetros constantes: el índice de refracción del prisma $n' = 1.5$ y el ángulo del vértice $\alpha = 60^\circ$, que convertimos a radianes mediante la función \texttt{radians}, ya que las funciones trigonométricas trabajan en esa unidad.
+
+\begin{center}
+\begin{minted}{python}
+n_prime = 1.5
+alpha_deg = 60
+alpha_rad = np.radians(alpha_deg)
+\end{minted}
+\end{center}
+
+Luego, generamos 1000 valores equiespaciados para $\theta$ en el intervalo $[30^\circ, 90^\circ]$ usando \texttt{linspace}, y los convertimos a radianes para usarlos con funciones trigonométricas.
+
+\begin{center}
+\begin{minted}{python}
+theta_deg = np.linspace(30, 90, 1000)
+theta = np.radians(theta_deg)
+\end{minted}
+\end{center}
+
+Definimos a continuación una función llamada \texttt{delta}, que calcula el ángulo de desviación $\delta$ en función del ángulo de incidencia $\theta$, el ángulo del vértice del prisma $\alpha$ y el índice de refracción del material $n'$.
+
+\begin{center}
+\begin{minted}{python}
+def delta(n_prime, theta, alpha):
+
+    theta_prime = np.arcsin(np.sin(theta) / n_prime)
+
+    theta1 = alpha - theta_prime
+
+    theta1_prime = np.arcsin(n_prime * np.sin(theta1))
+
+    delta_val = theta + theta1_prime - alpha
+    
+    return np.degrees(delta_val) 
+\end{minted}
+\end{center}
+
+La función \texttt{delta} ejecuta los siguientes pasos:
+
+\begin{enumerate}
+    \item \textbf{Cálculo del ángulo dentro del prisma} ($\theta'$):  
+    Se aplica la ley de Snell en la primera cara para obtener el ángulo de refracción dentro del prisma mediante 
+    \begin{equation*}
+        \theta' = \arcsin\left(\frac{\sin(\theta)}{n'}\right).
+    \end{equation*}
+    
+    \item \textbf{Cálculo del ángulo de incidencia en la segunda cara interna} ($\theta_1$):  
+    Este ángulo se obtiene restando el ángulo $\theta'$ al ángulo del vértice del prisma $\alpha$:
+    \begin{equation*}
+        \theta_1 = \alpha - \theta'.
+    \end{equation*}
+    
+    \item \textbf{Cálculo del ángulo de salida} ($\theta_1'$):  
+    Se vuelve a aplicar la ley de Snell en la segunda cara, pero en sentido inverso, para hallar el ángulo de salida:
+    \begin{equation*}
+        \theta_1' = \arcsin\left(n' \cdot \sin(\theta_1)\right).
+    \end{equation*}
+    
+    \item \textbf{Cálculo de la desviación angular} ($\delta$):  
+    Finalmente, la desviación angular total se calcula con
+    \begin{equation*}
+        \delta = \theta + \theta_1' - \alpha,
+    \end{equation*}
+    y se convierte a grados con la función \texttt{degrees}.
+\end{enumerate}
+
+Calculamos ahora los valores de $\delta$ con la función definida:
+
+\begin{center}
+\begin{minted}{python}
+delta_vals = delta(n_prime, theta, alpha)
+\end{minted}
+\end{center}
+
+Finalmente, generamos el gráfico de la desviación angular $\delta$ en función del ángulo de incidencia $\theta$, trazando la curva azul con los valores calculados y mostrándola mediante \texttt{plt.show()}.
+
+\begin{center}
+\begin{minted}{python}
+plt.figure(figsize=(8, 6))
+plt.plot(theta_deg, delta_vals, label=r"$\delta(n',\theta,\alpha)$", color='green')
+plt.xlabel(r"Ángulo de incidencia $\theta$ (grados)")
+plt.ylabel(r"Desviación angular $\delta$ (grados)")
+plt.title(r"Desviación angular $\delta$ vs. $\theta$ para $n'=1.5$, $\alpha=60^\circ$")
+plt.grid(True)
+plt.legend()
+plt.xlim(30, 90)
+plt.ylim(35, 60)
+plt.tight_layout()
+plt.show()
+\end{minted}
+\end{center}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Condiciones para desviación mínima}
+El menor valor de $\delta$ es conocido como la desviación mínima, $\delta_m$. Determine las condiciones que deben satisfacer los ángulos $\theta$, $\theta'$, $\theta_1$ y $\theta'_1$ para obtener $\delta = \delta_m$. Interprete su resultado.
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consideramos la desviación angular $\delta$ como una función real, según la forma dada en \eqref{pr3.1:delta_2}. Además, hemos demostrado en \eqref{pr3.1:theta_prima_1_usar} que el ángulo de refracción $\theta'_1$ —correspondiente a un rayo de luz que emerge del prisma hacia el aire— depende del ángulo de incidencia $\theta$. Suponiendo que el índice de refracción del prisma $n'$ y el ángulo asociado $\alpha$ son constantes reales, obtenemos la función:
+
+\begin{equation}\label{pr3.3:funcion_delta}
+    \delta(\theta) = \theta + \theta'_1(\theta) - \alpha.
+\end{equation}
+
+donde las funciones intermedias se definen como:
+
+\begin{equation*}
+\begin{aligned}
+\theta'(\theta) &= \arcsin\!\left( \frac{\sin \theta}{n'} \right),
+&&\text{(Ley de Snell en la primera cara, cf. \eqref{pr3.1:theta_1_usar})} \\[4pt]
+\theta_1(\theta) &= \alpha - \theta'(\theta),
+&&\text{(relación geométrica interna del prisma, cf. \eqref{pr3.1:theta_1})} \\[4pt]
+\theta_1'(\theta) &= \arcsin\!\left( n' \sin\theta_1(\theta) \right).
+&&\text{(Ley de Snell en la segunda cara, cf. \eqref{pr3.1:theta_prima_1})}
+\end{aligned}    
+\end{equation*}
+
+Es evidente que la desviación mínima $\delta_m$ debe corresponder a un punto $\theta_0$ en el cual la función $\delta(\theta)$ alcanza un valor mínimo. Por lo tanto, se debe cumplir la condición:
+
+\begin{equation*}
+    \frac{d \delta}{d \theta} \Bigg|_{\theta = \theta_0} = 0.
+\end{equation*}
+
+Procedemos a calcular la derivada de la función \eqref{pr3.3:funcion_delta} respecto de la variable $\theta$. Aplicando la linealidad de la derivada:
+
+\begin{equation*}
+\begin{aligned}
+   \frac{d\delta}{d\theta} &= \frac{d}{d\theta}\left(\theta + \theta'_1 - \alpha\right) \\
+   &= \frac{d\theta}{d\theta} + \frac{d\theta'_1}{d\theta} - \frac{d\alpha}{d\theta} \\ 
+   &= 1 + \frac{d\theta_1'}{d\theta}.
+\end{aligned}
+\end{equation*}
+
+Concluimos entonces que:
+
+\begin{equation}\label{pr3.3:dev_delta}
+    \frac{d\delta}{d\theta} = 1 + \frac{d\theta_1'}{d\theta}.
+\end{equation}
+
+Continuamos derivando la función $\theta_1'(\theta)$, definida en \eqref{pr3.1:theta_prima_1}, utilizando la regla de la cadena:
+
+\begin{equation*}
+\begin{aligned}
+\theta_1'(\theta) = \arcsin\left( n' \sin\theta_1(\theta) \right) 
+\quad &\Rightarrow \quad 
+\frac{d\theta_1'}{d\theta} = \frac{d}{d\theta}\left[\arcsin(n'\sin\theta_1)\right] \\
+&\Rightarrow \quad 
+\frac{d\theta_1'}{d\theta} = \frac{n'\cos\theta_1}{\sqrt{1 - \left(n'\sin\theta_1\right)^2}}  \, \frac{d\theta_1}{d\theta}.
+\end{aligned}
+\end{equation*}
+
+Ahora, utilizando la ley de Snell, que nos permite escribir $n'\sin\theta_1 = \sin\theta_1'$, sustituimos en el denominador:
+
+\begin{equation*}
+\begin{aligned}
+\frac{d\theta_1'}{d\theta} &= \frac{n'\cos\theta_1}{\sqrt{1 - \left(n'\sin\theta_1\right)^2}} \, \frac{d\theta_1}{d\theta} \\
+&= \frac{n'\cos\theta_1}{\sqrt{1 - \sin^2\theta_1'}} \, \frac{d\theta_1}{d\theta} \\
+&=n'\frac{\cos\theta_1}{\sqrt{\cos^2\theta_1'}} \, \frac{d\theta_1}{d\theta}.
+\end{aligned}
+\end{equation*}
+
+Obtenemos así la expresión:
+
+\begin{equation}\label{pr3.3:der_theta_prime_1}
+    \frac{d\theta_1'}{d\theta} =n'\frac{\cos\theta_1}{\cos\theta_1'} \, \frac{d\theta_1}{d\theta}
+\end{equation}
+
+A continuación, derivamos la función $\theta_1(\theta)$, definida en \eqref{pr3.1:theta_1}, nuevamente aplicando la regla de la cadena:
+
+\begin{equation*}
+\begin{aligned}
+\theta_1(\theta) = \alpha - \theta'(\theta) \quad 
+&\Rightarrow \quad \frac{d\theta_1}{d\theta} = \frac{d}{d\theta}\left(\alpha - \theta'\right) \\
+&\Rightarrow \quad \frac{d\theta_1}{d\theta}= \frac{d\alpha}{d\theta} - \frac{d\theta'}{d\theta}.
+\end{aligned}
+\end{equation*}
+
+De esta forma:
+
+\begin{equation}\label{pr3.3:der_theta_1}
+    \frac{d\theta_1}{d\theta} = -\frac{d\theta'}{d\theta}.
+\end{equation}
+
+Finalmente, derivamos respecto de $\theta$ la función $\theta'(\theta)$ definida en \eqref{pr3.1:theta_1_usar}:
+
+\begin{equation*}
+\begin{aligned}
+\theta' = \arcsin\left( \frac{\sin\theta}{n'} \right) \quad 
+&\Rightarrow \quad \frac{d\theta'}{d\theta} = \frac{d}{d\theta}\left[\arcsin\left( \frac{\sin\theta}{n'} \right)\right] \\
+&\Rightarrow \quad \frac{d\theta'}{d\theta}= \frac{1}{n'}\frac{\cos\theta}{\sqrt{1 - \left(\frac{\sin\theta}{n'}\right)^2}}  .
+\end{aligned}
+\end{equation*}
+
+Considerando que se cumple la ley de Snell en la forma $\sin\theta = n'\sin\theta'$, sustituimos esta relación en el denominador de la expresión de la derivada:
+
+\begin{equation*}
+\begin{aligned}
+\frac{d\theta'}{d\theta} 
+&= \frac{1}{n'}\frac{\cos\theta}{\sqrt{1 - \left(\dfrac{\sin\theta}{n'}\right)^2}} \\
+&= \frac{1}{n'}\frac{\cos\theta}{\sqrt{1 - \left(\dfrac{n'\sin\theta'}{n'}\right)^2}} \\
+&= \frac{1}{n'}\frac{\cos\theta}{\sqrt{1 - \sin^2\theta'}} \\
+&= \frac{1}{n'}\frac{\cos\theta}{\sqrt{\cos^2\theta'}}.
+\end{aligned}
+\end{equation*}
+
+Por lo tanto, se obtiene:
+
+\begin{equation}\label{pr3.3:der_theta_prime}
+\frac{d\theta'}{d\theta} = \frac{1}{n'}\frac{\cos\theta}{\cos\theta'}.
+\end{equation}
+
+Sustituyendo \eqref{pr3.3:der_theta_prime} en \eqref{pr3.3:der_theta_1}, resulta:
+
+\begin{equation}\label{pr3.3:der_theta_1_con_theta_prime}
+\frac{d\theta_1}{d\theta} = -\frac{1}{n'}\frac{\cos\theta}{\cos\theta'}.
+\end{equation}
+
+Finalmente, reemplazando \eqref{pr3.3:der_theta_1_con_theta_prime} en \eqref{pr3.3:der_theta_prime_1}, obtenemos:
+
+\begin{equation}\label{pr3.3:usar_der_theta_prime_1}
+\frac{d\theta_1'}{d\theta} = -\frac{\cos\theta_1}{\cos\theta_1'} \frac{\cos\theta}{\cos\theta'}.
+\end{equation}
+
+Sustituyendo esta última expresión en la ecuación de la derivada de la desviación angular, evaluada en el punto mínimo:
+
+\begin{equation*}
+\begin{aligned}
+\frac{d\delta}{d\theta} = 1 + \frac{d\theta_1'}{d\theta} \quad & \Rightarrow \quad 0 = 1 - \frac{\cos\theta_1}{\cos\theta_1'} \frac{\cos\theta}{\cos\theta'} \\
+&\Rightarrow \quad 1 = \frac{\cos\theta_1}{\cos\theta_1'} \frac{\cos\theta}{\cos\theta'}\\
+&\Rightarrow \quad \frac{\cos\theta'}{\cos\theta} = \frac{\cos\theta_1}{\cos\theta_1'} \\
+%&\Rightarrow \quad \cos\theta' \cos\theta_1'= \cos\theta_1 \cos\theta.
+\end{aligned}
+\end{equation*}
+
+Se obtiene así una relación entre \textbf{cocientes de cosenos}:
+
+\begin{equation}\label{pr3.3:cosenos}
+\frac{\cos\theta'}{\cos\theta} = \frac{\cos\theta_1}{\cos\theta_1'}.
+\end{equation}
+
+La ecuación \eqref{pr3.3:cosenos} expresa una igualdad entre cocientes de cosenos evaluados en los ángulos de incidencia y refracción del sistema óptico.
+
+Como todos los ángulos involucrados corresponden a la trayectoria de un rayo de luz refractado entre medios transparentes (aire y prisma), es razonable suponer que $\theta$, $\theta'$, $\theta_1$ y $\theta_1'$ pertenecen al intervalo $\left(0, \frac{\pi}{2}\right)$. En dicho dominio, la función coseno es \textbf{estrictamente positiva} y \textbf{estrictamente decreciente} (Figura \ref{fig:coseno}).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\linewidth]{pr3.3_fig1.png}
+    \caption{La función coseno es estrictamente positiva y estrictamente decreciente en el intervalo $[0,\frac{\pi}{2}]$}
+    \label{fig:coseno}
+\end{figure}
+
+Bajo esta condición, la igualdad entre cocientes en \eqref{pr3.3:cosenos} solo puede verificarse si los numeradores son iguales y los denominadores también lo son, ya que $\cos x$ es una función \textbf{inyectiva} en este intervalo. Es decir,
+
+\begin{equation*}
+\frac{\cos\theta'}{\cos\theta} = \frac{\cos\theta_1}{\cos\theta_1'} 
+\quad \Longleftrightarrow \quad 
+\cos\theta' = \cos\theta_1 
+\quad \text{y} \quad 
+\cos\theta = \cos\theta_1'.
+\end{equation*}
+
+Lo anterior implica, de forma unívoca, que
+
+\begin{equation}\label{pr3.3:angulos_iguales}
+\theta' = \theta_1 \quad \text{y} \quad \theta = \theta_1'.
+\end{equation}
+
+Luego, si la desviación angular es mínima $\delta_m$ los ángulos implicados en el sistema satisfacen las relaciones mostradas en \eqref{pr3.3:angulos_iguales}. De este modo, podemos deducir una ecuación para calcular $\delta_m$, tomando las siguientes consideraciones:
+
+\begin{enumerate}
+    \item A partir de la igualdad $\theta' = \theta_1$, sustituyendo en la ecuación \eqref{pr3.1:alpha} obtenemos:
+
+        \begin{equation}\label{pr3.3:alpha}
+            \alpha = 2\theta'.
+        \end{equation}
+        
+    \item Sustituimos las igualdades $\theta = \theta_1'$ y \eqref{pr3.3:alpha} en la ecuación \eqref{pr3.3:funcion_delta}, se obtiene una expresión para $\delta_m$.
+
+        \begin{equation}\label{pr3.3:delta_2}
+            \delta_m = 2\theta-2\theta'.
+        \end{equation}
+    
+\end{enumerate}
+
+Podemos concluir que la desviación mínima $\delta_m$ se alcanza cuando la trayectoria del rayo dentro del prisma es simétrica, es decir, cuando los ángulos de incidencia y emergencia satisfacen $\theta = \theta_1'$ y los ángulos de refracción cumplen $\theta' = \theta_1$, tal como se muestra en la ecuación~\eqref{pr3.3:angulos_iguales}. Esta simetría implica que los ángulos de entrada y salida del rayo, así como los de refracción en ambas caras del prisma, coinciden.
+
+
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Índice de refracción en condiciones de desviación mínima}
+Derive una expresión analítica para determinar el índice de refracción del material de fabricación del prisma cuando opera en la condición $\delta = \delta_m$.
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Como ha sido demostrado en la subsección anterior, bajo la condición de desviación mínima se cumplen las igualdades de simetría presentadas en~\eqref{pr3.3:angulos_iguales}, es decir:
+
+\begin{equation*}
+\theta' = \theta_1
+\qquad \text{y} \qquad
+\theta = \theta_1'.
+\end{equation*}
+
+A partir de la relación geométrica interna del prisma dada en~\eqref{pr3.1:alpha}, despejamos el valor del ángulo de refracción:
+
+\begin{equation*}
+\begin{aligned}
+\theta' + \theta_1 &= \alpha \\
+2\,\theta' &= \alpha \\
+\theta' &= \frac{\alpha}{2},
+\end{aligned}
+\end{equation*}
+
+con lo que se concluye que:
+
+\begin{equation}\label{pr3.4:theta_prime}
+\theta' = \frac{\alpha}{2}.
+\end{equation}
+
+Luego, evaluamos la ecuación de desviación~\eqref{pr3.3:funcion_delta} en el caso $\delta = \delta_m$, teniendo en cuenta que en esta configuración $\theta = \theta_1'$:
+
+\begin{equation*}
+\begin{aligned}
+\delta_m &= \theta + \theta_1' - \alpha \\
+         &= 2\,\theta - \alpha,
+\end{aligned}
+\end{equation*}
+
+de donde despejamos el ángulo de incidencia:
+
+\begin{equation}\label{pr3.4:theta}
+\theta = \frac{\delta_m + \alpha}{2}.
+\end{equation}
+
+Aplicando ahora la ley de Snell en la primera cara del prisma, se tiene:
+
+\begin{equation*}
+n'\,\sin\theta' = \sin\theta,   
+\end{equation*}
+
+y al reemplazar con las ecuaciones~\eqref{pr3.4:theta_prime} y~\eqref{pr3.4:theta}, se obtiene:
+
+\begin{equation}\label{pr3.4:snell}
+n'\,\sin\left(\frac{\alpha}{2}\right) = \sin\left(\frac{\delta_m + \alpha}{2}\right).
+\end{equation}
+
+Despejando el índice de refracción $n'$ en~\eqref{pr3.4:snell}, se concluye que bajo condiciones de desviación mínima, este está dado por:
+
+\begin{equation}\label{pr3.4:n_prima}
+n' = \frac{\sin\left(\frac{\delta_m + \alpha}{2}\right)}{\sin\left(\frac{\alpha}{2}\right)}.
+\end{equation}
+
+Así, bajo la condición de desviación mínima, el índice de refracción del prisma queda determinado por los ángulos $\alpha$ y $\delta_m$ según~\eqref{pr3.4:n_prima}.
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema 4}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Aumento longitudinal en función del aumento lateral}
+
+A partir de la ecuación de las lentes delgadas, derive una expresión para el aumento longitudinal $M_L = \dfrac{dz_2}{dz_1}$, en función de $m$, el aumento lateral del sistema.
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consideremos la ecuación de las lentes delgadas:
+
+\begin{equation}\label{pr4.1:lentes_delgadas}
+    \frac{1}{z_1} + \frac{1}{z_2} = \frac{1}{f},
+\end{equation}
+
+donde:
+\begin{itemize}
+    \item $f$ es la distancia focal,
+    \item $z_1$ es la distancia al objeto,
+    \item $z_2$ es la distancia a la imagen.
+\end{itemize}
+
+Derivamos implícitamente la ecuación~\eqref{pr4.1:lentes_delgadas} con respecto a $z_1$, considerando que la distancia focal $f$ es constante:
+
+\begin{equation*}
+\begin{aligned}
+\frac{d}{dz_1} \left( \frac{1}{z_1} + \frac{1}{z_2} \right) = \frac{d}{dz_1} \left( \frac{1}{f} \right) = 0 \quad &\Rightarrow\quad -\frac{1}{z_1^2} - \frac{1}{z_2^2} \frac{dz_2}{dz_1} = 0 \\
+&\Rightarrow\quad \frac{dz_2}{dz_1} = -\frac{z_2^2}{z_1^2}
+\end{aligned}
+\end{equation*}
+
+Así obtenemos la expresión:
+
+\begin{equation}\label{pr4.1:razon}
+    \frac{dz_2}{dz_1} = -\left( \frac{z_2}{z_1} \right)^2
+\end{equation}
+
+Por otra parte, el aumento lateral $m$ está definido como:
+
+\begin{equation}\label{pr4.1:aumento_lateral}
+    m = -\frac{z_2}{z_1},
+\end{equation}
+
+de modo que:
+
+\begin{equation}\label{pr4.1:aumento_lateral_cuadrado}
+    m^2 = \left( \frac{z_2}{z_1} \right)^2.
+\end{equation}
+
+Sustituyendo la ecuación~\eqref{pr4.1:aumento_lateral_cuadrado} en~\eqref{pr4.1:razon}, se obtiene:
+
+\begin{equation*}
+    \frac{dz_2}{dz_1} = -m^2.
+\end{equation*}
+
+Como el aumento longitudinal se define como $M_L = \dfrac{dz_2}{dz_1}$, finalmente obtenemos:
+
+\begin{equation}\label{pr4.2:aumento_longitudinal}
+   M_L = -m^2
+\end{equation}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Formulación según la óptica de Newton}
+
+De acuerdo a Newton, $x$ es la distancia entre la posición del objeto y el plano focal objeto, y $x'$, la distancia entre el plano focal imagen y la posición de la imagen (todas medidas sobre el eje óptico).
+
+
+\subsubsection*{a) Aumento lateral} 
+
+Derive la expresión para calcular el aumento lateral de la lente delgada $m$.
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Sabemos que el aumento lateral está definido por:
+
+\begin{equation*}
+    m = -\frac{z_2}{z_1},
+\end{equation*}
+
+donde:
+\begin{itemize}
+    \item $z_1$ es la distancia desde el objeto al centro óptico de la lente,
+    \item $z_2$ es la distancia desde la imagen al centro óptico de la lente.
+\end{itemize}
+
+De acuerdo con Newton:
+\begin{itemize}
+    \item $x$ es la distancia entre el objeto y el plano focal objeto, es decir, $z_1 = x + f$.
+    \item $x'$ es la distancia entre el plano focal imagen y la imagen, es decir, $z_2 = x' + f$.
+\end{itemize}
+
+Sustituimos estas expresiones en la definición de $m$:
+
+\begin{equation}\label{pr4.2:aumento_lateral_newton}
+    m = -\frac{x' + f}{x + f}.
+\end{equation}
+
+Esta es la expresión general del aumento lateral $m$ en función de las distancias $x$ y $x'$ medidas desde los planos focales.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{b) Ecuación de Newton}
+
+Derive la ecuación de Newton para las lentes delgadas.
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Sabemos que la ecuación para las lentes delgadas está dada por
+
+\begin{equation*} \frac{1}{z_1} + \frac{1}{z_2} = \frac{1}{f}. \end{equation*}
+
+Sustituimos en esta expresión las relaciones $z_1 = x + f$ y $z_2 = x' + f$, lo que nos permitirá obtener la formulación de Newton para lentes delgadas:
+
+\begin{equation*}
+\begin{aligned}
+\frac{1}{ x + f} + \frac{1}{x' + f} = \frac{1}{f} 
+\quad &\Rightarrow \quad \frac{x+x'+2f}{ (x + f)(x'+f)} = \frac{1}{f} \\[1.2ex]
+&\Rightarrow \quad f(x+x'+2f)= (x + f)(x'+f) \\[1.2ex]
+&\Rightarrow \quad xf+x'f+2f^2= xx' + xf +x'f+f^2 \\[1.2ex]
+&\Rightarrow \quad f^2= xx'
+\end{aligned}
+\end{equation*}
+
+De esta manera, llegamos a la ecuación de Newton para lentes delgadas:
+
+\begin{equation}\label{pr4.2:newton}
+    f^2 = x x'.
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{c) Aumento longitudinal}
+
+Derive la expresión para calcular el aumento longitudinal de la lente delgada $M_L$.
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consideremos la formulación de Newton para lentes delgadas dada en \eqref{pr4.2:newton}, y despejemos de ella la variable $x'$. Se obtiene entonces:
+
+\begin{equation}\label{pr4.2:newton_2}
+    x' = \frac{f^2}{x}
+\end{equation}
+
+Sustituyendo la expresión anterior en la fórmula del aumento lateral $m$, en términos de Newton (ecuación \eqref{pr4.2:aumento_lateral_newton}), se tiene:
+
+\begin{equation*}
+\begin{aligned}
+    m &= -\frac{x' + f}{x + f}\\
+    &=-\frac{\frac{f^2}{x} + f}{x + f}\\
+    &=-\frac{f(f + x)}{x(x + f)}\\
+    &=-\frac{f}{x}.
+\end{aligned}
+\end{equation*}
+
+De este modo, obtenemos una expresión para el aumento lateral $m$ en función de $x$ y $f$:
+
+\begin{equation}\label{pr4.2:aumento_lateral_newton_redux}
+    m=-\frac{f}{x}
+\end{equation}
+
+Por otro lado, recordemos que anteriormente se obtuvo en \eqref{pr4.2:aumento_longitudinal} que el aumento longitudinal $M_L$ está dado por el negativo del cuadrado del aumento lateral $m$. Sustituyendo en dicha ecuación la expresión de $m$ en términos de Newton obtenida en \eqref{pr4.2:aumento_lateral_newton_redux}, resulta:
+
+\begin{equation*}
+\begin{aligned}
+M_L&=-m^2 \\
+&=-\left(-\frac{f}{x}\right)^2 \\
+&=-\left(\frac{f}{x}\right)^2    .
+\end{aligned}
+\end{equation*}
+
+Así, obtenemos la expresión del aumento longitudinal $M_L$ en términos de Newton:
+
+\begin{equation}
+    M_L= -\left(\frac{f}{x}\right)^2    .
+\end{equation}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Construcción gráfica y cálculo de área}
+
+Dada la siguiente figura, encuentre gráficamente su imagen y calcule su área.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.7\linewidth]{fig4.png}
+    \caption{ Figura relativa al Problema 4. $f = +2.0cm$.}
+    \label{pr4.4:fig_problema}
+\end{figure}
+
+\subsection{Construcción gráfica mediante rayos notables}
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+En la Figura~\ref{pr4.4:fig_problema} se observa un objeto representado por el rectángulo $abcd$, ubicado frente a una lente delgada biconvexa. El \textbf{foco objeto} $F_1$ de la lente se encuentra sobre el eje óptico, a una distancia de $2{,}0\,\text{cm}$ hacia la izquierda del lente, y el \textbf{foco imagen} $F_2$ se encuentra sobre el eje óptico, a una distancia de $2{,}0\,\text{cm}$ hacia la derecha de la lente.
+
+Trazamos un primer rayo desde el punto $a$ del objeto en dirección al foco objeto $F_1$. Al atravesar la lente delgada, este rayo emerge de forma paralela al eje óptico. Luego, dibujamos un segundo rayo desde el mismo punto $a$, paralelo al eje óptico; al incidir en la lente, se desvía en dirección al foco imagen $F_2$. La intersección de ambos rayos determina la posición de la imagen del punto $a$, denotada como $a'$, como se muestra en la Figura~\ref{pr4.4_fig1}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{pr4.4_fig1.png}
+    \caption{Construcción gráfica de la imagen $a'$ a partir del punto $a$ del objeto mediante rayos notables.}
+    \label{pr4.4_fig1}
+\end{figure}
+
+El mismo procedimiento se repite para el punto $b$: se traza un rayo desde $b$ hacia el foco objeto, el cual emerge paralelo al eje óptico tras atravesar la lente, y un segundo rayo paralelo al eje óptico desde $b$, que se desvía en dirección al foco imagen. El punto de intersección de estos dos rayos define la posición de la imagen $b'$, como se muestra en la Figura~\ref{pr4.4_fig2}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{pr4.4_fig2.png}
+    \caption{Construcción gráfica de la imagen $b'$ a partir del punto $b$ del objeto mediante rayos notables.}
+    \label{pr4.4_fig2}
+\end{figure}
+
+Aplicamos el mismo procedimiento para los puntos $c$ y $d$ del objeto, obteniendo sus respectivas imágenes $c'$ y $d'$. Finalmente, al unir los puntos $a'$, $b'$, $c'$ y $d'$, se obtiene la imagen del objeto original, representada por el cuadrilátero $a'b'c'd'$, como se muestra en la Figura~\ref{pr4.4_fig4}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{pr4.4_fig4.png}
+    \caption{Figura imagen $a'b'c'd'$ obtenida a partir de la construcción gráfica de los rayos notables.}
+    \label{pr4.4_fig4}
+\end{figure}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Cálculo del área de la imagen}
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Realizaremos esta tarea empleando un cálculo computacional en \texttt{Python}. Primero, observamos en la Figura~\eqref{pr4.4:fig_problema} que el objeto está representado por el cuadrilátero $abcd$. Para nuestro análisis, adoptaremos la formulación de Newton en óptica, donde las distancias $x$ se miden desde cada vértice del objeto hasta el plano focal objeto (ubicado a la izquierda de la lente), y las alturas $y$ se consideran respecto al eje óptico.
+
+Representamos esta información mediante pares ordenados de la forma $(x, y)$, de modo que cada vértice del objeto tiene coordenadas:
+
+\begin{equation*}
+a = (2, 2), \quad b = (2, -2), \quad c = (4, -2), \quad d = (4, 2).
+\end{equation*}
+
+Sabemos, además, que la distancia focal de la lente es $f = 2{,}0 \,\mathrm{cm}$. En \texttt{Python}, organizamos esta información utilizando un diccionario llamado \texttt{puntos\_objeto} para almacenar las coordenadas de los vértices, y una variable \texttt{f} que representa la distancia focal:
+
+\begin{center}
+\begin{minted}{python}
+f = 2.0  # distancia focal en cm
+
+puntos_objeto = {
+    'a': (2.0, 2.0),
+    'b': (2.0, -2.0),
+    'c': (4.0, -2.0),
+    'd': (4.0, 2.0)
+}
+\end{minted}
+\end{center}
+
+A continuación, definimos una función \texttt{calcular\_imagen}, la cual implementa un algoritmo sencillo para obtener los pares ordenados que representan los vértices del cuadrilátero $a'b'c'd'$, correspondiente a la imagen del objeto formado por el cuadrilátero $abcd$ visto en la Figura \eqref{pr4.4_fig4}.
+
+
+
+En términos computacionales, estos pasos se implementan en \texttt{Python} de la siguiente forma:
+
+\begin{center}
+\begin{minted}{python}
+def calcular_imagen(puntos_objeto, f):
+    puntos_imagen = {}
+    for etiqueta, (x_obj, y_obj) in puntos_objeto.items():
+        x_img = f**2 / x_obj
+        m = -f / x_obj
+        y_img = m * y_obj
+        puntos_imagen[etiqueta + "'"] = (x_img, y_img)
+    return puntos_imagen
+\end{minted}
+\end{center}
+
+Este algoritmo utiliza la formulación de Newton para lentes delgadas, deducida en la sección anterior, la cuales relacionan la posición del objeto $x$ (medida desde el foco objeto) con la posición de su imagen $x'$ (medida desde el foco imagen) mediante la ecuación:
+
+\begin{equation*}
+x' = \frac{f^2}{x},    
+\end{equation*}
+
+donde $f$ es la distancia focal de la lente. Además, se calcula el aumento lateral como:
+
+\begin{equation*}
+m = -\frac{f}{x}.   
+\end{equation*}
+
+Este aumento lateral, definido como la razón entre la altura de la imagen y la altura del objeto, es decir, $m = \frac{y'}{y}$, permite calcular la \textbf{coordenada vertical} de la imagen a partir de la coordenada del objeto mediante la relación:
+
+\begin{equation*}
+y' = m \cdot y.    
+\end{equation*}
+
+A partir de las coordenadas proyectadas de los vértices del objeto, calculamos los pares ordenados que definen los vértices del cuadrilátero imagen $a'b'c'd'$. Estos puntos se almacenan en una lista llamada \texttt{vertices}, utilizando el siguiente bloque de código:
+
+\begin{center}
+\begin{minted}{python}
+puntos_imagen = calcular_imagen(puntos_objeto, f)
+
+vertices = list(puntos_imagen.values())
+\end{minted}
+\end{center}
+
+Con esta información, es posible determinar el área del cuadrilátero $a'b'c'd'$ mediante la \textbf{fórmula del área de Gauss}, una expresión matemática que permite calcular el área de cualquier polígono simple (es decir, no cruzado) con vértices conocidos y dispuestos en orden consecutivo. La fórmula se expresa como:
+
+\begin{equation*}
+A = \frac{1}{2} \sum_{i=1}^{n} \begin{vmatrix}
+x_i & y_i \\
+x_{i+1} & y_{i+1}
+\end{vmatrix}
+= \frac{1}{2} \sum_{i=1}^{n} (x_i y_{i+1} - x_{i+1} y_i),
+\end{equation*}
+
+donde $(x_i, y_i)$ representa las coordenadas del vértice $i$-ésimo, y se considera que $(x_{n+1}, y_{n+1}) = (x_1, y_1)$ para cerrar el contorno del polígono.
+
+Este algoritmo puede implementarse de manera eficiente en \texttt{python} mediante la función \texttt{calcular\_area(vertices)}, que recorre la lista de puntos y evalúa cada término de la suma utilizando la regla determinante mencionada:
+
+\begin{center}
+\begin{minted}{python}
+def calcular_area(vertices):
+    n = len(vertices)         # Número de vértices del polígono
+    area = 0.0                # Inicializamos el área en cero
+
+    for i in range(n):
+        x_i, y_i = vertices[i]                       # Coordenadas del vértice actual
+        x_next, y_next = vertices[(i + 1) % n]       # Coordenadas del siguiente vértice
+
+        # Sumamos el término correspondiente de la fórmula: x_i * y_{i+1} - x_{i+1} * y_i
+        area += x_i * y_next - x_next * y_i
+
+    # Tomamos el valor y dividimos por 2, como indica la fórmula
+    return area / 2
+\end{minted}
+\end{center}
+
+La función \texttt{calcular\_area} traduce así la fórmula de Gauss en un algoritmo computacional que permite automatizar el cálculo del área de polígonos definidos por sus vértices. El procedimiento seguido en el código se detalla a continuación:
+
+
+\begin{enumerate}
+    \item \textbf{Inicialización del área}:  
+    Se comienza estableciendo el área acumulada como cero:
+    \begin{equation*}
+        A \leftarrow 0.
+    \end{equation*}
+
+    \item \textbf{Recorrido por los lados del polígono}:  
+    Se itera sobre cada vértice $i$ del polígono (de $1$ a $n$), y se forma un determinante con el vértice actual y el siguiente. Para el último vértice, el “siguiente” se toma como el primero, asegurando el cierre del contorno:
+    \begin{equation*}
+        A \leftarrow A + (x_i y_{i+1} - x_{i+1} y_i).
+    \end{equation*}
+    Este término corresponde al cálculo del determinante de una matriz $2\times2$ que representa un paralelogramo elemental asociado a cada par consecutivo de puntos:
+    \begin{equation*}
+        \begin{vmatrix}
+        x_i & y_i \\
+        x_{i+1} & y_{i+1}
+        \end{vmatrix} = x_i y_{i+1} - x_{i+1} y_i.
+    \end{equation*}
+
+    \item \textbf{Cálculo final del área}:  
+    Tras completar la suma de todos los términos, se aplica el factor de corrección de la fórmula:
+    \begin{equation*}
+        A = \frac{1}{2} A.
+    \end{equation*}
+    Así, el valor retornado es la mitad de la suma total obtenida en el paso anterior, consistente con la expresión:
+    \begin{equation*}
+        A = \frac{1}{2} \sum_{i=1}^{n} (x_i y_{i+1} - x_{i+1} y_i).
+    \end{equation*}
+\end{enumerate}
+
+\noindent Este procedimiento es general y puede aplicarse a cualquier conjunto de puntos $(x_i, y_i)$ que definan un polígono simple (cerrado y sin intersecciones internas), siendo suficiente que estén ordenados en sentido horario o antihorario.
+
+Finalmente, se ejecuta el siguiente bloque de código para obtener el valor del área:
+
+\begin{center}
+\begin{minted}{python}
+area_imagen = calcular_area(vertices)
+print(f"Área de la imagen: {area_imagen:.2f} cm²")
+\end{minted}
+\end{center}
+
+Este fragmento utiliza la función \texttt{calcular\_area} aplicada a la lista de vértices \texttt{vertices}, correspondiente a las coordenadas del cuadrilátero $a'b'c'd'$ que representa la imagen del objeto.
+
+La función retorna el área en unidades cuadradas, y el resultado se imprime en pantalla con una precisión de cuatro cifras decimales. Para los datos suministrados, se obtiene:
+
+\begin{equation*}
+A = 3.00 \, \text{cm}^2.
+\end{equation*}
+
+Este valor representa el área proyectada de la imagen del objeto, calculada mediante la fórmula del área de Gauss.
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
