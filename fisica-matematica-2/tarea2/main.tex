@@ -1,1 +1,1969 @@
+\documentclass{article}
+\usepackage{csquotes}
 
+% Paquetes matemáticos y tipográficos
+\usepackage{cancel}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+% Permite referencias personalizadas
+\usepackage{nameref}
+
+% Numeración de ecuaciones por sección
+\numberwithin{equation}{section}
+
+% Hipervinculos
+\usepackage[colorlinks=true,
+            linkcolor=black,
+            urlcolor=black,
+            citecolor=black,
+            filecolor=black,
+            pdfborder={0 0 0}]{hyperref}
+
+% Idioma en español
+\usepackage[spanish]{babel}
+
+% Manejo de imágenes
+\usepackage{graphicx} 
+\graphicspath{ {images/} }
+
+% Configuración de márgenes
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=20mm, bottom=20mm]{geometry}
+
+% Tipografía mejorada
+\usepackage{lmodern}
+
+% Estilo de títulos con punto después del número
+\usepackage{titlesec}
+\titleformat{\section}{\huge\bfseries}{\thesection.}{1em}{}  % Título más grande
+
+% Encabezados sin pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textit{Ecuaciones Diferenciales y Funciones de Legendre}}
+\fancyhead[R]{Física Matemática 2}
+
+% Mejor separación de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Evita hifenaciones excesivas
+\sloppy
+
+% Configuración del índice
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{3cm} % Ajuste en la posición vertical
+    % Logo centrado
+    \includegraphics[width=0.6\textwidth]{UdeC_azul_centrado.png} 
+    
+    \vspace{1cm}
+    \thispagestyle{empty} % Sin número en la portada
+
+    % Título de la tarea
+    {\Huge \textbf{Tarea 02 - Ecuaciones Diferenciales y Funciones de Legendre} \par}
+    
+    \vspace{0.5cm}
+    {\Huge \textbf{Física Matemática 2} \par}
+    \vspace{1.5cm}
+
+    % Nombre del autor
+    {\Large José Ignacio Rosas Sepúlveda \par}
+    \vspace{1cm}
+    
+    % Fechas de la tarea
+    {\Large Abril - Mayo 2025 \par}
+    \vfill
+\end{titlepage}
+
+% Índice
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Ejercicio 1}
+Una cuerda de longitud $L$, fijada en sus dos extremos, es pulsada en su punto medio por una cantidad $A$ (con unidades de longitud), para luego ser liberada, de modo que el desplazamiento inicial es dado por
+\begin{equation*}
+u(x,0) =
+\begin{cases}
+\displaystyle \frac{2Ax}{L}, & 0 \leq x \leq \frac{L}{2}, \\[8pt]
+\displaystyle \frac{2A(L - x)}{L}, & \frac{L}{2} \leq x \leq L.
+\end{cases}
+\end{equation*}
+Suponga además que la cuerda se encuentra quieta en $t = 0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Identificación del modelo y condiciones de borde}
+
+Identifique la ecuación que debe utilizar, junto a las condiciones de borde físicas impuestas al sistema.
+
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consideramos un sistema de referencia bidimensional con eje horizontal $x$ (posición a lo largo de la cuerda) y eje vertical $u$ (desplazamiento transversal). En su configuración de equilibrio, la cuerda se encuentra alineada con el eje $x$. 
+
+Supondremos las siguientes hipótesis físicas fundamentales para el modelado:
+\begin{itemize}
+    \item La cuerda es ideal, es decir esta es perfectamente flexible, sin rigidez ni fricción interna. 
+    \item Las partículas que componen la cuerda se desplazan únicamente en dirección al eje $u$.
+    \item Las oscilaciones son pequeñas, lo que implica que la pendiente $\frac{\partial u}{\partial x}$ permanece acotada y $\ll 1$ en todo instante.
+    \item La tensión de la cuerda es siempre en la dirección de la tangente, y la pendiente en cualquier punto de la cuerda desplazada es pequeña ($\ll 1$).
+    \item Se asume que la tensión $T$ se mantiene constante en toda la longitud de la cuerda en todo instante.
+\end{itemize}
+
+Analicemos un segmento de cuerda entre los puntos $x$ y $x + \Delta x$. Su masa es aproximadamente $\rho\,\Delta x$, donde $\rho$ es la \textbf{densidad lineal de masa} y $\Delta x$ representa una longitud infinitesimal arbitraria de cuerda. La tensión $T$, que actúa siempre \textbf{tangencialmente}, tiene \textbf{componentes verticales} en los extremos dadas por $T\sin\alpha$ y $T\sin\beta$, izquierdo y derecho respectivamente, tal como se observa en la Figura \ref{fig:cuerda}.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{1.1_fig1.jpg}
+    \caption{Segmento de cuerda desplazado transversalmente entre los puntos $x$ y $x + \Delta x$.}
+    \label{fig:cuerda}
+\end{figure}
+
+Para analizar las fuerzas sobre el segmento considerado, notamos que, por hipótesis, no hay movimiento en la dirección horizontal. Por tanto, la suma de fuerzas en el eje $x$ se anula. Bajo estas consideraciones, la fuerza neta ejercida sobre el segmento, en dirección vertical, corresponde a la diferencia entre las componentes verticales de la tensión en sus extremos:
+
+\begin{equation}\label{1.1_fuerza_neta_seno}
+    F(x,t)=T\sin\beta - T\sin\alpha \,.
+\end{equation}
+
+Dado que por hipótesis trabajamos bajo el régimen de pequeñas oscilaciones, los ángulos $\alpha$ y $\beta$ son pequeños. Esto permite aplicar la aproximación:
+\begin{align*}
+    \alpha&\approx \sin\alpha\approx\tan\alpha \,,\\
+    \beta&\approx\sin\beta\approx \tan\beta \,.
+\end{align*}
+En consecuencia, la expresión para la fuerza neta vertical se reescribe, bajo la aproximación angular, como:
+\begin{equation}\label{1.1_fuerza_neta}
+    F(x,t)=T\tan\beta - T\tan\alpha \,.
+\end{equation}
+Por otra parte, en pequeñas oscilaciones como es el caso que estamos considerando, por hipótesis la pendiente $\frac{\partial u}{\partial x}$ es pequeña. Así, podemos considerar las siguientes aproximaciones que por conveniencia tomaremos como igualdades:
+\begin{align}
+    \tan\alpha&=\frac{\partial u}{\partial x}(x,t)\,, \label{1.1_tan_alpha}\\
+    \tan\beta&=\frac{\partial u}{\partial x}(x+\Delta x,t)\,.\label{1.1_tan_beta}
+\end{align}
+
+Sustituyendo \eqref{1.1_tan_alpha} y \eqref{1.1_tan_beta} en \eqref{1.1_fuerza_neta}, obtenemos:
+
+\begin{equation}\label{1.1_fuerza_neta_2}
+    F(x,t)=T\left( \frac{\partial u}{\partial x}(x+\Delta x,t) - \frac{\partial u}{\partial x}(x,t )\right) \,.
+\end{equation}
+Definimos $u(x,t)$ como el desplazamiento transversal (vertical) de la cuerda respecto a su posición de equilibrio, en la posición horizontal $x$ y tiempo $t$. Aplicamos la segunda ley de Newton al segmento considerado. Como su masa es $m = \rho\,\Delta x$, tenemos:
+\begin{equation}\label{1.1_segunda_ley_de_newton_1}
+    \rho\, \Delta x\,\frac{\partial^2 u}{\partial t^2}(x,t) = T\left( \frac{\partial u}{\partial x}(x+\Delta x,t) - \frac{\partial u}{\partial x}(x,t)\right)\,.
+\end{equation}
+
+Dividiendo ambos lados de \eqref{1.1_segunda_ley_de_newton_1} entre $\rho\,\Delta x$:
+\begin{equation}\label{1.1_segunda_ley_de_newton_2}
+    \frac{\partial^2 u}{\partial t^2}(x,t) = \frac{T}{\rho \,\Delta x}\left( \frac{\partial u}{\partial x}(x+\Delta x,t) - \frac{\partial u}{\partial x}(x,t)\right)\,.
+\end{equation}
+
+Tomando el límite $\Delta x \to 0$ en \eqref{1.1_segunda_ley_de_newton_2}, obtenemos:
+\begin{equation}\label{1.1_segunda_ley_de_newton_3}
+    \frac{\partial^2 u}{\partial t^2}(x,t) = \frac{T}{\rho}\lim_{\Delta x \to 0}\frac{1}{\Delta x}\left( \frac{\partial u}{\partial x}(x+\Delta x,t) - \frac{\partial u}{\partial x}(x,t)\right) \,.
+\end{equation}
+
+Notamos que el segundo miembro del lado derecho corresponde, por definición, a la segunda derivada de $u(x,t)$ respecto a $x$:
+\begin{equation}\label{1.1_segunda_derivada}
+    \frac{\partial^2u}{\partial x^2}(x,t)=\lim_{\Delta x \to 0}\frac{1}{\Delta x}\left( \frac{\partial u}{\partial x}(x+\Delta x,t) - \frac{\partial u}{\partial x}(x,t)\right)
+\end{equation}
+
+Sustituyendo \eqref{1.1_segunda_derivada} en \eqref{1.1_segunda_ley_de_newton_3}, obtenemos entonces una ecuación de onda del movimiento en el eje $u$ de la cuerda en el tiempo:
+\begin{equation}\label{1.1_ecuación_de_onda}
+\frac{\partial^2 u}{\partial t^2}(x,t) = c^2\,\frac{\partial^2u}{\partial x^2}(x,t) \,,
+\end{equation}
+
+donde $c$ representa la \textbf{velocidad de propagación de ondas} transversales en la cuerda:
+\begin{equation*}
+    c=\sqrt{\frac{T}{\rho}}
+\end{equation*}
+
+En resumen, bajo las hipótesis físicas adoptadas, el desplazamiento transversal $u(x,t)$ de la cuerda está gobernado por la ecuación de onda unidimensional \eqref{1.1_ecuación_de_onda}.
+
+Finalmente, en cuanto a las condiciones de borde impuestas por el problema, el enunciado establece que la cuerda está fija en ambos extremos. Esto implica que \textbf{el desplazamiento vertical debe ser nulo en $x = 0$ y $x = L$ para todo tiempo}. Matemáticamente, estas condiciones se expresan como:
+
+\begin{equation}\label{1.1_condiciones_de_borde}
+u(0,t) = 0, \qquad u(L,t) = 0 \quad \text{para todo } t \geq 0.
+\end{equation}
+
+Estas son de tipo \textbf{Dirichlet}, ya que se impone directamente el valor de la función $u(x,t)$ en los extremos del intervalo\footnote{Parte del razonamiento presentado se apoya en el enfoque desarrollado en: \emph{Matemática Aplicada, Universidad Nacional de Trujillo} (2018), disponible en \url{https://mateapliunt.edu.pe/revista/Contenido/2018/1/Html/ART11/node2.html}.}.
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Solución por el método de separación de variables}
+
+Utilizando el Método de Separación de Variables detalladamente, encuentre el desplazamiento en cualquier punto de la cuerda para $t > 0$.
+
+\textbf{Solución:}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Consideramos la ecuación de onda unidimensional \eqref{1.1_ecuación_de_onda}, que constituye una \textbf{ecuación diferencial parcial (EDP)} lineal y de segundo orden, dependiente de dos variables independientes:
+\begin{itemize}
+\item $x$: posición horizontal de un punto en la cuerda.
+\item $t$: tiempo.
+\end{itemize}
+A continuación, aplicaremos el \textbf{método de separación de variables} para obtener soluciones que satisfagan esta ecuación bajo las condiciones de borde e iniciales impuestas por el problema.
+
+Supondremos una solución \textbf{completamente separable} de la forma:
+\begin{equation}\label{1.2_solución_propuesta}
+    u(x,t) = X(x)\,T(t)\,,
+\end{equation}
+donde $X(x)$ y $T(t)$ son funciones desconocidas, cada una dependiente de una sola variable.
+
+Sustituyendo la solución propuesta \eqref{1.2_solución_propuesta} en la ecuación \eqref{1.1_ecuación_de_onda}, se obtiene:
+
+\begin{equation*}
+    \frac{\partial^2}{\partial t^2} \left(X(x)\,T(t)\right) = c^2\,\frac{\partial^2}{\partial x^2}\left(X(x)\,T(t)\right) \,.
+\end{equation*}
+Como $X(x)$ no depende del tiempo y $T(t)$ no depende de la posición, ambas funciones pueden tratarse como constantes al aplicar las derivadas parciales con respecto a la variable opuesta. En consecuencia, se obtiene:
+\begin{equation}\label{1.2_ecuación_de_onda_y_solución_propuesta}
+X(x)\,\frac{d^2 T}{dt^2}(t) = c^2\,T(t)\,\frac{d^2 X}{dx^2}(x)\,,
+\end{equation}
+donde las derivadas parciales se han reemplazado por derivadas ordinarias, ya que cada función depende exclusivamente de una sola variable.
+
+Dividimos ambos miembros de la ecuación \eqref{1.2_ecuación_de_onda_y_solución_propuesta} por la función $u(x,t)$, dada por la expresión \eqref{1.2_solución_propuesta}. Se obtiene:
+
+\begin{equation*}
+    \frac{1}{X(x)\,T(t)}\left( X(x)\,\frac{d^2 T}{dt^2}(t) \right) = \frac{1}{X(x)\,T(t)}\left( c^2\,T(t)\,\frac{d^2 X}{dx^2}(x) \right).
+\end{equation*}
+
+Al simplificar, llegamos a una expresión en la que cada miembro depende exclusivamente de una de las variables:
+
+\begin{equation}\label{1.2_ecuación_de_onda_y_solución_propuesta_arreglo_2}
+    \frac{1}{T(t)}\,\frac{d^2 T}{dt^2}(t) = \frac{c^2}{X(x)}\,\frac{d^2 X}{dx^2}(x).
+\end{equation}
+
+Dado que el lado izquierdo de la ecuación \eqref{1.2_ecuación_de_onda_y_solución_propuesta_arreglo_2} depende únicamente de $t$, y el derecho únicamente de $x$, y la igualdad debe cumplirse para todo par $(x,t)$ en el dominio del problema, ambos miembros deben ser iguales a una \textbf{constante de separación}, que denotaremos por $\lambda \in \mathbb{R}$.
+
+De este modo, la ecuación diferencial parcial original queda reducida al siguiente sistema de ecuaciones diferenciales ordinarias:
+
+\begin{align*}
+    \frac{1}{T(t)}\,\frac{d^2 T}{dt^2}(t) &= \lambda, \\
+    \frac{c^2}{X(x)}\,\frac{d^2 X}{dx^2}(x) &= \lambda.
+\end{align*}
+
+Despejando las derivadas de segundo orden, se obtiene el sistema equivalente:
+\begin{align}
+    \frac{d^2 T}{dt^2}(t) - \lambda\,T(t) &= 0, \label{1.2_EDO_en_T} \\[4pt]
+    \frac{d^2 X}{dx^2}(x) - \frac{\lambda}{c^2}\,X(x) &= 0. \label{1.2_EDO_en_X}
+\end{align}
+
+El tipo de soluciones de este sistema de EDOs dependerá del signo de la constante $\lambda$. Nuestro objetivo será identificar los valores de $\lambda$ que conduzcan a soluciones no triviales y físicamente significativas, es decir, que satisfagan las condiciones de borde del problema.
+
+Expresamos dichas condiciones de borde, dadas originalmente en \eqref{1.1_condiciones_de_borde}, en términos de la solución propuesta \eqref{1.2_solución_propuesta}:
+
+\begin{equation*}
+\left\{
+\begin{aligned}
+    u(0,t) &= X(0)\,T(t)\, ,\\
+    u(L,t) &= X(L)\,T(t) \,.
+\end{aligned}
+\right. \quad 
+\Rightarrow \quad 
+\left\{ 
+\begin{aligned}
+    X(0)\,T(t)&=0\, ,\\
+    X(L)\,T(t) &=0\,.
+\end{aligned}
+\right.
+\end{equation*}
+Como estas condiciones deben cumplirse para todo $t > 0$, y buscamos soluciones no triviales en las que $T(t) \neq 0$, se concluye que las condiciones de borde recaen exclusivamente sobre la función $X(x)$:
+\begin{equation}\label{1.2_condiciones_de_borde_X(x)}
+\left\{
+    \begin{aligned}
+    X(0)&=0\, ,\\
+    X(L) &=0\,.
+\end{aligned}
+\right.
+\end{equation}
+
+Estas condiciones imponen restricciones específicas sobre el comportamiento de $X(x)$ en los extremos del intervalo espacial $x \in [0, L]$.
+
+Procedemos ahora a analizar las soluciones de la ecuación diferencial \eqref{1.2_EDO_en_X}, caso por caso, según el signo de la constante de separación $\lambda$.
+
+\noindent\textbf{Caso 1: $\lambda = 0$}
+
+En primer lugar, consideramos el caso $\lambda = 0$. La ecuación diferencial ordinaria \eqref{1.2_EDO_en_X} asociada a la variable espacial $x$ se reduce a:
+\begin{equation*}
+\frac{d^2 X}{dx^2}(x) = 0\,,
+\end{equation*}
+cuya solución general es una función lineal:
+\begin{equation*}
+X(x) = a_1 + a_2 x, \qquad a_1\,, a_2 \in \mathbb{R}\,.
+\end{equation*}
+Verificamos ahora si esta solución es compatible con las condiciones de borde \eqref{1.2_condiciones_de_borde_X(x)}:
+\begin{equation*}
+\left\{
+\begin{aligned}
+X(0) &= a_1, \\
+X(L) &= a_1 + a_2 L.
+\end{aligned}
+\right.
+\qquad \Rightarrow \qquad
+\left\{
+\begin{aligned}
+a_1 &= 0, \\
+a_2 &= 0.
+\end{aligned}
+\right.
+\end{equation*}
+Así, la única solución posible en este caso es $X(x) = 0$, lo que implica que la solución completa es $u(x,t) = X(x)T(t) = 0$ para todo $(x,t)$, es decir, la \textbf{solución trivial}.
+
+Como esta no representa una oscilación física de la cuerda, la descartamos. Por tanto, el caso $\lambda = 0$ no contribuye a la solución general del problema.
+
+%%%%%%%%%%%%%%
+\noindent\textbf{Caso 2: $\lambda > 0$}
+
+Supongamos ahora que $\lambda > 0$. En tal caso, es conveniente definir un parámetro auxiliar $\omega \in \mathbb{R}^+$ tal que $\lambda = \omega^2$. De este modo, la ecuación diferencial \eqref{1.2_EDO_en_X} se reescribe como:
+
+\begin{equation}\label{1.2_edo_caso_lambda_positivo}
+    \frac{d^2 X}{dx^2}(x) - \frac{\omega^2}{c^2}\,X(x) = 0.
+\end{equation}
+
+La solución general de \eqref{1.2_edo_caso_lambda_positivo} es una combinación lineal de exponenciales reales:
+\begin{equation*}
+    X(x) = a_1 e^{\frac{\omega}{c}x} + a_2 e^{-\frac{\omega}{c}x}, \quad a_1,\,a_2 \in \mathbb{R}.
+\end{equation*}
+
+Aplicamos ahora las condiciones de borde \eqref{1.2_condiciones_de_borde_X(x)}:
+\begin{equation*}
+\left\{
+\begin{aligned}
+X(0) &= a_1 + a_2\,, \\
+X(L) &= a_1 e^{\frac{\omega}{c}L} + a_2 e^{-\frac{\omega}{c}L}\,.
+\end{aligned}
+\right.
+\end{equation*}
+De estas igualdades se deduce el sistema:
+\begin{equation*}
+\left\{
+\begin{aligned}
+    a_1 + a_2 &= 0 \,, \\
+    a_1 e^{\frac{\omega}{c}L} + a_2 e^{-\frac{\omega}{c}L} &= 0 \,.
+\end{aligned}
+\right. 
+\end{equation*}
+
+De la primera ecuación se deduce que $a_2 = -a_1$. Sustituyendo en la segunda:
+\begin{equation*}
+a_1 \left( e^{\frac{\omega}{c}L} - e^{-\frac{\omega}{c}L} \right) = 0.
+\end{equation*}
+
+Como $e^{\frac{\omega}{c}L} - e^{-\frac{\omega}{c}L} \neq 0$ para $\omega > 0$, se concluye que $a_1 = 0$, y por tanto $a_2 = 0$.
+
+En consecuencia, $X(x) = 0$ es la única solución posible, es decir, la \textbf{solución trivial}. Por lo tanto, descartamos el caso $\lambda > 0$.
+
+\noindent\textbf{Caso 3: $\lambda < 0$}
+
+Finalmente, consideramos el caso $\lambda < 0$. En este contexto, es útil introducir un parámetro auxiliar $\omega \in \mathbb{R}^+$ tal que $\lambda = -\omega^2$. De este modo, la ecuación diferencial \eqref{1.2_EDO_en_X} toma la forma:
+
+\begin{equation}\label{1.2_edo_caso_lambda_negativo}
+    \frac{d^2 X}{dx^2}(x) + \frac{\omega^2}{c^2}\,X(x) = 0.
+\end{equation}
+
+La solución general de \eqref{1.2_edo_caso_lambda_negativo} es una combinación lineal de funciones trigonométricas:
+\begin{equation}\label{1.2_solución_generica_edo_caso_lambda_negativo}
+    X(x) = a_1 \cos\left(\frac{\omega}{c}x\right) + a_2 \sin\left(\frac{\omega}{c}x\right), \quad a_1,\,a_2 \in \mathbb{R}.
+\end{equation}
+
+Aplicamos las condiciones de borde homogéneas \eqref{1.2_condiciones_de_borde_X(x)}:
+\begin{equation*}
+\left\{
+\begin{aligned}
+    X(0) &= a_1\,, \\
+    X(L) &= a_1 \cos\left(\frac{\omega}{c}L\right) + a_2 \sin\left(\frac{\omega}{c}L\right).
+\end{aligned}
+\right.
+\end{equation*}
+
+La primera ecuación implica inmediatamente que $a_1 = 0$. Sustituyendo en la segunda:
+
+\begin{equation*}
+X(L) = a_2 \sin\left(\frac{\omega}{c}L\right) = 0.
+\end{equation*}
+
+Para obtener una solución no trivial ($a_2 \neq 0$), debe cumplirse:
+\begin{equation*}
+\sin\left(\frac{\omega}{c}L\right) = 0,
+\end{equation*}
+lo que ocurre si y sólo si
+\begin{equation}\label{1.2_omega_seno_igual_a_cero}
+\frac{\omega}{c}L = n\pi \quad \Leftrightarrow \quad \omega_n = \frac{n\pi c}{L}, \qquad n \in \mathbb{N}.
+\end{equation}
+
+Sustituyendo el valor de $\omega_n$ en la relación $\lambda = -\omega^2$, se obtiene el conjunto de valores permitidos para la constante de separación:
+\begin{equation}\label{1.2_lambda_n}
+    \lambda_n = -\left(\frac{n\pi c}{L}\right)^2, \qquad n \in \mathbb{N}.
+\end{equation}
+
+Dado que los únicos valores admisibles de $\lambda$ son los $\lambda_n$ definidos en \eqref{1.2_lambda_n}, para cada $n \in \mathbb{N}$ se obtiene una solución correspondiente a la variable espacial:
+\begin{equation}\label{1.2_solución_función_auxiliar_en_x}
+    X_n(x) = a_2 \sin\left(\frac{n\pi}{L}x\right)\,.
+\end{equation}
+
+Analizamos ahora la EDO \eqref{1.2_EDO_en_T} asociada a la variable temporal $t$. Sustituyendo en ella el valor de $\lambda_n$ para un $n \in \mathbb{N}$ arbitrario, se obtiene:
+\begin{equation*}
+\frac{d^2 T }{d t^2} \left(t\right) +\left(\frac{n\pi c}{L}\right)^2\; T(t) = 0\,. 
+\end{equation*}
+
+La solución general de la EDO anterior es una combinación lineal de funciones trigonométricas:
+\begin{equation}\label{1.2_solución_función_auxiliar_en_t}
+    T_n(t) = b_1 \cos\left(\frac{\pi n c} {L}t\right) + b_2 \sin\left(\frac{\pi n c}{L}t\right)\,.
+\end{equation}
+
+donde $b_1, \, b_2 \in \mathbb{R}$ son constantes arbitrarias.
+
+Sustituyendo las expresiones de $X_n(x)$ y $T_n(t)$ dadas en \eqref{1.2_solución_función_auxiliar_en_x} y \eqref{1.2_solución_función_auxiliar_en_t} en la forma completamente separable propuesta \eqref{1.2_solución_propuesta}, se obtiene:
+\begin{equation*}
+\begin{aligned}
+    u_n(x,t) &= a_2 \sin\left(\frac{\pi n}{L}x\right)\left[b_1 \cos\left(\frac{\pi n c} {L}t\right) + b_2 \sin\left(\frac{\pi n c}{L}t\right)\right] \\[5pt]
+    &= \sin\left(\frac{\pi n}{L}x\right)\left[a_2 b_1 \cos\left(\frac{\pi n c} {L}t\right) + a_2 b_2 \sin\left(\frac{\pi n c}{L}t\right)\right]\,.
+\end{aligned}
+\end{equation*}
+
+\clearpage
+
+Agrupando constantes, definimos $A_n := a_2 b_1$ y $B_n := a_2 b_2$, lo que nos lleva a una solución particular para un valor fijo de $n$:
+
+\begin{equation}\label{1.2_solución_particular}
+    u_n(x,t) = \left[A_n \cos\left(\frac{\pi n c} {L}t\right) + B_n \sin\left(\frac{\pi n c}{L}t\right)\right] \sin\left(\frac{\pi n}{L}x\right).
+\end{equation}
+
+La solución general de la ecuación de onda se obtiene como superposición (suma infinita) de las soluciones particulares $u_n(x,t)$ para todos los valores $n \in \mathbb{N}$:
+\begin{equation}\label{1.2_solución_general_implicita}
+    u(x,t) = \sum_{n=1}^{\infty} u_n(x,t)\,.
+\end{equation}
+Sustituyendo la expresión obtenida en \eqref{1.2_solución_particular} en \eqref{1.2_solución_general_implicita}, se obtiene una forma explícita para la solución general:
+
+\begin{equation}\label{1.2_solución_general_explcita}
+    u(x,t) = \sum_{n=1}^{\infty} \left[A_n \cos\left(\frac{\pi n c}{L}t\right) + B_n \sin\left(\frac{\pi n c}{L}t\right)\right] \sin\left(\frac{\pi n}{L}x\right)\,.
+\end{equation}
+
+Las condiciones iniciales impuestas al sistema son:
+\begin{align}
+    u(x,0) &=
+    \begin{cases}
+        \displaystyle \frac{2Ax}{L}\,, & 0 \leq x \leq \frac{L}{2}\,,\\[8pt]
+        \displaystyle \frac{2A(L - x)}{L}\,, & \frac{L}{2} \leq x \leq L\,,
+    \end{cases}\label{1.2_condiciones_iniciales_u}  \\[10pt]
+    \frac{\partial u}{\partial t}(x,0) &= 0\,.\label{1.2_condiciones_iniciales_u'} 
+\end{align}
+
+Evaluamos la solución general \eqref{1.2_solución_general_explcita} en $t = 0$:
+    \begin{equation}\label{1.2_solución_con_t=0}
+        u(x,0) = \sum_{n=1}^{\infty} A_n \sin\left(\frac{n\pi}{L}x\right)\,.
+    \end{equation}
+
+La expresión obtenida en \eqref{1.2_solución_con_t=0} corresponde a una serie de Fourier en senos, la cual representa funciones impares periódicas de periodo $2L$.
+
+Para poder representar $u(x,0)$ mediante una serie de senos en el intervalo $[-L, L]$, extendemos la función definida originalmente en $[0,L]$ a todo el intervalo $[-L,L]$ como una función impar. Denotamos esta extensión por $O_u(x)$, definida como:
+\begin{equation}\label{1.2_extension_impar_por_definición}
+     O_u(x) = \left\{ \begin{array}{lcc} -u(-x,0) & si & -L \leq x < 0 \\ u(x,0) & si & 0 \leq x \leq L \end{array} \right.
+\end{equation}
+
+Sustituyendo en la definición anterior la condición inicial \eqref{1.2_condiciones_iniciales_u}, se obtiene la expresión explícita de $O_u(x)$ por tramos:
+\begin{equation}\label{1.2_extensión_final}
+O_u(x) = \begin{cases}
+\displaystyle -\frac{2A}{L}(L + x)\,, & -L \leq x \leq -\frac{L}{2}\,,\\[8pt]
+\displaystyle \frac{2A}{L}x\,, & -\frac{L}{2} < x \leq \frac{L}{2}\,, \\[8pt]
+\displaystyle \frac{2A}{L}(L - x)\,, & \frac{L}{2} < x \leq L\,.
+\end{cases}
+\end{equation}
+
+De este modo, la función $O_u(x)$ puede representarse como una serie de Fourier en senos:
+
+\begin{equation}\label{1.2_definición_función_f}
+    O_u(x) = \sum_{n=1}^{\infty} A_n \sin\left(\frac{n\pi}{L}x\right)\,.
+\end{equation}
+
+Dado que $O_u(x)$ es impar y de periodo $2L$, sus coeficientes de Fourier correspondientes a la base ortonormal $\{\sin(\frac{n\pi x}{L})\}_{n=1}^\infty$ en $[-L,L]$ están dados por:
+    \begin{equation*}
+        A_n = \frac{1}{L} \int_{-L}^{L} O_u(x) \sin\left( \frac{n\pi}{L} x \right) \, dx\,.
+    \end{equation*}
+
+Para su cálculo explícito, descomponemos la integral según los tramos en que está definida la función $O_u(x)$:
+\begin{equation*}
+\begin{aligned}
+    A_n &= \frac{1}{L} \int_{-L}^{L} O_u(x) \sin\left( \frac{n\pi}{L} x \right) \, dx \\
+        &= \frac{1}{L} \left[
+            \int_{-L}^{-\frac{L}{2}} -\frac{2A(L +x)}{L}  \sin\left( \frac{n\pi}{L} x \right) \, dx
+            + \int_{-\frac{L}{2}}^{\frac{L}{2}} \frac{2A}{L}x \sin\left( \frac{n\pi}{L} x \right) \, dx
+            + \int_{\frac{L}{2}}^{L} \frac{2A}{L}(L - x) \sin\left( \frac{n\pi}{L} x \right) \, dx
+        \right] \\
+        &= \frac{1}{L} \left[I_1+I_2+I_3
+        \right] \\
+\end{aligned}
+\end{equation*}
+Definimos entonces:
+\begin{align}
+    I_1&:=\int_{-L}^{-\frac{L}{2}} -\frac{2A(L +x)}{L}  \sin\left( \frac{n\pi}{L} x \right) \, dx \,, \label{1.2_I_1}\\
+    I_2&:= \int_{-\frac{L}{2}}^{\frac{L}{2}} \frac{2A}{L}x \sin\left( \frac{n\pi}{L} x \right) \, dx\,, \label{1.2_I_2}\\
+    I_3&:=\int_{\frac{L}{2}}^{L} \frac{2A}{L}(L - x) \sin\left( \frac{n\pi}{L} x \right) \, dx \,.\label{1.2_I_3}
+\end{align}
+Con esto, el coeficiente $A_n$ se reescribe como:
+\begin{equation}\label{1.2_A_n_i}
+A_n = \frac{1}{L} \left[I_1 + I_2 + I_3\right]\,.
+\end{equation}
+Aplicamos en la integral \eqref{1.2_I_1} el cambio de variable $x = -x$, con lo cual $dx = -dx$:
+\begin{equation*}
+\begin{aligned}
+     I_1&=\int_{L}^{\frac{L}{2}} -\frac{2A(L -x)}{L}  \sin\left( \frac{n\pi}{L} (-x) \right) \, (-dx) \\
+     &=\int_{L}^{\frac{L}{2}} \frac{2A(L -x)}{L}  \sin\left( -\frac{n\pi}{L}x \right) \, dx \\
+     &=\int_{L}^{\frac{L}{2}} \frac{2A(L -x)}{L} \left[- \sin\left(\frac{n\pi}{L}x \right)\right] \, dx \\
+     &=\int_{\frac{L}{2}}^{L} \frac{2A(L -x)}{L}  \sin\left(\frac{n\pi}{L}x \right) \, dx \\
+     &=I_3
+\end{aligned}    
+\end{equation*}
+
+Por lo tanto, $I_1 = I_3$. Sustituyendo en \eqref{1.2_A_n_i}, se concluye que $I_1 + I_3 = 2I_3$, y así:
+\begin{equation}\label{1.2_A_n_2I_3}
+A_n = \frac{1}{L} \left[ I_2 + 2I_3 \right]\,.
+\end{equation}
+
+Observamos que la función integrando en $I_2$ es par, ya que:
+\begin{equation*}
+    \begin{aligned}
+        \frac{2A}{L}(-x) \sin\left( \frac{n\pi}{L} (-x) \right)&=-\frac{2A}{L}x \sin\left( -\frac{n\pi}{L}x \right) \\
+        &=-\frac{2A}{L}x \left[-\sin\left(\frac{n\pi}{L}x \right)\right] \\
+        &=\frac{2A}{L}x \sin\left(\frac{n\pi}{L}x \right)
+    \end{aligned}
+\end{equation*}
+Entonces, por la paridad del integrando y el hecho de que el dominio de integración es simétrico respecto del origen, podemos reescribir $I_2$ como:
+\begin{equation}\label{1.2_I_2_par}
+   I_2= 2\int_{0}^{\frac{L}{2}} \frac{2A}{L}x \sin\left( \frac{n\pi}{L} x \right) \, dx\,.
+\end{equation}
+
+Sustituyendo las expresiones de $I_2$ y $I_3$, dadas en \eqref{1.2_I_2_par} y \eqref{1.2_I_3}, en la fórmula \eqref{1.2_A_n_2I_3}, obtenemos la siguiente expresión para el coeficiente $A_n$:
+\begin{equation*}
+       A_n=\frac{2}{L} \left[\int_{0}^{\frac{L}{2}} \frac{2A}{L}x \sin\left( \frac{n\pi}{L} x \right) \, dx+\int_{\frac{L}{2}}^{L} \frac{2A}{L}(L - x) \sin\left( \frac{n\pi}{L} x \right) \, dx \right] \,
+\end{equation*}
+
+\clearpage
+
+Evaluando las integrales en la expresión anterior, el coeficiente $A_n$ toma la forma explícita:
+
+\begin{equation}\label{1.2_A_n}
+    A_n = \frac{16A}{n^2 \pi^2} \, \sin^2\left( \frac{n\pi}{4} \right) \sin\left( \frac{n\pi}{2} \right)\,.
+\end{equation}
+
+Observemos que el factor $\sin\left( \frac{n\pi}{2} \right)$ introduce una \textbf{condición de selección} sobre los valores de $n$, ya que su valor es cero para todo $n$ par, lo que implica que $A_n = 0$ cuando $n$ es par. En consecuencia, restringimos el análisis a los valores con $n$ impar, es decir, $n = 2m + 1$ para $m \in \mathbb{N}_0$. Notemos ademas que:
+
+\begin{equation*}
+\begin{aligned}
+     \sin\left( \frac{n\pi}{2} \right) &=\sin\left( \frac{(1+2m)\pi}{2} \right)\\  
+     &=\sin\left( \frac{\pi}{2}+m\pi \right) \\
+     &=\left\{
+     \begin{aligned}
+     1 \quad &\text{si}\;m\;\text{es par} \\
+     -1 \quad &\text{si}\;m\;\text{es impar} 
+\end{aligned}
+\right. \\
+&=(-1)^m \, .
+\end{aligned}
+\end{equation*}
+
+Si consideramos $n=1+2m$, entonces tendremos $m=\frac{n-1}{2}$, es decir:
+
+\begin{equation}\label{1.2_seno_simplificado}
+    \sin\left( \frac{n\pi}{2} \right)=(-1)^{\frac{n-1}{2}} \, .
+\end{equation}
+
+Por otra parte, para todo $n$ impar, se tiene:
+\begin{equation}\label{1.2_seno_impar}
+    \sin^2\left( \frac{n\pi}{4} \right)=\frac{1}{2}
+\end{equation}
+Esto puede verificarse utilizando identidades reconociendo que los ángulos involucrados son múltiplos impares de $\frac{\pi}{4}$, cuyos cuadrados del seno siempre valen $\frac{1}{2}$.
+
+Sustituyendo \eqref{1.2_seno_simplificado} y \eqref{1.2_seno_impar} en \eqref{1.2_A_n}, el coeficiente de Fourier $A_n$ se reescribe como:
+
+\begin{equation}\label{1.2_A_m}
+    A_n = \frac{8A\,\left( -1 \right)^{\frac{n-1}{2}}}{n^2 \pi^2}\,.
+\end{equation}
+
+Para determinar el coeficiente $B_n$ en \eqref{1.2_solución_general_explcita}, derivamos parcialmente la solución general respecto al tiempo $t$, obteniendo:
+
+\begin{equation*}
+\begin{aligned}
+    \frac{\partial u}{\partial t}(x,t) &= \frac{\partial }{\partial t} \left\{ \sum_{n=1}^{\infty} \left[ A_n \cos\left( \frac{n\pi c}{L} t \right) + B_n \sin\left( \frac{n\pi c}{L} t \right) \right] \sin\left( \frac{n\pi}{L} x \right) \right\} \\
+    &= \sum_{n=1}^{\infty} \sin\left( \frac{n\pi}{L} x \right) \frac{d}{dt} \left[ A_n \cos\left( \frac{n\pi c}{L} t \right) + B_n \sin\left( \frac{n\pi c}{L} t \right) \right] \\
+    &= \sum_{n=1}^{\infty} \sin\left( \frac{n\pi}{L} x \right) \left[ \frac{B_n\,n\pi c}{L} \cos\left( \frac{n\pi c}{L} t \right) - \frac{A_n\,n\pi c}{L} \sin\left( \frac{n\pi c}{L} t \right) \right]\,.
+\end{aligned}
+\end{equation*}
+
+De este modo, obtenemos la expresión general para la derivada temporal:
+
+\begin{equation}\label{1.2_derivada_de_la_solución}
+    \frac{\partial u}{\partial t}(x,t) = \sum_{n=1}^{\infty} \sin\left( \frac{n\pi}{L} x \right) \left[ \frac{B_n\,n\pi c}{L} \cos\left( \frac{n\pi c}{L} t \right) - \frac{A_n\,n\pi c}{L} \sin\left( \frac{n\pi c}{L} t \right) \right]\,.
+\end{equation}
+
+Evaluamos esta expresión en $t = 0$:
+
+\begin{equation*}
+\begin{aligned}
+    \frac{\partial u}{\partial t}(x,0) &= \sum_{n=1}^{\infty} \sin\left( \frac{n\pi}{L} x \right) \left[ \frac{B_n\,n\pi c}{L} \cos(0) - \frac{A_n\,n\pi c}{L} \sin(0) \right] \\
+    &= \sum_{n=1}^{\infty} \frac{B_n\,n\pi c}{L} \sin\left( \frac{n\pi}{L} x \right)\,.
+\end{aligned}
+\end{equation*}
+
+Finalmente, al imponer la condición inicial \eqref{1.2_condiciones_iniciales_u'} , se obtiene:
+
+\begin{equation}\label{1.2_suma_B_n}
+    0 = \sum_{n=1}^{\infty} \frac{B_n\,n\pi c}{L} \sin\left( \frac{n\pi}{L} x \right)\,.
+\end{equation}
+
+Como $\left\{ \sin\left( \frac{n\pi}{L} x \right) \right\}_{n=1}^\infty$ forma una base ortonormal completa en el subespacio de funciones impares de $L^2([-L, L])$, y dado que hemos extendido $u(x,0)$ como una función impar en ese dominio, la única forma en que la igualdad \eqref{1.2_suma_B_n} se verifique para todo $x \in [-L, L]$ es que todos los coeficientes de la base se anulen, es decir, $B_n = 0$ para todo $n$.
+\begin{equation}\label{1.2_B_m}
+    B_n = 0.
+\end{equation}
+
+Sustituyendoe n \eqref{1.2_solución_general_explcita} los valores de los coeficientes $A_n$ y $B_n$, dados por \eqref{1.2_A_m} y \eqref{1.2_B_m} respectivamente, obtenemos finalmente la solución explícita de la ecuación de onda bajo las condiciones iniciales:
+
+\begin{equation}\label{1.2_condiciones_inciales_solución_general_explcita}
+    u(x,t) = \sum_{\substack{n=1 \\ n \,\text{es impar}}}^{\infty} \frac{8A\,(-1)^{\frac{n-1}{2}}}{n^2 \pi^2} \cos\left( \frac{n\pi c}{L} t \right) \sin\left( \frac{n\pi}{L} x \right)\,.
+\end{equation}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Energía total de las oscilaciones}
+
+La energía cinética del $(2n + 1)$-ésimo modo normal puede obtenerse como
+
+\begin{equation}\label{1.3_energia_cinetica}
+E_{2n+1} = \int_0^L \frac{1}{2} \rho\,\left( \dot{u}_{2n+1} \right)^2 dx\,,
+\end{equation}
+
+donde $\dot{u}_{2n+1}$ corresponde a la derivada temporal del $(2n+1)$-ésimo término de la solución hallada en el apartado anterior, \textbf{cuando la función temporal alcanza su valor máximo}, y $\rho$ corresponde a la densidad de masa de la cuerda. Con esto en mente, encuentre la energía total de las oscilaciones de la cuerda.
+
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Notemos que el término $(2n+1)$-ésimo de la solución obtenida en \eqref{1.2_condiciones_inciales_solución_general_explcita} está dado por:
+
+\begin{equation}\label{1.3_(2n+1)-esimo_termino}
+    u_{2n+1}(x,t)=\frac{8A\,(-1)^n}{(2n+1)^2 \pi^2} \cos\left( \frac{(2n+1)\pi c}{L} t \right) \sin\left( \frac{(2n+1)\pi}{L} x \right) \, .
+\end{equation}
+
+La derivada temporal de \eqref{1.3_(2n+1)-esimo_termino} se expresa como:
+
+\begin{equation}\label{1.3_derivada_1}
+    \dot{u}_{2n+1}(x,t) = \frac{\partial}{\partial t}  \left[ \frac{8A\,(-1)^{n}}{(2n+1)^2 \pi^2} \,  \cos\left( \frac{(2n+1)\pi c}{L} t \right) \sin\left( \frac{(2n+1)\pi}{L} x \right)\right] \,,
+\end{equation}
+
+Observamos que los siguientes factores no dependen del tiempo:
+
+\begin{equation*}
+    \frac{8A\,(-1)^n}{(2n+1)^2 \pi^2} \quad \text{y} \quad \sin\left( \frac{(2n+1)\pi}{L} x \right) \,.
+\end{equation*}
+
+Por tanto, al calcular la derivada en \eqref{1.3_derivada_1}, estos pueden considerarse constantes, y se obtiene:
+
+\begin{equation}\label{1.3_derivada_2}
+    \dot{u}_{2n+1}(x,t)  = \frac{8A\,(-1)^n}{(2n+1)^2 \pi^2} \ \frac{\partial}{\partial t} \left[\cos\left( \frac{(2n+1)\pi c}{L} t \right) \right]\sin\left( \frac{(2n+1)\pi}{L} x \right) \, ,
+\end{equation}
+
+donde la derivada de la función temporal respecto al tiempo es:
+
+\begin{equation}\label{1.3_derivada_función_temporal}
+    \frac{\partial}{\partial t} \left[\cos\left( \frac{(2n+1)\pi c}{L} t \right) \right]=-\frac{(2n+1)\pi c}{L} \,\sin\left( \frac{(2n+1)\pi c}{L} t \right) \,.
+\end{equation}
+
+Si suponemos que \textbf{la función temporal alcanza su valor máximo}, esto es,
+
+\begin{equation*}
+    \sin\left( \frac{(2n+1)\pi c}{L} t \right)= 1 \,,
+\end{equation*}
+
+entonces la derivada \eqref{1.3_derivada_función_temporal} se simplifica a:
+
+\begin{equation}\label{1.3_derivada_función_temporal_maximo}
+    \frac{\partial}{\partial t} \left[\cos\left( \frac{(2n+1)\pi c}{L} t \right) \right]=-\frac{(2n+1)\pi c}{L} \,.
+\end{equation}
+
+Sustituyendo \eqref{1.3_derivada_función_temporal_maximo} en \eqref{1.3_derivada_2} y simplificando, se obtiene:
+
+\begin{equation}\label{1.3_derivada_temporal_(2n+1)-esimo_termino}
+    \dot{u}_{2n+1}(x,t) =-\frac{8A\,c\,(-1)^n}{(2n+1) \pi \, L} \sin\left( \frac{(2n+1)\pi}{L} x \right) \, .    
+\end{equation}
+
+Procedamos ahora a calcular la \textbf{energía cinética asociada al modo normal $(2n+1)$}. Al sustituir la expresión obtenida en \eqref{1.3_derivada_temporal_(2n+1)-esimo_termino} dentro de la definición de energía cinética dada por \eqref{1.3_energia_cinetica}, se obtiene:
+
+\begin{equation}\label{1.3_energia_cinetica_(2n+1)}
+   E_{2n+1}= \int_0^L \frac{1}{2} \rho\,\left[ -\frac{8A\,c\,(-1)^n}{(2n+1) \pi \, L}  \, \sin\left( \frac{(2n+1)\pi}{L} x \right) \right]^2 dx \,.
+\end{equation}
+
+Desarrollando la integral en \eqref{1.3_energia_cinetica_(2n+1)}, se tiene:
+
+\begin{equation*}
+\begin{aligned}
+    E_{2n+1} 
+    &=\frac{1}{2} \rho \int_0^L \left[ -\frac{8A\,c\,(-1)^n}{(2n+1) \pi \, L}  \, \sin\left( \frac{(2n+1)\pi}{L} x \right) \right]^2 dx \\
+    &=\frac{1}{2} \rho \int_0^L \frac{64A^2\,c^2\,(-1)^{2n}}{(2n+1)^2 \pi^2 \, L^2}  \, \sin^2\left( \frac{(2n+1)\pi}{L} x \right) dx \\
+    &=\frac{32A^2\,c^2\,\rho}{(2n+1)^2 \pi^2 \, L^2} \int_0^L \sin^2\left( \frac{(2n+1)\pi}{L} x \right) dx \,.
+\end{aligned}
+\end{equation*}
+
+Por tanto, la energía del modo impar queda expresada como:
+
+\begin{equation}\label{1.3_energia_cinetica_(2n+1)_integral}
+    E_{2n+1} =\frac{32A^2\,c^2\,\rho}{(2n+1)^2 \pi^2 \, L^2} \int_0^L \sin^2\left( \frac{(2n+1)\pi}{L} x \right) dx \,.
+\end{equation}
+
+Donde la integral en \eqref{1.3_energia_cinetica_(2n+1)_integral} es dada por:
+
+\begin{equation}\label{1.3_integral_energia_resuelta}
+    \int_0^L \sin^2\left( \frac{(2n+1)\pi}{L} x \right) dx = \frac{1}{2} L \,.
+\end{equation}
+
+Sustituyendo \eqref{1.3_integral_energia_resuelta} en \eqref{1.3_energia_cinetica_(2n+1)_integral} y simplificando, la energía cinética asociada al modo $(2n+1)$ queda dada por:
+
+\begin{equation}\label{1.3_energia_(2n+1)}
+    E_{2n+1} = \frac{16A^2\,c^2\,\rho}{(2n+1)^2 \pi^2 \, L} \,.
+\end{equation}
+
+A continuación, determinamos la energía total $E$ del sistema considerando la superposición de todos los modos normales impares. Esta se expresa como:
+
+\begin{equation}\label{1.3_energia_total_indexado}
+     E = \sum_{n=0}^\infty E_{2n+1} \,.
+\end{equation}
+
+Sustituyendo \eqref{1.3_energia_(2n+1)} en la suma en \eqref{1.3_energia_total_indexado}, obtenemos:
+\begin{equation*}
+    E = \sum_{n=0}^\infty \frac{16A^2\,c^2\,\rho}{(2n+1)^2 \pi^2 \, L} \,.
+\end{equation*}
+
+Extrayendo el factor constante:
+\begin{equation}\label{1.3_energia_serie}
+    E = \frac{16A^2\,c^2\,\rho}{\pi^2 \, L} \sum_{n=0}^\infty \frac{1}{(2n+1)^2} \,.
+\end{equation}
+
+Sabemos que la serie presente en \eqref{1.3_energia_serie} converge a:
+\begin{equation}\label{1.3_serie}
+    \sum_{n=0}^\infty \frac{1}{(2n+1)^2} = \frac{\pi^2}{8} \,.
+\end{equation}
+
+Finalmente, al reemplazar \eqref{1.3_serie} en \eqref{1.3_energia_serie}, se obtiene la energía total del sistema:
+\begin{equation}\label{1.3_energia_total}
+     E = \frac{2A^2\,c^2\,\rho}{\, L} \,.
+\end{equation}
+
+La energía total es proporcional a $A^2$ e inversamente proporcional a $L$, lo que refleja que una mayor deformación inicial implica más energía almacenada, y que cuerdas más largas distribuyen esa energía en una mayor extensión.
+
+ 
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ejercicio 2}
+
+Considere un cascarón esférico, de radio $R$ y ancho despreciable, que conduce calor en su superficie. Para esto, consideramos la ecuación de difusión del calor sobre la esfera, es decir, para $r = R$ constante,
+\begin{equation}\label{2.1_ecuación_de_calor_ejercicio} 
+\frac{\partial \Psi}{\partial t} = a^2 \nabla^2 \Psi(R, \theta, \phi, t)\,,
+\end{equation}
+donde $a$ es una constante positiva cuyo valor depende del material con el que esté construido el cascarón.
+
+Considere el caso particular en que todo el problema (es decir, el dominio, las condiciones iniciales y la solución) tiene simetría axial, de modo que no existe dependencia respecto a la variable $\phi$. En particular, suponga que $\Psi = \Psi(\theta, t)$. Considere además la condición inicial
+\begin{equation*}
+\Psi(\theta, 0) = f(\theta)\,,
+\end{equation*}
+donde $f(\theta)$ es una función conocida, finita en todo punto de la esfera.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Solución general mediante el método de separación de variables}\label{sec:2.1}
+
+Usando el Método de Separación de Variables, encuentre una expresión para la solución $\Psi(\theta,t)$, escrita en términos de $a$, $r$, $n$ y $f$.
+ 
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Notemos que el sistema posee simetría esférica, con coordenadas $(R, \theta, \phi)$. Se nos indica que el problema presenta simetría axial, lo cual implica que no hay dependencia respecto de la coordenada $\phi$. Además, como se trabaja sobre un cascarón esférico, la coordenada radial permanece constante, es decir, $r = R$. 
+
+En consecuencia, el \textbf{operador Laplaciano} en coordenadas esféricas, cuya forma general es:
+
+\begin{equation*}
+    \nabla^2 = \frac{1}{r^2}  \frac{\partial}{\partial r} \left( r^2 \frac{\partial}{\partial r} \right) 
+    + \frac{1}{r^2 \sin\theta}\frac{\partial}{\partial \theta} \left( \sin\theta \frac{\partial}{\partial \theta} \right) 
+    + \frac{1}{r^2\sin^2\theta} \frac{\partial^2}{\partial \phi^2} \,,
+\end{equation*}
+
+se reduce a la expresión:
+
+\begin{equation}\label{2.1_laplace}
+    \nabla^2 = \frac{1}{r^2 \sin\theta}  \frac{\partial}{\partial \theta} \left( \sin\theta \frac{\partial}{\partial \theta} \right) \,,
+\end{equation}
+
+ya que no hay dependencia en $r$ ni en $\phi$. 
+
+Así, la ecuación de conducción del calor sobre la superficie, dada por \eqref{2.1_ecuación_de_calor_ejercicio}, queda reducida a una dependencia en $\theta$ y en el tiempo. Al sustituir \eqref{2.1_laplace} en \eqref{2.1_ecuación_de_calor_ejercicio}, y considerando que $\Psi = \Psi(\theta, t)$, obtenemos la siguiente forma de la ecuación diferencial parcial:
+
+\begin{equation}\label{2.1_ecuación_de_calor_consideración} 
+    \frac{\partial \Psi}{\partial t} = \frac{a^2}{r^2 \sin\theta}  \frac{\partial}{\partial \theta} \left( \sin\theta \frac{\partial \Psi}{\partial \theta} \right) \,.
+\end{equation}
+
+A continuación, deducimos la solución general de \eqref{2.1_ecuación_de_calor_consideración} mediante el método de separación de variables. Observamos que la ecuación diferencial parcial es lineal y depende de dos variables independientes:
+    \begin{itemize} 
+        \item $\theta$: coordenada colatitudinal.
+        \item $t$: tiempo.
+    \end{itemize}
+    
+    Proponemos una solución \textbf{completamente separable} de la forma:
+    \begin{equation}\label{2.1_solución_propuesta}
+        \Psi(\theta,t) = \Theta(\theta) \, T(t),
+    \end{equation}
+    donde $\Theta$ y $T$ son funciones auxiliares que dependen exclusivamente de $\theta$ y $t$, respectivamente.
+
+    Sustituimos la solución propuesta \eqref{2.1_solución_propuesta} en la ecuación \eqref{2.1_ecuación_de_calor_consideración}:
+    \begin{equation*}
+    \begin{aligned}
+        \frac{\partial}{\partial t} \left( \Theta T \right) &= \frac{a^2}{r^2 \sin\theta} \frac{\partial}{\partial \theta} \left( \sin\theta \frac{\partial}{\partial \theta} \left( \Theta T \right) \right) \\[5pt]
+        \Rightarrow \quad \Theta\frac{d T}{d t} &= \frac{a^2 T}{r^2 \sin\theta} \frac{d}{d \theta} \left( \sin\theta \frac{d \Theta}{d \theta}\right) \\[5pt]
+        &= \frac{a^2 T}{r^2 \sin\theta} \left( \cos\theta \frac{d \Theta}{d \theta} + \sin\theta \frac{d^2 \Theta}{d \theta^2} \right) \\[5pt]
+        &= \frac{a^2 T}{r^2} \left( \frac{1}{\tan\theta} \frac{d \Theta}{d \theta}+ \frac{d^2 \Theta}{d \theta^2} \right).
+    \end{aligned}
+    \end{equation*}
+
+    Reescribimos la igualdad obtenida como:
+    \begin{equation}\label{2.1_ecuación_de_calor_y_solución_propuesta}
+        \Theta\frac{d T}{d t}= \frac{a^2 T(t)}{r^2} \left( \frac{1}{\tan\theta} \frac{d \Theta}{d \theta} + \frac{d^2 \Theta}{d \theta^2}\right)\,.
+    \end{equation}
+
+    Dividimos ambos miembros de la ecuación \eqref{2.1_ecuación_de_calor_y_solución_propuesta} por la solución separable \eqref{2.1_solución_propuesta}:
+    \begin{equation}\label{2.1_ecuación_de_calor_y_solución_propuesta_arreglo_1}
+        \frac{1}{T} \frac{d T}{d t} = \frac{1}{\Theta} \frac{a^2}{r^2} \left( \frac{1}{\tan\theta} \frac{d \Theta}{d \theta} + \frac{d^2 \Theta}{d \theta^2} \right)\,.
+    \end{equation}
+
+    Como los lados de la igualdad \eqref{2.1_ecuación_de_calor_y_solución_propuesta_arreglo_1} dependen de variables distintas, ambos deben ser iguales a una \textbf{constante de separación} $\lambda \in \mathbb{R}$. De este modo, obtenemos:
+    \begin{equation}\label{2.1_constante_de_separación_1}
+        \frac{1}{T} \frac{d T}{d t} = \lambda = \frac{1}{\Theta} \frac{a^2}{r^2} \left( \frac{1}{\tan\theta} \frac{d \Theta}{d \theta} + \frac{d^2 \Theta}{d \theta^2} \right)\,.
+    \end{equation}
+
+    Restando $\lambda$ a ambos lados de la igualdad, obtenemos el siguiente sistema:
+    \begin{equation}\label{2.1_constante_de_separación_2}
+        \frac{1}{T} \frac{d T}{d t} - \lambda = \frac{a^2}{r^2 \Theta} \left( \frac{1}{\tan\theta} \frac{d \Theta}{d \theta} + \frac{d^2 \Theta}{d \theta^2} \right) - \lambda = 0\,.
+    \end{equation}
+
+Así, la ecuación de separación nos conduce al siguiente sistema de ecuaciones diferenciales:
+
+\begin{equation*}
+\left\{
+    \begin{aligned}
+        \frac{1}{T}\frac{d T}{d t} - \lambda &= 0, \\
+        \frac{a^2}{r^2 \, \Theta} \left( \frac{1}{\tan\theta} \frac{d \Theta}{d \theta} + \frac{d^2 \Theta}{d \theta^2} \right) - \lambda &= 0\, .
+    \end{aligned}
+\right.
+\end{equation*}
+
+Despejamos las derivadas de mayor orden presentes en las ecuaciones de este sistema lineal para finalmente obtener:
+\begin{equation}\label{2.1_sistema_de_ecuaciones_2}
+    \left\{
+        \begin{aligned}  
+        \frac{d T}{d t} - \lambda \,T&= 0, \\
+        \frac{d^2 \Theta}{d \theta^2}+\frac{1}{\tan\theta} \frac{d \Theta}{d \theta} -  \frac{\lambda r^2  }{a^2} \Theta &= 0 \,.
+        \end{aligned}
+    \right. 
+\end{equation}
+
+De este modo, hemos reducido la EDP original \eqref{2.1_ecuación_de_calor_consideración} a un sistema formado por un par de EDOs, cada una en función de una única variable. Encontramos la solución general de cada EDO del sistema \eqref{2.1_sistema_de_ecuaciones_2}.
+
+Para la EDO lineal de primer orden en dependencia de $T(t)$, su solución general sencillamente es
+
+\begin{equation}\label{2.1_solucion_edo_1er_orden}
+    T(t)=A_1\exp(\lambda t)\,,
+\end{equation}
+
+donde $A_1 \in \mathbb{R}$ una constante arbitra.
+    
+Para la EDO lineal de segundo orden dependiente de la función auxiliar $\Theta(\theta)$, su solución general es algo más compleja de deducir. Consideremos el siguiente cambio de variable: \label{item:cambio-variable-theta}
+\begin{equation}\label{2.1_cambio_de_variable}
+    x = \cos\theta\,,
+\end{equation}
+de modo que la función auxiliar $\Theta$, en función de $\theta$, será igual a una nueva función $\tilde{\Theta}$ en función de $x$, es decir:
+\begin{equation}\label{2.1_funciones_auxiliares}
+    \Theta(\theta) = \tilde{\Theta}(x)\,.
+\end{equation}
+
+Nótese que el cambio de variable definido en \eqref{2.1_cambio_de_variable} impone una restricción sobre el nuevo dominio de la variable $x$, dado que el codominio de la función coseno es el intervalo cerrado $\left[-1,1\right]$. Así, para cualquier $\theta\in\mathbb{R}$, se tiene que $x\in\left[-1,1\right]$.
+
+Calcularemos ahora la primera y segunda derivada de $\Theta$ respecto a $\theta$.
+
+\begin{itemize}
+    \item Para la primera derivada de $\Theta$ respecto a $\theta$, aplicando la regla de la cadena sobre la igualdad \eqref{2.1_funciones_auxiliares}, se tiene:
+    \begin{equation}\label{2.1_primera_derivada_regla_de_la_cadena}
+        \frac{d\Theta}{d\theta} = \frac{d\tilde{\Theta}}{dx} \frac{dx}{d\theta}\,.
+    \end{equation}
+    Considerando el cambio de variable \eqref{2.1_cambio_de_variable}, obtenemos:
+    \begin{equation*}
+        x = \cos\theta \quad \Rightarrow \quad \frac{dx}{d\theta} = \frac{d}{d\theta}(\cos\theta)\,,
+    \end{equation*}
+    es decir,
+    \begin{equation}\label{2.1_derivada_cambio_de_variable}
+        \frac{dx}{d\theta} = -\sin\theta\,.
+    \end{equation}
+    Sustituyendo \eqref{2.1_derivada_cambio_de_variable} en \eqref{2.1_primera_derivada_regla_de_la_cadena}, resulta:
+    \begin{equation}\label{2.1_primera_derivada}
+        \frac{d\Theta}{d\theta} = -\sin\theta \frac{d\tilde{\Theta}}{dx}\,.
+    \end{equation}
+
+    \item Para la segunda derivada de $\Theta$ respecto a $\theta$, a partir de los resultados \eqref{2.1_derivada_cambio_de_variable} y \eqref{2.1_primera_derivada}, se tiene:
+    \begin{equation*}
+    \begin{aligned}
+        \frac{d^2\Theta}{d\theta^2} &= \frac{d}{d\theta}\left(-\sin\theta\frac{d\tilde{\Theta}}{dx}\right) \\
+        &= \left[\frac{d}{d\theta}(-\sin\theta)\right] \frac{d\tilde{\Theta}}{dx} + (-\sin\theta) \frac{d}{d\theta}\left(\frac{d\tilde{\Theta}}{dx}\right) \\
+        &= -\cos\theta \frac{d\tilde{\Theta}}{dx} - \sin\theta \frac{d}{dx}\left(\frac{d\tilde{\Theta}}{dx}\right)\frac{dx}{d\theta} \\
+        &= -\cos\theta \frac{d\tilde{\Theta}}{dx} - \sin\theta \frac{d^2\tilde{\Theta}}{dx^2} (-\sin\theta)\,.
+    \end{aligned}
+    \end{equation*}
+    Reordenando los términos:
+    \begin{equation}\label{2.1_segunda_derivada}
+        \frac{d^2\Theta}{d\theta^2} = \sin^2\theta \frac{d^2\tilde{\Theta}}{dx^2} - \cos\theta \frac{d\tilde{\Theta}}{dx}\,.
+    \end{equation}
+\end{itemize}
+    Considerando ahora la EDO lineal de segundo orden del sistema \eqref{2.1_sistema_de_ecuaciones_2}:
+    \begin{equation}\label{2.1_EDO_lineal_de_segundo_orden}
+        \frac{d^2\Theta}{d\theta^2} + \frac{1}{\tan\theta} \frac{d\Theta}{d\theta} - \frac{\lambda r^2}{a^2} \Theta = 0\,,
+    \end{equation}
+    y sustituyendo las expresiones \eqref{2.1_funciones_auxiliares}, \eqref{2.1_primera_derivada} y \eqref{2.1_segunda_derivada}, obtenemos:
+    \begin{equation*}
+    \begin{aligned}
+        &\left(\sin^2\theta \frac{d^2\tilde{\Theta}}{dx^2} - \cos\theta \frac{d\tilde{\Theta}}{dx}\right) + \frac{1}{\tan\theta} \left(-\sin\theta \frac{d\tilde{\Theta}}{dx}\right) - \frac{\lambda r^2}{a^2} \tilde{\Theta} = 0 \\
+        &\Rightarrow \quad \sin^2\theta \frac{d^2\tilde{\Theta}}{dx^2} - \cos\theta \frac{d\tilde{\Theta}}{dx} - \cos\theta \frac{d\tilde{\Theta}}{dx} - \frac{\lambda r^2}{a^2} \tilde{\Theta} = 0 \\
+        &\Rightarrow \quad \sin^2\theta \frac{d^2\tilde{\Theta}}{dx^2} - 2\cos\theta \frac{d\tilde{\Theta}}{dx} - \frac{\lambda r^2}{a^2} \tilde{\Theta} = 0\,.
+    \end{aligned}
+    \end{equation*}
+    Es decir:
+    \begin{equation}\label{2.1_EDO_lineal_de_segundo_orden_sustitucion}
+        \sin^2\theta \frac{d^2\tilde{\Theta}}{dx^2} - 2\cos\theta \frac{d\tilde{\Theta}}{dx} - \frac{\lambda r^2}{a^2} \tilde{\Theta} = 0\,.
+    \end{equation}
+
+    Ahora, usando la identidad trigonométrica fundamental:
+    \begin{equation*}
+        \sin^2\theta + \cos^2\theta = 1 \quad \Rightarrow \quad \sin^2\theta = 1 - \cos^2\theta\,,
+    \end{equation*}
+    y considerando el cambio de variable \eqref{2.1_cambio_de_variable}, tenemos:
+    \begin{equation}\label{2.1_seno_cuadrado}
+        \sin^2\theta = 1 - x^2.
+    \end{equation}
+
+    Sustituyendo \eqref{2.1_seno_cuadrado} en \eqref{2.1_EDO_lineal_de_segundo_orden_sustitucion}, obtendremos una ecuación parecida en principio a la \textbf{Ecuación de Legendre}:
+        \begin{equation}\label{2.1_EDO_legendre_similar}
+        (1-x^2)\frac{d^2\tilde{\Theta}}{dx^2} - 2x \frac{d\tilde{\Theta}}{dx} - \frac{\lambda r^2}{a^2} \tilde{\Theta} = 0\,.
+    \end{equation}
+    Si imponemos que la constante que multiplica a la función $\tilde{\Theta}$ sin derivar en la ecuación \eqref{2.1_EDO_legendre_similar} satisfaga la condición
+    
+    \begin{equation}\label{2.1_ajuste_legendre} -\frac{\lambda r^2}{a^2} = n(n+1)\,, \end{equation}
+    
+donde $n \in \mathbb{N}_0 $. Observamos que, dado que las constantes $a^2$ y $r^2$ son positivas, y el miembro derecho de la ecuación \eqref{2.1_ajuste_legendre} también es siempre positivo, la constante de separación $\lambda$ debe ser necesariamente negativa, es decir, $\lambda < 0$.
+
+Sustituyendo \eqref{2.1_ajuste_legendre} en \eqref{2.1_EDO_legendre_similar}, se obtiene la siguiente forma de la ecuación diferencial asociada a las funciones angulares:
+
+\begin{equation}\label{2.1_EDO_legendre}
+(1-x^2)\frac{d^2\tilde{\Theta}}{dx^2} - 2x \frac{d\tilde{\Theta}}{dx} + n(n+1)\tilde{\Theta} = 0\,,
+\end{equation}
+
+la cual corresponde a la ecuación de Legendre. Su solución general está dada por
+
+\begin{equation*}
+\tilde{\Theta}(x) = B_1 P_n(x) + B_2 Q_n(x)\,,
+\end{equation*}
+
+donde $P_n(x)$ representa los polinomios de Legendre, funciones analíticas en el intervalo cerrado $[-1,1]$, mientras que $Q_n(x)$ son las funciones de Legendre de segunda especie, que presentan divergencias en los extremos $x = \pm 1$.
+
+Por otra parte, el problema impone la condición inicial $\Psi(\theta, 0) = f(\theta)$, donde $f(\theta)$ es una función conocida y \textbf{finita en toda la esfera}. Esto implica que la solución general de la EDP \eqref{2.1_ecuación_de_calor_consideración}, y por ende sus factores separados como $\tilde{\Theta}(x)$, \textbf{deben permanecer finitos} en todo el dominio $x \in [-1,1]$.
+
+Dado que las funciones $Q_n(x)$ \textbf{divergen en los bordes del intervalo}, los términos que las contienen \textbf{no son compatibles con esta condición de regularidad física} (no puede diverger a infinito). En consecuencia, se descartan y se conserva \textbf{únicamente la parte regular de la solución}, expresada mediante los polinomios de Legendre:
+
+
+\begin{equation}\label{2.1_solución_Legendre}
+\tilde{\Theta}(x) = B_1 P_n(x)\,,
+\end{equation}
+
+donde $B_1 \in \mathbb{R}$ es una constante real.
+
+
+Sustituimos \eqref{2.1_funciones_auxiliares} y \eqref{2.1_cambio_de_variable} en \eqref{2.1_solución_Legendre}, de modo que
+\begin{equation}\label{2.1_edo_segundo_orden}
+    \Theta(\theta) = B_1 P_n(\cos\theta)\,,
+\end{equation}
+
+sera la solución general de la EDO lineal de segundo orden \eqref{2.1_EDO_lineal_de_segundo_orden}.
+Obtenemos una solución particular de la EDP al sustituir \eqref{2.1_solucion_edo_1er_orden} y \eqref{2.1_edo_segundo_orden} en \eqref{2.1_solución_propuesta}, de modo:
+\begin{equation}\label{2.1_solución_particular}
+    \Psi_n(\theta,t) = \left(B_1 P_n(\cos\theta)\right)\left(A_1 \exp(\lambda t)\right)\,.
+\end{equation}
+
+Recordemos la restricción que impusimos a la constante de separación $\lambda$ en \eqref{2.1_ajuste_legendre}, de la cual se despeja:
+\begin{equation}\label{2.1_lambda_n}
+    \lambda_n = -\frac{a^2}{r^2} n(n+1), \quad \text{con} \quad n\in\mathbb{N}_0\,.
+\end{equation}
+
+Sustituyendo \eqref{2.1_lambda_n} en \eqref{2.1_solución_particular} y reagrupando las constantes $A_1$ y $B_1$ en una nueva constante $A_n := A_1 B_1$, obtenemos:
+\begin{equation}\label{2.1_solución_particular_edp}
+    \Psi_n(\theta,t) = A_n P_n(\cos\theta) \exp\left(-\frac{a^2}{r^2} n(n+1) t\right)\,,
+\end{equation}
+
+donde $A_n$ es una constante real asociada a cada solución particular $\Psi_n$.
+
+\clearpage
+
+La solución general de la EDP \eqref{2.1_ecuación_de_calor_ejercicio} será la superposición de todas las soluciones particulares \eqref{2.1_solución_particular_edp} para todo $n\in\mathbb{N}_0$, es decir:
+\begin{equation}\label{2.1_solución_general_edp}
+    \Psi(\theta,t) = \sum_{n=0}^\infty A_n P_n(\cos\theta) \exp\left(-\frac{a^2}{r^2} n(n+1) t\right)\,,
+\end{equation}
+
+donde los coeficientes $A_n$ se determinan de la condición inicial:
+\begin{equation}\label{2.1_condicion_incial}
+    \Psi(\theta,0) = f(\theta)\,.
+\end{equation}
+
+Evaluamos la expresión general de la solución \eqref{2.1_solución_general_edp} en el instante $t = 0$:
+
+\begin{equation*}
+         \Psi(\theta,0)= \sum_{n=0}^\infty A_n P_n(\cos\theta) \exp\left(-\frac{a^2}{r^2} n(n+1) \cdot 0\right)
+\end{equation*}
+
+Esto nos lleva a la siguiente expresión para el perfil inicial de temperatura sobre la esfera:
+\begin{equation}\label{2.1_t=0}
+    \Psi(\theta,0) = \sum_{n=0}^\infty A_n P_n(\cos\theta)\,.
+\end{equation}
+
+Imponemos la condición inicial \eqref{2.1_condicion_incial} sobre \eqref{2.1_t=0}, obtenemos la siguiente expansión en serie de Legendre para la función $f(\theta)$:
+
+\begin{equation*}
+    f(\theta) = \sum_{n=0}^\infty A_n P_n(\cos\theta)\,,
+\end{equation*}
+donde $A_n$ estara dado por:
+\begin{equation}\label{2.1_coeficiente_an}
+    A_n = \frac{2n+1}{2} \int_0^\pi f(\theta)\, P_n(\cos\theta)\, \sin\theta\, d\theta \,.
+\end{equation}
+
+Sustituyendo \eqref{2.1_coeficiente_an} en \eqref{2.1_solución_general_edp}, obtenemos:
+\begin{equation}
+        \Psi(\theta, t) = \sum_{n=0}^\infty \left[\frac{2n+1}{2} \int_0^\pi f(\theta)\, P_n(\cos\theta)\, \sin\theta\, d\theta \right]P_n(\cos\theta)\,\exp\left(-\frac{a^2}{r^2} n(n+1) t\right)
+\end{equation}
+donde $A_n$ son los coeficientes de la expansión de $f(\theta)$ en la base de polinomios de Legendre $\{P_n(\cos\theta)\}_{n=0}^\infty$. De este modo, se ha encontrado una expresión general para la solución $\Psi(\theta,t)$ de la EDP \eqref{2.1_ecuación_de_calor_ejercicio}, escrita en términos de $a$, $r$, $n$ y $f$.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Evaluación explícita de la solución para un caso particular}
+
+Evalúe explícitamente la solución en el caso particular en que $f(\theta) = T_0(1 + \beta \cos\theta)^2$.
+ 
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Tenemos el caso particular
+\begin{equation*}
+    f(\theta) = T_0 (1 + \beta \cos\theta)^2\,,
+\end{equation*}
+donde $T_0$ y $\beta$ son constantes reales. Expandiendo algebraicamente la expresión, se obtiene:
+\begin{equation}\label{2.2_f(theta)_expandido}
+    f(\theta) = T_0 + 2\beta \,T_0\cos\theta + \beta^2 \,T_0\cos^2\theta \,,
+\end{equation}
+es decir, una función polinómica de segundo grado en $\cos\theta$.
+
+A continuación, reescribiremos este polinomio como una combinación lineal explícita de los primeros tres polinomios de Legendre $\{P_n(x)\}_{n=0}^2$, donde $x\in[-1,1]$. Recordemos que:
+\begin{equation*}
+    P_0(x) = 1, \quad P_1(x) = x, \quad P_2(x) = \frac{1}{2}(3x^2 - 1)\,.
+\end{equation*}
+
+A partir de $P_2(x)$, despejamos $x^2$:
+\begin{equation}\label{2.2_x^2}
+    x^2 = \frac{2}{3}P_2(x) + \frac{1}{3} P_0(x) \, .
+\end{equation}
+
+De este modo, los monomios $1$, $x$ y $x^2$ pueden representarse como combinaciones lineales de los primeros polinomios de Legendre:
+\begin{align*}
+    1 &= P_0(x) \,, \\
+    x &= P_1(x) \,, \\
+    x^2 &= \frac{2}{3}P_2(x) + \frac{1}{3} P_0(x) \,.
+\end{align*}
+
+Realizando el cambio de variable $x = \cos\theta$, donde $\theta\in[0,\pi]$, obtenemos:
+\begin{equation}\label{2.2_P_0}
+    1 = P_0(\cos \theta) \,,
+\end{equation}
+\begin{equation}\label{2.2_P_1}
+    \cos\theta = P_1(\cos \theta) \,,
+\end{equation}
+\begin{equation}\label{2.2_P_2}
+    \cos^2\theta = \frac{2}{3}P_2(\cos \theta) + \frac{1}{3} \, .
+\end{equation}
+
+Sustituyendo las identidades \eqref{2.2_P_0}, \eqref{2.2_P_1} y \eqref{2.2_P_2} en la expansión de $f(\theta)$ obtenida en \eqref{2.2_f(theta)_expandido}, resulta:
+
+\begin{equation*}
+\begin{aligned}
+        f(\theta) &= T_0P_0(\cos \theta) + 2\beta \,T_0P_1(\cos \theta) + \beta^2 \,T_0\left( \frac{2}{3}P_2(\cos\theta) + \frac{1}{3}P_0(\cos \theta)\right)\\
+        &= T_0P_0(\cos \theta) + 2\beta \,T_0P_1(\cos \theta) + \frac{2}{3}\beta^2 \,T_0P_2(\cos\theta)  + \frac{1}{3}\beta^2 \,T_0P_0(\cos \theta)\\
+        &= T_0\left(1+\frac{1}{3}\beta^2\right)P_0(\cos \theta) + 2\beta \,T_0P_1(\cos \theta) + \frac{2}{3}\beta^2 \,T_0P_2(\cos\theta) \, .
+\end{aligned}
+\end{equation*}
+
+De este modo, $f(\theta)$ queda expresada como una combinación lineal de los primeros tres polinomios de Legendre en la base generada por $\{P_n(\cos\theta)\}_{n=0}^{2}$:
+\begin{equation}\label{2.2_caso_particular_cl}
+    f(\theta)= T_0\left(1+\frac{1}{3}\beta^2\right)P_0(\cos \theta) + 2\beta \,T_0P_1(\cos \theta) + \frac{2}{3}\beta^2 \,T_0P_2(\cos\theta) \,,
+\end{equation}
+donde identificamos los coeficientes $A_n$ para $n = 0, 1, 2$:
+\begin{align}
+    A_0 &= T_0\left(1+\frac{1}{3}\beta^2\right) \,, \label{2.2_coef_A0} \\
+    A_1 &= 2\beta \,T_0 \,, \label{2.2_coef_A1} \\
+    A_2 &= \frac{2}{3}\beta^2 \,T_0 \,. \label{2.2_coef_A2}
+\end{align}
+
+Sabemos que $f(\theta)$, en estricto rigor, debe expresarse como una expansión infinita en la base ortogonal de polinomios de Legendre:
+\begin{equation*}
+    f(\theta)=\sum_{n=0}^\infty A_n P_n(\cos\theta) \,,
+\end{equation*}
+pero en este caso se cumple que $A_n = 0$ para todo $n \geq 3$, ya que $f(\theta)$ es un polinomio de segundo grado en $\cos\theta$. Por tanto, también es válido representarla como una suma finita truncada en $n = 2$:
+
+\begin{equation}\label{2.2_suma}
+    f(\theta)=\sum_{n=0}^2 A_n P_n(\cos\theta) \,.
+\end{equation}
+
+Sustituyendo \eqref{2.2_suma} en la solución general \eqref{2.1_solución_general_edp}, se obtiene:
+
+\begin{equation*}
+    \Psi(\theta,t) = \sum_{n=0}^2 A_n P_n(\cos\theta)\exp\left(-\frac{a^2}{r^2} n(n+1)t\right),
+\end{equation*}
+Al expandir la suma:
+\begin{equation*}
+    \Psi(\theta,t) = A_0 P_0(\cos\theta) + A_1 P_1(\cos\theta)\exp\left(-\frac{2a^2}{r^2}t\right) + A_2 P_2(\cos\theta)\exp\left(-\frac{6a^2}{r^2}t\right) \,,
+\end{equation*}
+y reemplazando los coeficientes dados en \eqref{2.2_coef_A0}, \eqref{2.2_coef_A1} y \eqref{2.2_coef_A2}, resulta:
+
+\begin{equation*}
+    \Psi(\theta,t) = T_0\left(1 + \frac{1}{3}\beta^2\right) P_0(\cos\theta) + 2\beta T_0 \,P_1(\cos\theta)\exp\left(-\frac{2a^2}{r^2}t\right) + \frac{2}{3}\beta^2 T_0 \,P_2(\cos\theta)\exp\left(-\frac{6a^2}{r^2}t\right) \,.
+\end{equation*}
+
+Así, obtenemos una solución particular de la EDP, escrita como combinación de los tres primeros modos de Legendre, que son los únicos que aportan debido al grado del polinomio original $f(\theta)$.
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ejercicio 3}\label{sec:3}
+
+Considere una esfera conductora de radio $a$, construida a partir de dos cascarones semiesféricos separados por un pequeño anillo aislante en $z = 0$. Los hemisferios superior e inferior se mantienen a potencial $V_0$ y $-V_0$, respectivamente. Suponga además que el sistema no necesariamente posee simetría axial.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\linewidth]{fig1.png}
+    \caption{Situación descrita en el ejercicio 3.}
+    \label{fig:esfera}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Identificación de la ecuación y condiciones de borde físicas} 
+
+Identifique la ecuación y las condiciones de borde físicas que surgen del problema.
+
+\textbf{Solución:} 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection*{-- Sobre identificar la ecuación del sistema:}
+
+Consideremos un sistema de coordenadas esféricas cuyo origen coincide con el centro de la esfera definida en el enunciado, como se muestra en la figura~\ref{fig:esfera}. Dado que la esfera posee radio $a$, esta divide el espacio tridimensional $\mathbb{R}^3$ en dos regiones disjuntas:
+
+\begin{itemize}\label{3.1_región_}
+    \item Región interior a la esfera: $\Omega_\text{int} = \{ (r, \theta, \varphi) \in \mathbb{R}^3 : 0 < r < a \}$.
+    \item Región exterior a la esfera: $\Omega_\text{ext} = \{ (r, \theta, \varphi) \in \mathbb{R}^3 : r > a \}$.
+\end{itemize}
+
+La esfera está conformada por dos cascarones semiesféricos conductores ubicados sobre su superficie, la cual constituye la frontera común entre ambas regiones:
+
+\begin{equation*}
+    \partial\Omega_\text{int} = \partial\Omega_\text{ext} = \{ (r, \theta, \varphi) \in \mathbb{R}^3 :  r = a \} \,.
+\end{equation*}
+
+Estos cascarones concentran toda la carga del sistema y son, por tanto, la fuente del campo eléctrico $\vec{E}$, el cual se propaga a través de todo el espacio $\mathbb{R}^3$. En las regiones $\Omega_\text{int}$ y $\Omega_\text{ext}$ no hay presencia de cargas libres, por lo que la densidad de carga $\rho$ en estas es nula. En consecuencia, la ley de Gauss en su forma diferencial se reduce a:
+
+\begin{equation}\label{3.1_ley_de_Gauss_usar}
+\vec{\nabla} \cdot \vec{E} = 0 \,.
+\end{equation}
+
+Cabe decir que la expresión \eqref{3.1_ley_de_Gauss_usar} no es válida sobre la superficie $r = a$, puesto que en ella la densidad de carga $\rho$ es no nula. 
+
+Dado que el sistema está en equilibrio electrostático, el campo eléctrico $\vec{E}$ es conservativo y puede expresarse como el gradiente negativo de un potencial escalar:
+
+\begin{equation}\label{3.1_potencial_campo_electrico}
+\vec{E} = -\vec{\nabla} \phi \,.
+\end{equation}
+
+En adelante, nos referiremos a $\phi$ simplemente como el \textbf{potencial electrostático}.
+
+\clearpage
+
+Sustituyendo \eqref{3.1_potencial_campo_electrico} en \eqref{3.1_ley_de_Gauss_usar}, se obtiene:
+
+\begin{equation*}
+\vec{\nabla} \cdot (-\vec{\nabla} \phi) = 0 
+\quad \Rightarrow \quad 
+\nabla^2 \phi = 0 \,.
+\end{equation*}
+
+
+Concluimos entonces que el potencial electrostático $\phi$ satisface la ecuación de Laplace en las regiones $\Omega_\text{int}$ y $\Omega_\text{ext}$ del espacio\footnote{Parte del razonamiento presentado se apoya en la exposición conceptual desarrollada en: \emph{HyperPhysics, Georgia State University}, disponible en \url{http://hyperphysics.phy-astr.gsu.edu/hbasees/electric/laplace.html}.}:
+
+\begin{equation}\label{3.1_laplace_esferica}
+\nabla^2 \phi(r, \theta, \varphi) = 0 \,.
+\end{equation}
+
+\subsubsection*{-- Condiciones de borde y comportamiento físico del potencial}
+
+Como ya se ha mencionado, la esfera está compuesta por dos cascarones semiesféricos conductores, eléctricamente aislados entre sí a lo largo del plano $z = 0$ por un pequeño anillo aislante. Dado que estamos trabajando en coordenadas esféricas, dicho plano —expresado originalmente en coordenadas cartesianas— se representa mediante $\theta = \frac{\pi}{2}$. 
+
+El hemisferio correspondiente a $0 \leq \theta < \frac{\pi}{2}$ se mantiene a un potencial constante $+V_0$, mientras que el hemisferio opuesto, con $\frac{\pi}{2} < \theta \leq \pi$, está a potencial $-V_0$.
+
+Así, el \textbf{potencial sobre la superficie esférica $r = a$} queda definido por la condición de borde:\label{sec:3.1}
+\begin{equation}\label{3.1_condición_de_borde} 
+\phi(a, \theta, \varphi) =
+\begin{cases}
++V_0\,, & 0 \leq \theta < \dfrac{\pi}{2}, \\[6pt]
+- V_0\,, & \dfrac{\pi}{2} < \theta \leq \pi.
+\end{cases}
+\end{equation}
+
+Observamos que la condición de borde \eqref{3.1_condición_de_borde} presenta una discontinuidad en el plano $\theta = \frac{\pi}{2}$. Sin embargo, el potencial electrostático $\phi(r, \theta, \varphi)$ debe ser \textbf{continuo entre las interfases de las regiones $\Omega_\text{int}$ y $\Omega_\text{ext}$}. Esto impone una \textbf{condición de continuidad} del potencial en $r = a$ para cada valor fijo de $\theta \neq \frac{\pi}{2}$, es decir:
+
+\begin{equation*}
+\lim_{r \to a^-} \phi(r, \theta, \varphi) = \lim_{r \to a^+} \phi(r, \theta, \varphi) = \phi(a, \theta, \varphi), \quad \text{para } \theta \neq \dfrac{\pi}{2} \,.
+\end{equation*}
+
+El campo eléctrico $\vec{E}$ —generado por la distribución de cargas en $r=a$— decae rápidamente con la distancia. En particular, se anula en el infinito:
+\begin{equation*}
+\lim_{r \to \infty} \vec{E}(r, \theta, \varphi) = 0 \, .
+\end{equation*}
+
+Dado la relación $\vec{E} = -\vec{\nabla} \phi$, este comportamiento implica que el potencial también tiende a cero en el infinito. Se impone una \textbf{condición de decaimiento en el infinito}:
+\begin{equation*}
+\lim_{r \to \infty} \phi(r, \theta, \varphi) = 0 \, .
+\end{equation*}
+
+Dado que el potencial electrostático $\phi$ debe ser \textbf{finito en todo el dominio físico}, se requiere que la solución no diverja en el límite $r \to 0$.
+
+\begin{equation*}
+\lim_{r \to 0} \phi(r, \theta, \varphi) < \infty \,.
+\end{equation*}
+
+Estas cuatro condiciones, en conjunto con la ecuación de Laplace \eqref{3.1_laplace_esferica}, definen completamente el problema de valores de contorno asociado al potencial electrostático generado por los cascarones semiesféricos.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Planteamiento de la solución general y elección de constantes de separación}
+
+Plantee la solución general al problema, explicando el procedimiento para obtenerla y el motivo de la elección de los valores de las constantes de separación. Considere que el potencial en el interior y en el exterior se comportará de forma distinta en cada región.
+
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Queremos resolver la ecuación de Laplace dada en \eqref{3.1_laplace_esferica}. En coordenadas esféricas el operador Laplaciano para una función escalar se expresa como:
+
+\begin{equation*}
+    \nabla^2  = 
+    \frac{1}{r^2 } \frac{\partial }{\partial r} \left( r^2 \frac{\partial }{\partial r} \right)
+    + \frac{1}{r^2 \sin\theta} \frac{\partial}{\partial \theta} \left( \sin\theta \frac{\partial }{\partial \theta} \right)
+    + \frac{1}{r^2 \sin^2\theta} \frac{\partial^2}{\partial \varphi^2} \, .
+\end{equation*}
+
+Sustituyendo esta expresión en \eqref{3.1_laplace_esferica}, la ecuación de Laplace queda escrita explícitamente como:
+
+\begin{equation}\label{3.2_laplaciano}
+    \frac{1}{r^2 } \frac{\partial }{\partial r} \left( r^2 \frac{\partial \phi}{\partial r} \right)
+    + \frac{1}{r^2 \sin\theta} \frac{\partial}{\partial \theta} \left( \sin\theta \frac{\partial \phi}{\partial \theta} \right)
+    + \frac{1}{r^2 \sin^2\theta} \frac{\partial^2\phi}{\partial \varphi^2} = 0 \, .
+\end{equation}
+
+Observamos que la EDP \eqref{3.2_laplaciano} es lineal y depende de tres variables independientes:
+    \begin{itemize} 
+        \item $r$: coordenada radial. 
+        \item $\theta$: coordenada colatitudinal.
+        \item $\varphi$: coordenada azimutal.
+    \end{itemize}
+
+En coordenadas esféricas, estas variables recorren los dominios:
+\begin{equation*}
+r \in [0, \infty[\,, \qquad \theta \in [0, \pi]\,, \qquad \varphi \in [0, 2\pi[ \,,
+\end{equation*}
+
+generando así todo el espacio $\mathbb{R}^3$.
+    
+A continuación, abordaremos la resolución de esta ecuación implementando el \textbf{método de separación de variables}, proponiendo una solución \textbf{completamente separable} de la forma:
+\begin{equation}\label{3.2_solución_propuesta}
+    \phi(r, \theta, \varphi) = R(r)\,\Theta(\theta)\,\Phi(\varphi) \,,
+\end{equation}
+donde $R$, $\Theta$ y $\Phi$ son funciones auxiliares que dependen únicamente de una de las variables independientes $r$, $\theta$ y $\varphi$, respectivamente.
+
+Sustituimos la solución propuesta en \eqref{3.2_solución_propuesta} dentro de la ecuación de Laplace \eqref{3.2_laplaciano}. Simplificando cada término, se obtiene:
+
+\begin{equation*}
+    \frac{\Theta\,\Phi}{r^2} \frac{d}{dr} \left( r^2 \frac{dR}{dr} \right)
+    + \frac{R\,\Phi}{r^2 \sin\theta} \frac{d}{d\theta} \left( \sin\theta \frac{d\Theta}{d\theta} \right)
+    + \frac{R\,\Theta}{r^2 \sin^2\theta} \frac{d^2\Phi}{d\varphi^2} =0\, .
+\end{equation*}
+
+Expresamos explícitamente las derivadas de segundo orden en $R$ y $\Theta$:
+
+\begin{equation*}
+    \frac{\Theta\,\Phi}{r^2} \left( r^2 \frac{d^2R}{dr^2} + 2r \frac{dR}{dr} \right)
+    + \frac{R\,\Phi}{r^2 \sin\theta} \left( \sin\theta \frac{d^2\Theta}{d\theta^2} + \cos\theta \frac{d\Theta}{d\theta} \right)
+    + \frac{R\,\Theta}{r^2 \sin^2\theta} \frac{d^2\Phi}{d\varphi^2}=0 \,.
+\end{equation*}
+
+Multiplicamos ambos lados por $r^2$ para simplificar denominadores comunes:
+
+\begin{equation}\label{3.2_desarrollo_1}
+\Theta\,\Phi \left( r^2 \frac{d^2R}{dr^2} + 2r \frac{dR}{dr} \right)
++ \frac{R\,\Phi}{\sin\theta} \left( \sin\theta \frac{d^2\Theta}{d\theta^2} + \cos\theta \frac{d\Theta}{d\theta} \right)
++ \frac{R\,\Theta}{\sin^2\theta} \frac{d^2\Phi}{d\varphi^2} = 0 \, .
+\end{equation}
+
+Dividimos ambos miembros de la ecuación \eqref{3.2_desarrollo_1} por la solución propuesta $R\,\Theta\,\Phi$:
+
+\begin{equation*}
+    \frac{1}{R} \left( r^2 \frac{d^2 R}{dr^2} + 2r \frac{dR}{dr} \right)
+    + \frac{1}{\Theta \sin\theta} \left( \sin\theta \frac{d^2 \Theta}{d\theta^2} + \cos\theta \frac{d\Theta}{d\theta} \right)
+    + \frac{1}{\Phi \sin^2\theta} \frac{d^2 \Phi}{d\varphi^2} = 0.
+\end{equation*}
+
+Aislamos ahora el término dependiente únicamente de la variable radial $r$ en un lado de la ecuación:
+
+\begin{equation}\label{3.2_laplace_propuesta_arreglo_1}
+    \frac{1}{R} \left( r^2 \frac{d^2 R}{dr^2} + 2r \frac{dR}{dr} \right)
+    =
+    -\left[
+        \frac{1}{\Theta \sin\theta} \left( \sin\theta \frac{d^2 \Theta}{d\theta^2} + \cos\theta \frac{d\Theta}{d\theta} \right)
+        + \frac{1}{\Phi \sin^2\theta} \frac{d^2 \Phi}{d\varphi^2}
+    \right] \,.
+\end{equation}
+
+Como ambos miembros de la ecuación \eqref{3.2_laplace_propuesta_arreglo_1} dependen de variables distintas e independientes, cada uno debe ser igual a una \textbf{constante de separación}, que denotaremos por $\lambda_1 \in \mathbb{R}$. Entonces:
+\begin{equation*}
+        \frac{1}{R} \left( r^2 \frac{d^2 R}{dr^2} + 2r \frac{dR}{dr} \right)
+    =
+    -\left[
+        \frac{1}{\Theta \sin\theta} \left( \sin\theta \frac{d^2 \Theta}{d\theta^2} + \cos\theta \frac{d\Theta}{d\theta} \right)
+        + \frac{1}{\Phi \sin^2\theta} \frac{d^2 \Phi}{d\varphi^2}
+    \right] = \lambda_1 \,.
+\end{equation*}
+
+Al restar $\lambda_1$ en cada miembro de la igualdad anterior se obtiene el siguiente sistema de ecuaciones diferenciales:
+\begin{align}
+    \frac{1}{R} \left( r^2 \frac{d^2 R}{dr^2} + 2r \frac{dR}{dr} \right) - \lambda_1 &= 0\,, \label{3.2_edo_radial} \\[4pt]
+    \frac{1}{\Theta \sin\theta} \left( \sin\theta \frac{d^2 \Theta}{d\theta^2} + \cos\theta \frac{d\Theta}{d\theta} \right)
+    + \frac{1}{\Phi \sin^2\theta} \frac{d^2 \Phi}{d\varphi^2} + \lambda_1 &= 0\,. \label{3.2_edo_angular}
+\end{align}
+
+Consideremos ahora la EDP \eqref{3.2_edo_angular}, que depende de las variables angulares $\theta$ y $\varphi$. Aislamos el término que depende exclusivamente de la variable azimutal $\varphi$, lo que conduce a:
+
+\begin{equation}\label{3.2_laplace_propuesta_arreglo_2}
+    \frac{1}{\Phi} \frac{d^2 \Phi}{d \varphi^2}
+    =
+    - \frac{\sin\theta}{\Theta} \left( \sin\theta \frac{d^2 \Theta}{d \theta^2} + \cos\theta \frac{d \Theta}{d \theta} \right)
+    - \lambda_1 \sin^2 \theta.
+\end{equation}
+
+Dado que los lados de la igualdad \eqref{3.2_laplace_propuesta_arreglo_2} dependen de variables distintas, ambos deben ser iguales a una segunda \textbf{constante de separación} $\lambda_2 \in \mathbb{R}$. Esto conduce a un segundo sistema de ecuaciones diferenciales ordinarias:
+
+\begin{align}
+    \frac{d^2 \Phi}{d \varphi^2} + \lambda_2 \Phi &= 0 \,, \label{3.2_edo_phi} \\[4pt]
+    \frac{d^2 \Theta}{d \theta^2} + \frac{1}{\tan\theta} \frac{d \Theta}{d \theta}  + \left( \lambda_1 - \frac{\lambda_2}{\sin^2\theta} \right) \Theta &= 0 \,, \label{3.2_edo_theta}
+\end{align}
+
+donde en la ecuación \eqref{3.2_edo_theta} hemos reorganizado los términos para obtener una forma explícita de la misma. 
+
+A continuación resolveremos ambos sistemas de ecuaciones diferenciales:
+
+\subsubsection*{-- Para la EDO \eqref{3.2_edo_phi} asociada a la coordenada azimutal $\varphi$:}
+
+La coordenada azimutal $\varphi$ describe una rotación completa en torno al eje $z$, trazando una circunferencia en el plano $xy$. Por tanto, la función auxiliar $\Phi(\varphi)$ debe satisfacer una \textbf{condición de periodicidad}\footnote{Dado que $\varphi$ tiene dominio en $[0, 2\pi[$, entonces el periodo de la función auxiliar $\Phi(\varphi)$ es $T = 2\pi$.}:
+\begin{equation*}
+    \Phi(\varphi) = \Phi(\varphi + 2\pi) \,.
+\end{equation*}
+
+En consecuencia, las soluciones admisibles de la EDO \eqref{3.2_edo_phi} deben ser funciones periódicas de periodo $2\pi$. La solución general para un $\lambda_2 \in \mathbb{R}$ arbitrario es:
+
+\begin{equation*}
+    \Phi(\varphi) = A \cos(\sqrt{\lambda_2}\,\varphi) + B \sin(\sqrt{\lambda_2}\,\varphi),
+\end{equation*}
+
+donde $A$ y $B$ son constantes complejas arbitrarias. Para que esta función sea periódica, se requiere que $\sqrt{\lambda_2} = m$ con $m \in \mathbb{Z}$, es decir, $\lambda_2 = m^2$. En este caso, la solución se escribe como:
+
+\begin{equation}\label{3.2_solución_Phi_m^2}
+    \Phi(\varphi) = A \cos(m\varphi) + B \sin(m\varphi).
+\end{equation}
+
+En efecto, al imponer la condición de periodicidad, tenemos:
+
+\begin{equation*}
+    \cos(m\varphi + 2\pi m) = \cos(m\varphi), \qquad
+    \sin(m\varphi + 2\pi m) = \sin(m\varphi),
+\end{equation*}
+
+lo cual se verifica únicamente cuando $m$ es un número entero.
+
+\clearpage
+
+\subsubsection*{-- Para la EDO \eqref{3.2_edo_theta} asociada a la coordenada colatitudinal $\theta$:}
+
+Realizamos el cambio de variable $x = \cos\theta$, con $x \in [-1, 1]$. Este procedimiento ya fue desarrollado previamente en el ítem~\ref{item:cambio-variable-theta} de la sección~\ref{sec:2.1}, al tratar la ecuación diferencial de Legendre estándar. Bajo este cambio de variable, la ecuación \eqref{3.2_edo_theta} se transforma en:
+
+\begin{equation}\label{3.2_legendre_asociada}
+(1 - x^2) \frac{d^2 \Theta}{dx^2} - 2x \frac{d \Theta}{dx} + \left( \lambda_1 - \frac{m^2}{1 - x^2} \right) \Theta = 0\,,
+\end{equation}
+
+la cual corresponde a la \textbf{ecuación asociada de Legendre}, de orden $m$.
+
+Su solución general se expresa como una combinación lineal de funciones de primera y segunda especie \footnote{Las condiciones físicas del problema determinarán más adelante si la función de segunda especie es admisible como solución.
+}:
+
+\begin{equation}\label{3.2_solucion_theta}
+\Theta(\theta) = C\,P_n^m(\cos\theta) + D\,Q_n^m(\cos\theta)\,,
+\end{equation}
+
+donde $C$ y $D$ son constantes complejas arbitrarias. La dependencia de la constante de separación $\lambda_1$ con el índice $n$ es tal que:
+
+\begin{equation}\label{3.2_lambda_1=n(n+1)}
+\lambda_1 = n(n+1), \qquad \text{con } n \in \mathbb{N}_0, \quad n \geq |m| \,.
+\end{equation}
+
+
+\subsubsection*{-- Para la EDO \eqref{3.2_edo_radial} asociada a la coordenada radial $r$:}
+
+Sustituyendo \eqref{3.2_lambda_1=n(n+1)} en la ecuación radial \eqref{3.2_edo_radial}, obtenemos:
+
+\begin{equation}\label{3.2_edo_radial_2}
+      r^2\frac{d^2 R}{dr^2} + 2r \frac{dR}{dr} - n(n+1)R = 0\,, 
+\end{equation}
+
+la cual corresponde a una ecuación de tipo \textbf{Euler-Cauchy}. Su solución general está dada por:
+
+\begin{equation}\label{3.2_solucion_R}
+    R_n(r)=E\,r^n + F\,r^{-(n+1)} \,,
+\end{equation}
+
+donde $E$ y $F$ son constantes complejas arbitrarias, y $n$ es un número natural fijo tal que $n \geq |m|$.
+
+\subsubsection*{-- Para la solución general de la ecuación \eqref{3.2_laplaciano}:}
+
+Sustituyendo las soluciones obtenidas en \eqref{3.2_solución_Phi_m^2}, \eqref{3.2_solucion_theta} y \eqref{3.2_solucion_R} en la solución propuesta \eqref{3.2_solución_propuesta}, se obtiene una \textbf{solución particular} de la EDP \eqref{3.2_laplaciano} correspondiente a valores fijos de $n$ y $m$:
+
+\begin{equation*}\label{3.2_solución_particular}
+\phi_{n m}(r,\theta,\varphi) = \left( E_{n m}r^n + F_{n m}r^{-(n+1)} \right) \left(C_{n m}P_n^m(\cos\theta)+D_{n m}\,Q_n^m(\cos\theta)\right)\left(A_{n m} \cos(m\varphi) + B_{n m}\sin(m\varphi) \right) \, .
+\end{equation*}
+
+La \textbf{solución general} de la ecuación de la EDP \eqref{3.2_laplaciano} se obtiene como la combinación lineal de las soluciones particulares \eqref{3.2_solución_particular}, para cada par de índices $n \in \mathbb{N}_0$ y $m \in \mathbb{Z}$ tales que $|m| \leq n$:
+
+\begin{equation}\label{3.2_solución_general}
+\phi(r, \theta, \varphi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n} \left( E_{n m}r^n + F_{n m}r^{-(n+1)} \right) \left(C_{n m}P_n^m(\cos\theta)+D_{n m}\,Q_n^m(\cos\theta)\right)\left(A_{n m} \cos(m\varphi) + B_{n m}\sin(m\varphi) \right) \,,
+\end{equation}
+
+donde $A_{n m}$, $B_{n m}$, $C_{n m}$, $D_{n m}$, $E_{n m}$ y $F_{n m}$ son constantes complejas arbitrarias.
+
+\clearpage
+
+\subsubsection*{-- Sobre la exclusión de soluciones no físicas en $\theta$:}
+
+La solución general \eqref{3.2_solución_general} es válida desde el punto de vista matemático; sin embargo, no necesariamente representa una solución físicamente aceptable para el problema planteado.
+
+En particular, la función auxiliar $\Theta(\theta)$ aparece como solución de la EDO \eqref{3.2_legendre_asociada}, y está dada por una combinación lineal entre funciones asociadas de Legendre de primera y segunda especie, con $x = \cos\theta$:
+
+\begin{equation*}
+\Theta(\theta) = C_{n m} P_n^m(\cos\theta) + D_{n m} Q_n^m(\cos\theta)\,.
+\end{equation*}
+
+Sin embargo, tal como se advierte en el apunte del curso\footnote{Véase sección sobre la ecuación asociada de Legendre en el apunte de Física Matemática 2.}, las funciones $Q_n^m(x)$ divergen en los extremos del intervalo $x \in [-1,1]$, es decir, en los puntos $\theta = 0$ y $\theta = \pi$. Esto resulta inaceptable desde el punto de vista físico, pues el potencial electrostático $\phi(r,\theta,\varphi)$ debe ser una función continua y finita en todo el dominio espacial $\mathbb{R}^3$.
+
+Para garantizar dicha regularidad angular, debemos excluir los términos que contengan $Q_n^m$. En consecuencia, se impone que la constante $D_{n m}$ sea nula para todo $n$ y $m$:
+
+\begin{equation*}
+D_{n m} = 0 \,.
+\end{equation*}
+
+La expresión general del potencial queda entonces restringida a:
+
+\begin{equation}\label{3.2_solución_restringida}
+\phi(r, \theta, \varphi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n} \left( E_{n m}r^n + F_{n m}r^{-(n+1)} \right) C_{n m}P_n^m(\cos\theta)\left(A_{n m} \cos(m\varphi) + B_{n m}\sin(m\varphi) \right) \,,
+\end{equation}
+donde $A_{n m}$, $B_{n m}$, $C_{n m}$, $E_{n m}$ y $F_{n m}$ son constantes complejas arbitrarias.
+
+\subsubsection*{-- Implementación de armónicos esféricos:}
+
+Introducimos los \textbf{armónicos esféricos} $Y_n^m(\theta,\varphi)$, tal como se definen en el apunte del curso\footnote{Véase sección sobre Armónicos Esféricos en el apunte de Física Matemática 2.}:
+
+\begin{equation}\label{3.2_armonico_normalizado}
+Y_n^m(\theta, \varphi) =
+(-1)^m \sqrt{ \frac{2n+1}{4\pi} \cdot \frac{(n-m)!}{(n+m)!} } \, P_n^m(\cos\theta) \, e^{i m \varphi} \, ,
+\end{equation}
+
+donde $P_n^m(\cos\theta)$ son los polinomios asociados de Legendre de primera especie y el índice entero $m$ cumple $|m| \leq n$. 
+
+Para implementar estos armónicos en la solución del potencial \eqref{3.2_solucion_armonicos}, primero reescribimos la función azimutal $\Phi(\varphi)$ como el producto entre una constante y la exponencial compleja con argumento $m\varphi$, para ello definimos:
+\begin{equation*}
+B_{n m} = i A_{n m} \,.
+\end{equation*}
+
+De este modo la expresión que define a la función azimutal adopta de la forma:
+
+\begin{equation}\label{3.2_exponencial_compleja}
+A_{n m} \cos(m\varphi) + B_{n m} \sin(m\varphi) = A_{n m} e^{i m \varphi} \,.
+\end{equation} 
+
+Sustituyendo \eqref{3.2_exponencial_compleja} en la expresión del potencial obtenida en \eqref{3.2_solución_restringida}, se tiene:
+
+\begin{equation}\label{3.2_solucion_intermedia}
+\phi(r, \theta, \varphi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n} \left( E_{n m} r^n + F_{n m} r^{-(n+1)} \right) G_{n m} P_n^m(\cos\theta) \, e^{i m \varphi} \,,
+\end{equation}
+
+donde hemos definido $G_{n m} := C_{n m} A_{n m}$ como una constante compleja. Ahora, si elegimos $G_{n m}$ como el factor de normalización de los armónicos esféricos, esto es,
+
+\begin{equation*}
+G_{n m} := (-1)^m \sqrt{ \frac{2n+1}{4\pi} \cdot \frac{(n-m)!}{(n+m)!} } \, ,
+\end{equation*}
+
+entonces podemos sustituir \eqref{3.2_armonico_normalizado} en \eqref{3.2_solucion_intermedia}, obteniendo finalmente la solución expresada en términos de armónicos esféricos normalizados:
+
+\begin{equation}\label{3.2_solucion_armonicos}
+\phi(r, \theta, \varphi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n} \left( E_{n m} r^n + F_{n m} r^{-(n+1)} \right) Y_n^m(\theta, \varphi) \,.
+\end{equation}
+
+La implementación de los armónicos esféricos no solo permite compactar la expresión de la solución, sino que también facilitará, en la sección \ref{sec:3.3}, la imposición de las condiciones de borde y el análisis de los casos con $m \neq 0$.
+
+\subsubsection*{-- Sobre el comportamiento radial del potencial electrostático en la región interior $\Omega_{\text{int}}$:}
+
+En la región interior $\Omega_\text{int}$, se exige que $\phi$ sea continua y finita en todo su dominio. En particular, se exige que el límite del potencial cuando $r$ tiende a cero sea finito:
+
+\begin{equation*}
+\lim_{r \to 0} \phi(r, \theta, \varphi) < \infty \,.
+\end{equation*}
+
+Aplicando esta condición a la solución del potencial \eqref{3.2_solucion_armonicos}, observamos que:
+
+\begin{equation*}
+\begin{aligned}
+     \lim_{r \to 0} \phi(r, \theta, \varphi) 
+     &= \lim_{r \to 0} \sum_{n=0}^{\infty} \sum_{m=-n}^{n} 
+     \left( E_{n m}r^n + F_{n m}r^{-(n+1)} \right) 
+     Y_n^m(\theta, \varphi)
+     \\[6pt]
+     &= \sum_{n=0}^{\infty} \sum_{m=-n}^{n} \left(
+     E_{n m}\cancelto{0}{ r^n} + 
+     F_{n m}\cancelto{\infty}{ r^{-(n+1)}} \right)
+     Y_n^m(\theta, \varphi)
+     \\[6pt]
+     &=\infty \,,
+\end{aligned}
+\end{equation*}
+
+es decir, los términos proporcionales a $r^{-(n+1)}$ divergen cuando $r \to 0$. Para garantizar que se satisfaga la condición de finitud del potencial electrostático en el origen, se debe imponer:
+
+\begin{equation*}
+F_{nm} = 0 \quad \text{para todo } n, m.
+\end{equation*}
+
+De este modo, la solución del potencial sobre la región $\Omega_{\text{int}}$ ($r<a$) se reduce a:
+
+\begin{equation}\label{3.2_solucion_interior}
+\phi(r, \theta, \varphi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n} E_{nm}  r^n\, Y_n^m(\theta, \varphi) \,.
+\end{equation}
+
+\subsubsection*{Sobre el comportamiento radial del potencial electrostático sobre la región exterior $\Omega_{\text{ext}}$:}
+
+En la región exterior $\Omega_\text{ext}$, se espera que el potencial electrostático que sea despreciable a grandes distancias $r$ respecto del centro de la esfera conductora, es decir: 
+
+\begin{equation*}
+    \lim_{r \to \infty} \phi(r, \theta, \varphi) = 0 \,.
+\end{equation*}
+
+Aplicando esta condición a la solución del potencial \eqref{3.2_solucion_armonicos}, observamos que:
+
+\begin{equation*}
+\begin{aligned}
+     \lim_{r \to \infty} \phi(r, \theta, \varphi) 
+     &= \lim_{r \to \infty} \sum_{n=0}^{\infty} \sum_{m=-n}^{n} 
+     \left( E_{n m}r^n + F_{n m}r^{-(n+1)} \right) 
+     Y_n^m(\theta, \varphi)
+     \\[6pt]
+     &= \sum_{n=0}^{\infty} \sum_{m=-n}^{n} \left(
+     E_{n m}\cancelto{\infty}{ r^n} + 
+     F_{n m}\cancelto{0}{ r^{-(n+1)}} \right)
+     Y_n^m(\theta, \varphi)
+     \\[6pt]
+     &=\infty \,,
+\end{aligned}
+\end{equation*}
+
+es decir, los términos proporcionales a $r^n$ divergen cuando $r \to \infty$. Para garantizar que se satisfaga la condición de decaimiento del potencial electrostático en el infinito, se debe imponer:
+
+\begin{equation*}
+E_{nm} = 0 \quad \text{para todo } n, m.
+\end{equation*}
+
+De este modo, la solución del potencial sobre la región $\Omega_{\text{ext}}$ ($r>a$) se reduce a:
+
+\begin{equation}\label{3.2_solucion_exterior}
+\phi(r, \theta, \varphi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n} F_{nm}  r^{-(n+1)}\, Y_n^m(\theta, \varphi) \,.
+\end{equation}
+
+\subsubsection*{-- Forma del potencial en todo el espacio:}
+
+Aplicadas las condiciones de finitud en el origen y de decaimiento en el infinito, el potencial electrostático $\phi(r, \theta, \varphi)$ queda definido por tramos según la región del espacio:
+
+\begin{equation}\label{3.2_solucion_tramos_1}
+    \phi(r,\theta,\varphi) = 
+    \begin{cases}
+        \displaystyle\sum_{n=0}^{\infty} \sum_{m=-n}^{n} E_{nm} \, r^n \, Y_n^m(\theta, \varphi)\,, & 0 \leq r < a \,,\\[6pt]
+        \displaystyle\sum_{n=0}^{\infty} \sum_{m=-n}^{n} F_{nm} \, r^{-(n+1)} \, Y_n^m(\theta, \varphi)\,, & r > a \,.
+    \end{cases}
+\end{equation}
+
+Para garantizar la \textbf{continuidad del potencial en la superficie} $r = a$ para todo ángulo $\theta \neq \pi/2$, se impone la siguiente condición:
+
+\begin{equation*}
+    \lim_{r \to a^-} \phi(r, \theta,\varphi) = \lim_{r \to a^+} \phi(r, \theta,\varphi) \,,
+\end{equation*}
+lo que equivale a:
+\begin{equation*}
+    \sum_{n=0}^{\infty} \sum_{m=-n}^{n} E_{nm} \, a^n \, Y_n^m(\theta, \varphi) 
+    = \sum_{n=0}^{\infty} \sum_{m=-n}^{n} F_{nm} \, a^{-(n+1)} \, Y_n^m(\theta, \varphi) \,.
+\end{equation*}
+
+Como los armónicos esféricos $Y_n^m(\theta,\varphi)$ forman una base ortonormal sobre la esfera, se igualan coeficientes:
+
+\begin{equation*}
+    E_{nm} \, a^n = F_{nm} \, a^{-(n+1)} \,,
+\end{equation*}
+de donde se deduce:
+\begin{equation}\label{3.2_E_nm}
+    E_{nm} = F_{nm} \, a^{-(2n+1)} \,.
+\end{equation}
+
+Sustituyendo \eqref{3.2_E_nm} en la expresión \eqref{3.2_solucion_tramos_1}, se obtiene el potencial definido en todo el espacio $\mathbb{R}^3$ como:
+
+\begin{equation}\label{3.2_solucion_tramos_final}
+    \phi(r,\theta,\varphi) = 
+    \begin{cases}
+        \displaystyle\sum_{n=0}^{\infty} \sum_{m=-n}^{n} F_{nm} \, a^{-(2n+1)} \, r^n \, Y_n^m(\theta, \varphi)\,, & 0 \leq r < a \,,\\[6pt]
+        \displaystyle\sum_{n=0}^{\infty} \sum_{m=-n}^{n} F_{nm} \, r^{-(n+1)} \, Y_n^m(\theta, \varphi)\,, & r > a \,.
+    \end{cases}
+\end{equation}
+
+Esta forma será utilizada en la sección siguiente al imponer la condición de borde dada sobre la superficie $r = a$.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Solución particular del problema con condiciones de borde}\label{sec:3.3}
+
+Encuentre la solución particular al problema, imponiendo las condiciones de borde halladas anteriormente.
+
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A continuación impondremos las condiciones de borde identificadas en la sección \ref{sec:3.1} a la solución general de la ecuación de Laplace del potencial electrostático en coordenadas esféricas dada en \eqref{3.2_solucion_tramos_final}.
+
+\subsubsection*{Para la condición del valor del potencial sobre la superficie esférica:}
+
+Esta condición especifica el valor del potencial en la superficie de la esfera conductora $r = a$:
+
+\begin{equation}\label{3.3_condicion_borde}
+\phi(a, \theta, \varphi) =
+\begin{cases}
++V_0, & 0 \leq \theta < \dfrac{\pi}{2}, \\[4pt]
+-V_0, & \dfrac{\pi}{2} < \theta \leq \pi.
+\end{cases}
+\end{equation}
+
+Evaluando la solución \eqref{3.2_solucion_tramos_final} en $r = a$, obtenemos la expresión del potencial sobre la superficie esférica:
+
+\begin{equation*}
+\begin{aligned}
+    \phi(a,\theta,\varphi) &= 
+    \begin{cases}
+        \displaystyle\sum_{n=0}^{\infty} \sum_{m=-n}^{n} F_{nm} \, a^{-(2n+1)} \cdot a^n \, Y_n^m(\theta, \varphi)\,, & 0 \leq r < a \,,\\[6pt]
+        \displaystyle\sum_{n=0}^{\infty} \sum_{m=-n}^{n} F_{nm} \cdot a^{-(n+1)} \, Y_n^m(\theta, \varphi)\,, & r > a \,.
+    \end{cases} \\[10pt]
+    &= 
+    \begin{cases}
+        \displaystyle\sum_{n=0}^{\infty} \sum_{m=-n}^{n} F_{nm} \cdot a^{-(n+1)} \, Y_n^m(\theta, \varphi)\,, & 0 \leq r < a \,,\\[6pt]
+        \displaystyle\sum_{n=0}^{\infty} \sum_{m=-n}^{n} F_{nm} \cdot a^{-(n+1)} \, Y_n^m(\theta, \varphi)\,, & r > a \,.
+    \end{cases} \\[10pt]
+    &= \sum_{n=0}^{\infty} \sum_{m=-n}^{n} F_{nm} \cdot a^{-(n+1)} \, Y_n^m(\theta, \varphi) \,.
+\end{aligned}
+\end{equation*}
+
+
+Obtenemos:
+
+\begin{equation}\label{3.3_solucion_r=a}
+\phi(a, \theta,\varphi) = \sum_{n=0}^{\infty} \sum_{m=-n}^{n} F_{nm}  a^{-(n+1)} Y_n^m(\theta, \varphi) \, ,
+\end{equation}
+
+lo que constituye una \textbf{serie de Laplace} sobre el intervalo $\theta \in [0, \pi]$. Así, los coeficientes $F_{n m}a^{-(n+1)}$ se obtienen mediante:
+
+\begin{equation}\label{3.3_coeficientes_F_nm}
+F_{n m} \, a^{-(n+1)} =  \int_{0}^{2\pi} \int_{0}^{\pi} \phi(a, \theta,\varphi)\, \left[ Y_n^m(\theta,\varphi) \right]^* \sin \theta\, d\theta \,d\varphi \,.
+\end{equation}
+
+Donde $\left[Y_n^m(\theta,\varphi)\right]^*$ denota el conjugado complejo del armónico esférico definido en \eqref{3.2_armonico_normalizado}:
+
+\begin{equation}\label{3.3_armonico_esferico_conjugado}
+    \left[ Y_n^m(\theta,\varphi) \right]^*=
+(-1)^m \sqrt{ \frac{2n+1}{4\pi} \cdot \frac{(n-m)!}{(n+m)!} } \, P_n^m(\cos\theta) \, e^{-i m \varphi}
+\end{equation}
+
+Procedemos a imponer la condición de borde \eqref{3.3_condicion_borde} en \eqref{3.3_coeficientes_F_nm}, obtenemos:
+
+\begin{equation}\label{3.3_coeficientes_F_nm_condiciones_de_borde}
+F_{n m} \, a^{-(n+1)} =  \int_{0}^{2\pi} \left( \int_{0}^{\frac{\pi}{2}} V_0\, \left[ Y_n^m(\theta,\varphi) \right]^* \sin \theta\, d\theta - \int_{\frac{\pi}{2}}^{\pi} V_0\, \left[ Y_n^m(\theta,\varphi) \right]^* \sin \theta\, d\theta\right)\,d\varphi \,.
+\end{equation}
+
+Despejando $F_{nm}$ en la ecuación \eqref{3.3_coeficientes_F_nm_condiciones_de_borde}, obtenemos:
+
+\begin{equation}\label{3.3_F_nm_condiciones_de_borde}
+F_{n m} =  a^{n+1}\,V_0\, \int_{0}^{2\pi} \left( \int_{0}^{\frac{\pi}{2}} \left[ Y_n^m(\theta,\varphi) \right]^* \sin \theta\, d\theta - \int_{\frac{\pi}{2}}^{\pi} \left[ Y_n^m(\theta,\varphi) \right]^* \sin \theta\, d\theta\right)\,d\varphi \,.
+\end{equation}
+
+Sustituyendo \eqref{3.3_armonico_esferico_conjugado} en \eqref{3.3_F_nm_condiciones_de_borde}:
+
+\begin{equation*}
+\begin{aligned}
+F_{n m} &=  a^{n+1}\,V_0\, \int_{0}^{2\pi} \Bigg( \int_{0}^{\frac{\pi}{2}} \left[
+(-1)^m \sqrt{ \frac{2n+1}{4\pi} \cdot \frac{(n-m)!}{(n+m)!} } \, P_n^m(\cos\theta) \, e^{-i m \varphi} \right] \sin \theta\, d\theta \\
+& - \int_{\frac{\pi}{2}}^{\pi} \left[ 
+(-1)^m \sqrt{ \frac{2n+1}{4\pi} \cdot \frac{(n-m)!}{(n+m)!} } \, P_n^m(\cos\theta) \, e^{-i m \varphi} \right] \sin \theta\, d\theta\Bigg)\,d\varphi \\[6pt]
+&=  a^{n+1}\,V_0\, \int_{0}^{2\pi} \Bigg( (-1)^m \sqrt{ \frac{2n+1}{4\pi} \cdot \frac{(n-m)!}{(n+m)!} }\, e^{-i m \varphi} \int_{0}^{\frac{\pi}{2}} 
+ \, P_n^m(\cos\theta) \sin \theta\, d\theta \\
+& - (-1)^m \sqrt{ \frac{2n+1}{4\pi} \cdot \frac{(n-m)!}{(n+m)!} }\, e^{-i m \varphi}\int_{\frac{\pi}{2}}^{\pi}  P_n^m(\cos\theta) \sin \theta\, d\theta\Bigg)\,d\varphi \\[6pt]
+&=  a^{n+1}\,V_0\int_{0}^{2\pi} (-1)^m \sqrt{ \frac{2n+1}{4\pi} \cdot \frac{(n-m)!}{(n+m)!} }\, e^{-i m \varphi}\left( \int_{0}^{\frac{\pi}{2}} P_n^m(\cos\theta)\sin \theta\, d\theta - \int_{\frac{\pi}{2}}^{\pi} P_n^m(\cos\theta)\sin \theta\, d\theta\right)\,d\varphi \\[6pt]
+&=   a^{n+1}\,V_0 \,(-1)^m \sqrt{ \frac{2n+1}{4\pi} \cdot \frac{(n-m)!}{(n+m)!} }
+\left( \int_{0}^{2\pi} e^{-im\varphi} \, d\varphi \right) 
+\left( \int_{0}^{\frac{\pi}{2}} P_n^m(\cos\theta) \sin \theta\, d\theta + \int_{\pi}^{\frac{\pi}{2}} P_n^m(\cos\theta) \sin \theta\, d\theta\right)\,.
+\end{aligned}
+\end{equation*}
+
+Obtenemos:
+
+\begin{equation}\label{3.3_F_mn_azimutal_separada}
+F_{n m} =   a^{n+1}\,V_0 \,(-1)^m \sqrt{ \frac{2n+1}{4\pi} \cdot \frac{(n-m)!}{(n+m)!} }
+\left( \int_{0}^{2\pi} e^{-im\varphi} \, d\varphi \right) 
+\left( \int_{0}^{\frac{\pi}{2}} P_n^m(\cos\theta) \sin \theta\, d\theta + \int_{\pi}^{\frac{\pi}{2}} P_n^m(\cos\theta) \sin \theta\, d\theta\right)\,,
+\end{equation}
+
+donde antes de continuar resolveremos la integral en $\varphi$, de modo que obtenemos:
+
+\begin{equation*}
+\begin{aligned}
+    \int_{0}^{2\pi} e^{-im\varphi} \, d\varphi 
+    &= \Big[-\frac{1}{im}e^{-im\varphi}\Big]_0^{2\pi} \\[4pt]
+    &= -\frac{1}{im}+\frac{1}{im}\\[6pt]
+    &= 0 \,, 
+\end{aligned}
+\end{equation*}
+para todo $m \in \mathbb{Z}$ tal que $m \neq 0$. 
+
+Esto implica que el coeficiente $F_{n m}$ en \eqref{3.3_F_mn_azimutal_separada} se anula para todo $m \neq 0$. En consecuencia, la serie de Laplace del potencial electrostático dada por \eqref{3.3_solucion_r=a} no recibe contribución de los términos con $m \neq 0$.
+
+Analicemos ahora el coeficiente dado en \eqref{3.3_F_mn_azimutal_separada} para el caso $m = 0$. En esta situación, se obtienen los siguientes resultados parciales:
+
+\begin{itemize}
+    \item \textbf{Para la integral en $\varphi$:}
+    \begin{equation}\label{3.3_integral_varphi_m=0}
+        \int_{0}^{2\pi} d\varphi = 2\pi \,.
+    \end{equation}
+
+    \item \textbf{Para el polinomio asociado de Legendre}, con $x = \cos\theta$, y a partir de la \textbf{fórmula de Rodrigues}:
+    \begin{equation*}
+        P_n^m(x) = \frac{1}{2^n n!}(1 - x^2)^{\frac{m}{2}} \, \frac{d^{n+m}}{dx^{n+m}}(x^2 - 1)^n \,,
+    \end{equation*}
+    En este caso:
+        \begin{equation*}
+            \begin{aligned}
+               P_n^{0}(x) &= \frac{1}{2^nn!}(1 - x^2)^{\frac{0}{2}} \, \frac{d^{n+0}}{dx^{n+0}}(x^2-1)^n \\
+                &= \frac{1}{2^nn!} \, \frac{d^{n}}{dx^{n}}(x^2-1)^n \\[4pt]
+                &=P_n(x) \,.
+            \end{aligned}
+        \end{equation*}
+    Se recupera así el polinomio de Legendre estándar:
+    \begin{equation}\label{3.3_polinomio_de_legendre_m=0}
+        P_n^0(\cos\theta)=P_n(\cos\theta) \,.
+    \end{equation}
+    \item \textbf{Para el factor de normalización de los armónicos esféricos}, se obtiene:
+    \begin{equation}\label{3.3_factor_de_normalización_m=0}
+        (-1)^0 \sqrt{ \frac{2n+1}{4\pi} \cdot \frac{(n-0)!}{(n+0)!} } = \sqrt{ \frac{2n+1}{4\pi} } \,.
+    \end{equation}
+\end{itemize}
+
+Sustituyendo los resultados \eqref{3.3_integral_varphi_m=0}, \eqref{3.3_polinomio_de_legendre_m=0} y \eqref{3.3_factor_de_normalización_m=0} en la expresión \eqref{3.3_F_mn_azimutal_separada}, se obtiene:
+
+\begin{equation}\label{3.3_F_n_azimutal_separada}
+F_n = 2\pi \, a^{n+1} V_0 \, \sqrt{ \frac{2n+1}{4\pi} } 
+\left( \int_{0}^{\frac{\pi}{2}} P_n(\cos\theta) \sin\theta\, d\theta + \int_{\pi}^{\frac{\pi}{2}} P_n(\cos\theta) \sin\theta\, d\theta \right) \,,
+\end{equation}
+
+donde se ha escrito $F_n$ como el valor particular del coeficiente $F_{n m}$ correspondiente al caso $m = 0$.
+
+Por otra parte, conocemos la relación: 
+\begin{equation}\label{3.3_relación}
+\int_{-1}^{0} P_n(x)\, dx = (-1)^n \int_{0}^{1} P_n(x)\, dx \, .
+\end{equation}
+Aplicamos ahora el cambio de variable $x = \cos \theta$, donde $x \in [-1,1]$ y $\theta\in[0,\pi]$, y $dx = -\sin \theta\, d\theta$. El intervalo se transforma como sigue:
+\begin{align*}
+x= 1 \quad &\Rightarrow \quad \theta = 0 \, , \\
+x = 0 \quad &\Rightarrow \quad \theta = \frac{\pi}{2} \, , \\
+x = -1 \quad &\Rightarrow \quad \theta = \pi \, . \\
+\end{align*}
+Aplicando este cambio en \eqref{3.3_relación}, obtenemos:
+\begin{equation}\label{3.3_relación_en_theta}
+\int_{\pi}^{\frac{\pi}{2}} P_n(\cos\theta)\, \sin \theta\, d\theta = (-1)^n \int_{\frac{\pi}{2}}^{0} P_n(\cos\theta)\, \sin \theta\, d\theta \, .
+\end{equation}
+
+Sustituyendo la relación \eqref{3.3_relación_en_theta} en la expresión de los coeficientes \eqref{3.3_F_n_azimutal_separada}, obtenemos:
+
+\begin{equation*}
+\begin{aligned}
+    F_n&= 2\pi \, a^{n+1}\,V_0 \, \sqrt{ \frac{2n+1}{4\pi} }  \left( \int_{0}^{\frac{\pi}{2}} P_n(\cos \theta) \sin \theta\, d\theta 
+    + (-1)^n \int_{\frac{\pi}{2}}^{0} P_n(\cos \theta)\, \sin \theta\, d\theta \right) \\[4pt]
+    &= 2\pi \, a^{n+1}\,V_0 \, \sqrt{ \frac{2n+1}{4\pi} }  \left( \int_{0}^{\frac{\pi}{2}} P_n(\cos \theta) \sin \theta\, d\theta 
+    - (-1)^n \int_{0}^{\frac{\pi}{2}} P_n(\cos \theta)\, \sin \theta\, d\theta \right) \\[4pt]
+    &= 2\pi \, a^{n+1}\,V_0 \, \sqrt{ \frac{2n+1}{4\pi} }  \left[ 1 - (-1)^n \right] \int_{0}^{\frac{\pi}{2}} P_n(\cos \theta) \sin \theta\, d\theta \,.
+\end{aligned}
+\end{equation*}
+
+Así, los coeficientes quedan expresados como:
+
+\begin{equation}\label{3.3_integrales_general}
+F_n = 2\pi \, a^{n+1}\,V_0 \,\sqrt{ \frac{2n+1}{4\pi} } \left[ 1 - (-1)^n \right] \int_{0}^{\frac{\pi}{2}} P_n(\cos \theta) \sin \theta\, d\theta \,.
+\end{equation}
+
+Observamos que el factor que acompaña a la integral depende de la paridad de $n$:
+
+\begin{equation*}
+1 - (-1)^n = \left\{
+    \begin{aligned}
+        &0, &\quad \text{si } n \text{ es par,} \\
+        &2, &\quad \text{si } n \text{ es impar.}
+    \end{aligned}
+\right.
+\end{equation*}
+
+En consecuencia, para todo $n$ par se anula el coeficiente $F_n$, y por tanto también su contribución al potencial electrostático. Esto implica que, en la solución final, sólo intervienen los términos correspondientes a valores impares de $n$.
+
+Para dichos valores, podemos simplificar el coeficiente $F_n$ como:
+
+\begin{equation}\label{3.3_integrales_general_n_impar}
+F_n = 4\pi \, a^{n+1}\,V_0 \,\sqrt{ \frac{2n+1}{4\pi} }  \int_{0}^{\frac{\pi}{2}} P_n(\cos \theta)\, \sin \theta\, d\theta \,.
+\end{equation}
+
+Por otra parte, la función del potencial electrostático \eqref{3.2_solucion_tramos_final} para $m=0$ es independiente de $\varphi$, con $n$ impar, adopta la forma:
+
+\begin{equation}\label{3.3_solucion_tramos_final_m=0}
+    \phi(r,\theta) = 
+    \begin{cases}
+        \displaystyle\sum_{\substack{n=1 \\ n \text{ impar}}}^{\infty}  F_{n} \, a^{-(2n+1)} \, r^n \, \sqrt{ \frac{2n+1}{4\pi} } P_n(\cos\theta)\,, & 0 \leq r < a \,,\\[6pt]
+        \displaystyle\sum_{\substack{n=1 \\ n \text{ impar}}}^{\infty}  F_{n} \, r^{-(n+1)} \, \sqrt{ \frac{2n+1}{4\pi} } P_n(\cos\theta)\,, & r > a \,.
+    \end{cases}
+\end{equation}
+
+Sustituyendo la expresión \eqref{3.3_F_n_azimutal_separada} en \eqref{3.3_solucion_tramos_final_m=0}, se concluye que la solución del problema, bajo las condiciones de borde impuestas y restringida al caso $m = 0$, está dada por:
+
+\begin{equation}\label{3.3_solucion_tramos_final}
+    \phi(r,\theta) = 
+    \begin{cases}
+        \displaystyle\sum_{\substack{n=1 \\ n \text{ impar}}}^{\infty}  V_0  \, \left(\frac{r}{a}\right)^n P_n(\cos\theta)(2n+1)\int_{0}^{\frac{\pi}{2}} P_n(\cos \theta)\, \sin \theta\, d\theta \,, & 0 \leq r < a \,,\\[8pt]
+        \displaystyle\sum_{\substack{n=1 \\ n \text{ impar}}}^{\infty}  V_0 \, \left(\frac{a}{r}\right)^{-(n+1)} P_n(\cos\theta)(2n+1)\int_{0}^{\frac{\pi}{2}} P_n(\cos \theta)\, \sin \theta\, d\theta\,, & r > a \,.
+    \end{cases}
+\end{equation}
+
+Observemos el siguiente factor presente en las expresiones de \eqref{3.3_solucion_tramos_final}:
+
+\begin{equation}\label{3.3_factor_integral}
+    (2n+1)\int_{0}^{\frac{\pi}{2}} P_n(\cos \theta)\, \sin \theta\, d\theta = \int_{0}^{\frac{\pi}{2}} (2n+1)P_n(\cos \theta)\, \sin \theta\, d\theta \,.
+\end{equation}
+
+Aplicando en \eqref{3.3_factor_integral} el cambio de variable $x = \cos\theta$, el cual ya fue introducido anteriormente, se obtiene:
+
+\begin{equation}\label{3.3_factor_integral_en_x}
+    \int_{0}^{\frac{\pi}{2}} (2n+1)P_n(\cos \theta)\, \sin \theta\, d\theta = \int_{1}^{0} (2n+1)P_n(x)\, dx \,.
+\end{equation}
+
+Utilizando en \eqref{3.3_factor_integral_en_x} la relación de recurrencia para los polinomios de Legendre:
+
+\begin{equation*}
+    (2n+1)P_n(x) = \frac{d}{dx}P_{n+1}(x) - \frac{d}{dx}P_{n-1}(x) \,,
+\end{equation*}
+
+se sigue que:
+
+\begin{equation*}
+    \begin{aligned}
+        \int_{1}^{0} (2n+1)P_n(x)\, dx &= \int_{1}^{0} \left( \frac{d}{dx}P_{n+1}(x) - \frac{d}{dx}P_{n-1}(x) \right) dx \\
+        &= \int_{1}^{0} \frac{d}{dx}P_{n+1}(x)\, dx - \int_{1}^{0} \frac{d}{dx}P_{n-1}(x)\, dx \\
+        &= \int_{1}^{0} \frac{d}{dx}P_{n+1}(x)\, dx + \int_{0}^{1} \frac{d}{dx}P_{n-1}(x)\, dx \\
+        &= \Big[ P_{n+1}(x) \Big]_{1}^{0} + \Big[ P_{n-1}(x) \Big]_{0}^{1} \\[4pt]
+        &= P_{n+1}(0) - P_{n+1}(1) + P_{n-1}(1) - P_{n-1}(0) \,.
+    \end{aligned}
+\end{equation*}
+
+Por lo tanto, se obtiene:
+
+\begin{equation}\label{3.3_factor_integral_resuelto}
+     (2n+1)\int_{0}^{\frac{\pi}{2}} P_n(\cos \theta)\, \sin \theta\, d\theta = P_{n+1}(0) - P_{n+1}(1) + P_{n-1}(1) - P_{n-1}(0) \,.
+\end{equation}
+
+Para evaluar este resultado explícitamente, analizamos los valores de los polinomios de Legendre en los puntos $x = 0$ y $x = 1$:
+
+\begin{itemize}
+    \item Para $x = 0$, los polinomios toman valores determinados por:
+    \begin{equation}\label{eq:valor_Pn_0}
+        P_n(0) =
+        \begin{cases}
+        0\,, & \text{si $n$ es impar} \\[8pt]
+        \displaystyle (-1)^{\frac{n}{2}} \frac{n!}{2^n \left( \left(\frac{n}{2}\right)! \right)^2} \,, & \text{si $n$ es par}
+        \end{cases}
+    \end{equation}
+
+    \item Para $x = 1$, se tiene que los polinomios están normalizados, por lo que:
+    \begin{equation*}
+        P_n(1) = 1
+    \end{equation*}
+    para todo $n \in \mathbb{N}_0$. En consecuencia, se cumple que:
+    \begin{equation}\label{3.3_diferencia}
+        P_{n-1}(1) - P_{n+1}(1) = 0 \,, \quad \text{para todo } n \in \mathbb{N} \,.
+    \end{equation}
+\end{itemize}
+
+Dado que en \eqref{3.3_solucion_tramos_final} la suma se restringe a valores impares de $n$, se tiene que tanto $n-1$ como $n+1$ son pares. En consecuencia, los polinomios de Legendre correspondientes evaluados en el origen no se anulan. Por lo tanto, considerando lo establecido en \eqref{3.3_diferencia}, el factor \eqref{3.3_factor_integral_resuelto} puede simplificarse del siguiente modo:
+\begin{equation}\label{3.3_factor_integral_desarrollo}
+     (2n+1)\int_{0}^{\frac{\pi}{2}} P_n(\cos \theta)\, \sin \theta\, d\theta = P_{n+1}(0) - P_{n-1}(0) \,.
+\end{equation}
+
+Sustituyendo \eqref{3.3_factor_integral_desarrollo} en la expresión del potencial \eqref{3.3_solucion_tramos_final}, obtenemos:
+
+\begin{equation}
+    \phi(r,\theta) = 
+    \begin{cases}
+        \displaystyle\sum_{\substack{n=1 \\ n \text{ impar}}}^{\infty}  V_0  \left(\frac{r}{a}\right)^n P_n(\cos\theta) \Big[P_{n+1}(0) - P_{n-1}(0)\Big] \,, & 0 \leq r < a \,,\\[8pt]
+        \displaystyle\sum_{\substack{n=1 \\ n \text{ impar}}}^{\infty}  V_0  \left(\frac{a}{r}\right)^{n+1} P_n(\cos\theta) \Big[P_{n+1}(0) - P_{n-1}(0)\Big] \,, & r > a \,.
+    \end{cases}
+\end{equation}
+
+De este modo, se ha determinado la solución del potencial electrostático en todo el espacio $\mathbb{R}^3$ generado por una distribución compuesta por dos cascarones semisféricos, dispuestos sobre una esfera de radio $a$ y mantenidos a potenciales de igual magnitud $V_0$ pero de signo opuesto.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
