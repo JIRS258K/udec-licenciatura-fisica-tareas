@@ -10,10 +10,10 @@ Cada carpeta de curso contiene:
 
 ## Cursos incluidos
 
-- `fisica-matematica-2/`
-- `optica/`
-- `mecanica-clasica-1/`
-- `mecanica-clasica-2/`
+- `fisica-matematica-2/` – tareas del curso.
+- `optica/` – tareas del curso.
+- `mecanica-clasica-1/` – **certámenes**, no tareas.
+- `mecanica-clasica-2/` – **certámenes**, no tareas (en desarrollo).
 - `electromagnetismo/` (en desarrollo)
 
 ## Estructura de carpetas
@@ -28,3 +28,4 @@ curso/
 │   └── codigos/
 └── tarea2/
     └── ...
+
