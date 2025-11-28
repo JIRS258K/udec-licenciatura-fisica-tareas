@@ -27,12 +27,9 @@ correspondiente a **coordenadas oblatas esferoidales**, analizando la geometría
 - `certamen1.tex` — Desarrollo completo en LaTeX.
 - `certamen1.pdf` — Versión compilada del certamen.
 - `UdeC_azul_centrado.png` — Logo utilizado en la portada.
+- `3.1_fig1.png`, `3.1_fig2.png`, `oblatas_general.png`, `tangentes_punto.png`, `curva_v.png`, `curva_phi.png`, `curva_theta.png`, `fig_1.png`  — Figuras utilizadas en el desarrollo de los problemas 2 y 3.
 - `P1/` — Figuras del Problema 1:
-  - `3.1_fig1.png`, `3.1_fig2.png` — Visualización de las superficies asociadas a $v$, $\varphi$ y $\theta$.
-  - `oblatas_general.png` — Vista general del sistema de coordenadas.
-  - `tangentes_punto.png` — Esquema de los vectores tangentes en un punto.
-  - `curva_v.png`, `curva_phi.png`, `curva_theta.png` — Curvas coordenadas individuales.
-  - `fig_1.png` — Corte ilustrativo adicional.
+  
 
 ---
 
