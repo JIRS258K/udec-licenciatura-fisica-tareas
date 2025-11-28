@@ -23,6 +23,7 @@ Cada carpeta de curso contiene:
 curso/
 ├── README.md
 ├── tarea1/
+│   ├── README.md
 │   ├── tarea1.tex
 │   ├── tarea1.pdf
 │   ├── figuras/
