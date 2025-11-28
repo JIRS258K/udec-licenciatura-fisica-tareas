@@ -1,6 +1,6 @@
 # Certamen 2 — Mecánica Clásica I
 
-Certamen 2 del curso **Mecánica Clásica I** (UdeC).  
+Certamen 2 del curso **Mecánica Clásica I** (UdeC, 2025-1).  
 Incluye una serie de problemas sobre formulación lagrangiana y hamiltoniana, constantes del movimiento y transformaciones canónicas, con énfasis en técnicas formales y su interpretación física. :contentReference[oaicite:4]{index=4}  
 
 ---
@@ -18,14 +18,6 @@ Se estudia un péndulo cuyo hilo pasa por un orificio en un tablero que se mueve
   - un término proporcional a $-2\dot s(t)\dot\theta$ tipo fuerza de Coriolis efectiva,
   - un término $(g+\ddot s(t))\sin\theta$ asociado a un campo gravitacional efectivo.
 - Cálculo del **Hamiltoniano** del sistema en términos de la coordenada $\theta$ y su momento conjugado $p_\theta$.
-
-### Archivos
-
-- `certamen2.tex` — Desarrollo completo en LaTeX.
-- `certamen2.pdf` — Versión compilada del certamen.
-- `pendulo_orificio.png` — Esquema del sistema masa–hilo–tablero.
-- `fig1.png`–`fig11.png` — Figuras auxiliares usadas en las distintas secciones del informe.
-- `UdeC_azul_centrado.png` — Logo utilizado en la portada.
 
 ---
 
@@ -86,9 +78,9 @@ El certamen incluye además un **cuarto problema** breve que sirve como compleme
 
 ---
 
-## Estructura de la carpeta
+### Archivos
 
-- `certamen2.tex`, `certamen2.pdf`
-- `pendulo_orificio.png`
-- `fig1.png`–`fig11.png`
-- `UdeC_azul_centrado.png`
+- `certamen2.tex` — Desarrollo completo en LaTeX.
+- `certamen2.pdf` — Versión compilada del certamen.
+- `pendulo_orificio.png` — Esquema del sistema masa–hilo–tablero.
+- `UdeC_azul_centrado.png` — Logo utilizado en la portada.
