@@ -21,14 +21,6 @@ correspondiente a **coordenadas oblatas esferoidales**, analizando la geometría
   $\vec x(v,\varphi,\theta)$ y se identifican los puntos donde se anulan.
 - A partir de los productos escalares $\vec e_i\cdot\vec e_j$ se obtiene la **métrica diagonal** del sistema y su inversa.
 - Usando la métrica se deducen las expresiones generales del **gradiente**, la **divergencia** y el **Laplaciano** en coordenadas oblatas esferoidales.
-
-### Archivos
-
-- `certamen1.tex` — Desarrollo completo en LaTeX.
-- `certamen1.pdf` — Versión compilada del certamen.
-- `UdeC_azul_centrado.png` — Logo utilizado en la portada.
-- `3.1_fig1.png`, `3.1_fig2.png`, `oblatas_general.png`, `tangentes_punto.png`, `curva_v.png`, `curva_phi.png`, `curva_theta.png`, `fig_1.png`  — Figuras utilizadas en el desarrollo de los problemas 2 y 3.
-- `P1/` — Figuras del Problema 1:
   
 
 ---
@@ -66,3 +58,11 @@ En este problema se estudia el movimiento de una partícula en un **campo centra
 - `certamen1.tex`, `certamen1.pdf`
 - `UdeC_azul_centrado.png`
 - `P1/` — Figuras asociadas al Problema 1.
+
+- ### Archivos
+
+- `certamen1.tex` — Desarrollo completo en LaTeX.
+- `certamen1.pdf` — Versión compilada del certamen.
+- `UdeC_azul_centrado.png` — Logo utilizado en la portada.
+- `3.1_fig1.png`, `3.1_fig2.png`, `oblatas_general.png`, `tangentes_punto.png`, `curva_v.png`, `curva_phi.png`, `curva_theta.png`, `fig_1.png`  — Figuras utilizadas en el desarrollo de los problemas 2 y 3.
+- `P1/` — Figuras del Problema 1:
